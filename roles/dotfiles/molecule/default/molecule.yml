@@ -1,32 +1,39 @@
 ---
-dependency:
-  name: galaxy
-  options:
-    role-file: requirements.yml
+# dependency:
+#   name: galaxy
+#   options:
+#     role-file: requirements.yml
 driver:
   name: docker
 lint: |
   set -e
   yamllint .
-  ansible-lint
+  # ansible-lint
   # flake8
 platforms:
-  - name: instance
-    image: "geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest"
+  - name: centos8
     command: ${MOLECULE_DOCKER_COMMAND:-""}
+    image: centos:8
+    tmpfs:
+       - /run
+       - /tmp
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     pre_build_image: true
+  - name: Ubuntu-20
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    image: ubuntu:20.10
+  - name: Ubuntu-18
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    image: ubuntu:18.04
 provisioner:
   name: ansible
-  config_options:
-    defaults:
-      stdout_callback: yaml
-      bin_ansible_callbacks: true
-  lint:
-    name: ansible-lint
+  options:
+    vvv: False
   playbooks:
-    converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
+    # create: create.yml
+    converge: converge.yml
+    # destroy: destroy.yml
 scenario:
   name: default
 verifier:
