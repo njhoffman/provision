@@ -1,0 +1,8 @@
+---
+- src: manala.zsh
+  name: zsh-install
+
+# - src: https://my.scm.com/my-ansible-roles/role1.git
+#   scm: git
+#   version: master
+#   name: role1

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+TARGET="main.yml"
+VERBOSITY="v" # v, vv, vvv, or blank
+# TAGS="kubernetes"
+# SKIP_TAGS="elasticsearch,kibana,logstash"
+
+######################################################
+dir="$(dirname $(readlink -f $0))"
+# shellcheck source=./docker/.vars
+source "$dir/docker/.vars"
+
+TAGS_ARG=""
+[[ -n $TAGS ]] && TAGS_ARG="--tags $TAGS"
+[[ -n $SKIP_TAGS ]] && TAGS_ARG="--skip-tags $SKIP_TAGS"
+[[ -n "$VERBOSITY" ]] && VERBOSITY="-$VERBOSITY"
+
+
+cd "$dir/.."  || exit
+ansible-playbook -i "env/local" "$FLUSH_ARG" "$TAGS_ARG" "$VERBOSITY" "$TARGET"

@@ -1,0 +1,49 @@
+
+# ------- Base Node -------
+FROM #BUILDTAG AS base
+
+RUN apt-get update && apt-get install -y openssh-server sudo
+RUN mkdir /var/run/sshd
+RUN echo 'root:screencast' | chpasswd
+RUN sed -i '/PermitRootLogin /d' /etc/ssh/sshd_config
+RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
+
+# SSH login fix. Otherwise user is kicked off after login
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+# ------- Dependencies -------
+FROM base AS dependencies
+
+RUN apt-get install -y curl git zsh bc python3 python unzip
+# plugin dependencies
+RUN apt-get install -y libreadline8 sqlite3
+
+# ------- Bootstrap -------
+FROM dependencies AS bootstrap
+
+# store environment variables in shell init file to prevent sshd from scrubbing them
+RUN echo "export ZSH_PROFILE=#ZSH_PROFILE" >> /etc/zsh/zshenv
+RUN echo "export ZSH_PERFCHECK=#ZSH_PERFCHECK" >> /etc/zsh/zshenv
+
+COPY . /root/.dotfiles
+WORKDIR /root/.dotfiles
+RUN ./scripts/bootstrap
+
+# ------- Ansible -------
+FROM bootstrap AS ansible
+RUN apt-get install -y ansible
+
+# ------- zsh -------
+FROM ansible AS zsh
+WORKDIR /root/.dotfiles/provision
+RUN ./start-ansible.sh zsh
+
+
+# ------- launcher -------
+FROM zsh AS launcher
+
+WORKDIR /root/.dotfiles/provision
+RUN ./start-ansible.sh zsh
+EXPOSE 22
+
+CMD ["/usr/sbin/sshd", "-D"]

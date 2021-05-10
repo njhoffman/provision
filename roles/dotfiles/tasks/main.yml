@@ -1,10 +1,9 @@
-----
+---
 - name: Extract and prepare github ssh key
-  include_tasks: initialize-key.yml
+  include_tasks: "initialize-key.yml"
 
 - name: Transfer github ssh key to hosts
-  include_tasks: transfer-key.yml
+  include_tasks: "transfer-key.yml"
 
 - name: Clone dotfiles repository into a bare repo
-  include_tasks: clone-dotfiles.yml
-
+  include_tasks: "clone-dotfiles.yml"

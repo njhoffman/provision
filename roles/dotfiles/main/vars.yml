@@ -1,0 +1,1 @@
+deploy_ssh_private_key_file: "{{ deploy_local_user_home }}/.ssh/ansible_deploy"
