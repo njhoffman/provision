@@ -4,19 +4,14 @@ TARGET="main.yml"
 TAGS=""
 # SKIP_TAGS="elasticsearch,kibana,logstash"
 
-# verbosity levels 0 - 4
+export PY_COLORS=1
+export ANSIBLE_FORCE_COLOR=1
 export ANSIBLE_VERBOSITY=1
 #  best output plugings: debug, unixy, yaml, json, minimal, default, actionable, profile_tasks
-export ANSIBLE_STDOUT_CALLBACK=debug
+export ANSIBLE_STDOUT_CALLBACK=yaml
 # breaks in debug mode on fail
 # export ANSIBLE_ENABLE_TASK_DEBUGGER=1
-
 ######################################################
-# print *task/task.args/task_vars/host/result*
-# task.args[*key*] = *value*
-# task_vars[*key*] = *value*
-# update_task
-# redo
 
 [[ -n "$1" ]] && TAGS="$1"
 

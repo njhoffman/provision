@@ -1,0 +1,23 @@
+---
+- name: check if dotbare dir exists
+  stat:
+    path: ~/.dotbare
+  register: dotbare_dir
+
+- name: check if dotfiles dir exists
+  stat:
+    path: ~/.cfg
+  register: dotfiles_dir
+
+- name: clone dotbare dotfiles manager
+  git:
+    repo: https://github.com/kazhala/dotbare.git
+    dest: ~/.dotbare
+    version: master
+  when: not dotbare_dir.stat.exists
+
+- name: initialize bare repository from dotfiles github
+  shell: ~/.dotbare/dotbare finit -u https://github.com/njhoffman/dotfiles.git
+  when: not dotfiles_dir.stat.exists
+
+# - name: verify dotfiles initialized

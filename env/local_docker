@@ -1,2 +1,4 @@
 [local]
 ansible-test ansible_connection=docker
+
+; vim:ft=dosini

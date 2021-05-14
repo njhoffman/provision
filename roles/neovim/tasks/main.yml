@@ -1,5 +1,0 @@
----
-# tasks file for neovim
-- name: Hello World!
-  debug:
-    msg: Hello Bitches

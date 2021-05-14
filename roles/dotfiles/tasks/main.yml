@@ -1,9 +1,54 @@
 ---
-- name: Extract and prepare github ssh key
-  include_tasks: "initialize-key.yml"
+- name: Update all packages to their latest version
+  apt:
+    name: "*"
+    state: latest
 
-- name: Transfer github ssh key to hosts
-  include_tasks: "transfer-key.yml"
+- name: install dependencies
+  apt:
+    update_cache: yes
+    pkg:
+      - autoconf
+      - curl
+      - extract
+      - unzip
+      - bsdmainutils
+      - zlib1g-dev
 
-- name: Clone dotfiles repository into a bare repo
-  include_tasks: "clone-dotfiles.yml"
+- name: install asdf package manager
+  include_tasks: "install-asdf.yml"
+
+- name: add custom jq plugin
+  shell: |
+    source $HOME/.asdf/asdf.sh && \
+    asdf plugin list | grep "^jq$" \
+      || asdf plugin add jq https://github.com/AZMCode/asdf-jq
+  args:
+    executable: /bin/bash
+
+- name: install asdf base packages
+  include_tasks: "install-asdf-packages.yml"
+  vars:
+    asdf_title: base packages
+    asdf_packages: "{{asdf_base}}"
+
+- name: install asdf devtools packages
+  include_tasks: "install-asdf-packages.yml"
+  vars:
+    asdf_title: devtools
+    asdf_packages: "{{asdf_devtools}}"
+
+- name: other devtools tasks
+  include_tasks: "install-devtools.yml"
+
+# - name: install asdf infratools packages
+#   include_tasks: "install-asdf-packages.yml"
+#   vars:
+#     asdf_title: infratools
+#     asdf_packages: "{{asdf_infratools}}"
+#
+- name: install and initialize dotbare
+  include_tasks: "install-dotbare.yml"
+
+- name: init zsh
+  include_tasks: "init-zsh.yml"

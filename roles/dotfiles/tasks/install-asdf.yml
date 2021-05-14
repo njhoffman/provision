@@ -1,0 +1,20 @@
+---
+- name: clone asdf
+  git:
+    repo: https://github.com/asdf-vm/asdf.git
+    dest: ~/.asdf
+    # version: v0.7.8
+    # version: v0.8.0
+
+# - name: update asdf
+#   shell: ~/.asdf/bin/asdf update
+#
+- name: get asdf version
+  shell: source $HOME/.asdf/asdf.sh && asdf --version
+  register: asdf_version
+  args:
+    executable: /bin/bash
+
+- name: output asdf version
+  debug:
+    var: asdf_version.stdout_lines

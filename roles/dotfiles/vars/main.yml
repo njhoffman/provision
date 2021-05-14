@@ -1,1 +1,60 @@
-deploy_ssh_private_key_file: "{{ deploy_local_user_home }}/.ssh/ansible_deploy"
+---
+asdf_base:
+  - {name: bat,     version: latest}
+  - {name: delta,   version: latest}
+  - {name: exa,     version: latest}
+  - {name: fd,      version: latest}
+  - {name: fzf,     version: latest}
+  - {name: jq,      version: latest}
+  - {name: ripgrep, version: latest}
+  - {name: tmux,    version: latest}
+  - {name: yq,      version: latest}
+
+asdf_devtools:
+  - {name: bundler,       version: latest}
+  - {name: dotenv-linter, version: latest}
+  - {name: github-cli,    version: latest}
+  - {name: golang,        version: stable}
+  - {name: golangci-lint, version: latest}
+  - {name: neovim,        version: nightly}
+  - {name: ninja,         version: latest}
+  - {name: nodejs,        version: stable}
+  - {name: perl,          version: 5.34.0-RC1}
+  - {name: python,        version: stable}
+  - {name: ruby,          version: stable}
+  - {name: rust,          version: latest}
+  - {name: shellcheck,    version: latest}
+  - {name: shfmt,         version: latest}
+  - {name: spark,         version: latest}
+  - {name: sqlite,        version: latest}
+
+asdf_infratools:
+  - {name: awscli,              version: latest}
+  - {name: dive,                version: latest}
+  - {name: docker-slim,         version: latest}
+  - {name: hehlmfile,           version: latest}
+  - {name: helm,                version: latest}
+  - {name: k9s,                 version: latest}
+  - {name: kubectl,             version: latest}
+  - {name: kubectx,             version: latest}
+  - {name: kubespy,             version: latest}
+  - {name: kubeval,             version: latest}
+  - {name: loki-logcli,         version: latest}
+  - {name: minikube,            version: latest}
+  - {name: popeye,              version: latest}
+  - {name: stern,               version: latest}
+  - {name: terraform,           version: latest}
+  - {name: terraform-docs,      version: latest}
+  - {name: terraform-validator, version: latest}
+  - {name: terragrunt,          version: latest}
+  - {name: tflint,              version: latest}
+
+to_convert:
+  - i3
+  - fzy https://github.com/jhawthorn/fzy
+    brew install fzy, apt-get install fzy, make
+  - hURL https://github.com/fnord0/hURL/blob/master/hURL
+  - reddio - aaronNG/reddio - local make install
+  - fasd
+
+

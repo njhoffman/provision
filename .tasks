@@ -1,0 +1,17 @@
+[mol-rel]
+command=export ANSI_LOAD_CALLBACK_PLUGINS=1 && export ANSIBLE_STDOUT_CALLBACK=yaml && molecule destroy --parallel && molecule converge && molecule login
+
+[mol-rel-v]
+command=export ANSI_LOAD_CALLBACK_PLUGINS=1 && export ANSIBLE_STDOUT_CALLBACK=debug && molecule destroy --parallel && molecule converge && molecule login
+
+[mol-con]
+command=molecule converge && molecule login
+
+[mol-test]
+command=molecule test --parallel
+
+[mol-check]
+command=molecule check --parallel
+
+[mol-rm]
+command=molecule destroy --parallel

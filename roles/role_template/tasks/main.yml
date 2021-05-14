@@ -1,0 +1,29 @@
+---
+- name: Create local dir
+  file:
+    path: ~/.testing
+    # owner: ansible
+    # group: deployer
+    mode: 0775
+    state: directory
+
+- name: Create a file
+  copy:
+    content: "hi!!"
+    dest: /tmp/hello
+    force: yes
+    mode: 0555
+
+# - name: Create root dir
+#   file:
+#     path: /opt/examples
+#     owner: ansible
+#     group: deployer
+#     mode: 0775
+#     state: directory
+
+- name: "just execute a ls -lrt command"
+  shell: "ls -lrt"
+  register: "output"
+
+- debug: var=output.stdout_lines

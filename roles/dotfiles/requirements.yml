@@ -1,0 +1,5 @@
+---
+roles:
+  # - name: geerlingguy.git
+  - name: manala.zsh
+

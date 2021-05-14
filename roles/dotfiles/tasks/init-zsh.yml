@@ -1,0 +1,42 @@
+---
+- name: install zsh dependencies
+  apt:
+    update_cache: yes
+    pkg:
+      - locales
+      - zsh
+      - bc
+      - vim
+
+- name: setup locales
+  shell: locale-gen "en_US.UTF-8"
+
+- name: symbolic link .zshenv
+  file:
+    path:  $HOME/.zshenv
+    src:   $HOME/.zsh/.zshenv.root
+    state: link
+
+- name: backup .zshrc
+  copy:
+    dest:  $HOME/.zshrc.backup
+    src:   $HOME/.zshrc
+    remote_src: true
+
+- name: Remove old .zshrc
+  file:
+    path: $HOME/.zshrc
+    state: absent
+
+- name: symbolic link .zshrc
+  file:
+    src:   $HOME/.zsh/.zshrc.root
+    path:  $HOME/.zshrc
+    state: link
+
+- name: change user shell to zsh
+  become: true
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: /bin/zsh
+
