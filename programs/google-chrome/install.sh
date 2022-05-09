@@ -5,6 +5,27 @@ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable
 # manage keyring files in trusted.gpg.d now
 sudo apt install google-chrome-stable
 
+# https://github.com/bgrins/devtools-snippets/tree/master/snippets/allcolors
+
+alias snippets-backup="jq .devtools.preferences.scriptSnippets $HOME/.config/google-chrome/Default/Preferences \
+| jq '. | fromjson' > /tmp/backup.json"
+# # Tested with jq-1.6
+# # The script converts json entries into lines of format
+# # `filename[TAB]content-in-base64` and then
+# # for each line creates the corresponding file
+# # with the content decoded.
+
+# # Better be in a safe directory!!
+# mkdir /tmp/snippets-backup
+# cd /tmp/snippets-backup
+
+# jq .devtools.preferences.scriptSnippets ~/.config/chromium/Default/Preferences \
+#   | jq '. | fromjson | .[]| [ .name, @base64 "\(.content)" ] | @tsv' -r \
+#   | xargs -I{} /bin/bash -c 'file=$(echo "{}"|cut -f1); fileContent=$(echo "{}"|cut -f2); echo "$fileContent" | base64 -d > "${file}.js"'
+
+alias snippets-view="jq .devtools.preferences.scriptSnippets $HOME/.config/google-chrome/Default/Preferences \
+| jq '. | fromjson'"
+
 # chrome://flags/#enable-force-dark,  devtools -> preferences -> theme -> dark
 ghq get -l https://github.com/zenorocha/codecopy
 echo "nodejs 15.14.0" >.tool-versions # fork and update manifest by 2023
