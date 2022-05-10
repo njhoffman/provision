@@ -7,19 +7,17 @@ sudo apt-get install \
   libffi-dev \
   libgdbm-dev \
   libncursesw5-dev \
-  libreadline \
   libreadline-dev \
   libsqlite3-dev \
   libssl-dev \
   openssl \
-  python-dev \
   python-pip \
   python-setuptools \
-  python-smbus \
   tk-dev \
   zlib1g-dev
 
-ghq get -l tmux/tmux
+mkdir -p ~/ghq/github.com/tmux && cd ~/ghq/github.com/tmux
+git clone git@github.com:tmux/tmux.git && cd tmux
 make
 sudo make install
 

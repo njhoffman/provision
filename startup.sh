@@ -1,58 +1,54 @@
 #!/bin/bash
 
-# steps:
-#   install core utils, zsh, random utils
-#     sudo apt install git zsh
-#     sudo apt install
-#     neofetch \
-#     xclip \
-#     xsel \
-#     grc \
-#     jq \
-#     fasd \
-#     samba-client \
-#     cifs-utils \
-#     net-tools \
-#     python \
-#     python-is-python3 \
-#     blueman \
-#     nmap \
-#     autorandr \
-#     wmctrl \
-#     xdotool \
-#     ubuntu-restricted-extras \
+# install core utils, zsh
+sudo apt install add-apt-key bison byacc build-essential git keychain locate manpages-dev pkg-config zsh # autotools-dev automake
+# install core dev libs
+sudo apt install libssl-dev libreadline-dev libsqlite3-dev libbz2-dev libevent-dev zlib1g-dev
+# install network utils
+sudo apt install blueman cifs-utils curl net-tools nmap smbclient
+# install python and python packages
+sudo apt install python python-is-python3 python-pip python-setuptools
+# install x11 utils
+sudo apt install xsel xclip xdotool wmctrl
+# install random utils
+sudo apt install autorandr ccze fasd grc jq thefuck ubuntu-restricted-extras
 #     mkvtoolnix
 #     mkvmerge -o outfile.mkv infile_01.mp4 \+ infile_02.mp4 \+ infile_03.mp4
-#     sudo chsh /bin/zsh
-#   add ssh key to github, clone provision
-#     ssh-keygen && ssh -T rsa -C 'njhoffman1982@gmail.com' && ssh-add -l -E sha256
-#     eval "$(ssh-agent -s)" && ssh -add -l -E md5
-#     mkdir -p ~/ghq/github.com/njhoffman && cd ~/ghq/github.com/njhoffman && git clone git@github.com:njhoffman/provision.git
-#   install dotbare, clone dotbare
-#     git clone https://github.com/kazhala/dotbare.git ~/.dotbare
-#     export PATH=$PATH:$HOME/.dotbare
-#     export DOTBARE_DIR="$HOME/.cfg"
-#     export DOTBARE_TREE="$HOME"
-#     dotbare finit -u https://github.com/njhoffman/dotfiles.git
-#   install fonts
-#     ghq get -l ryanoasis/nerd-fonts
-#     ./install.sh
-#   uninstall snap packages (firefox)
-#   log into zsh, zinit initializes asdf
+
+# add ssh key to github, clone provision
+ssh-keygen && ssh -T rsa -C 'njhoffman1982@gmail.com' && ssh-add -l -E sha256
+eval "$(ssh-agent -s)" && ssh -add -l -E md5
+mkdir -p ~/ghq/github.com/njhoffman && cd ~/ghq/github.com/njhoffman && git clone git@github.com:njhoffman/provision.git
+
+# install dotbare, clone dotbare
+git clone https://github.com/kazhala/dotbare.git ~/.dotbare
+export PATH=$PATH:$HOME/.dotbare
+export DOTBARE_DIR="$HOME/.cfg"
+export DOTBARE_TREE="$HOME"
+dotbare finit -u https://github.com/njhoffman/dotfiles.git
+
+# clone asdf
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+# asdf pre: sudo apt install re2c uuid-dev libxml2-dev icu-doc
+
+# log into zsh for zinit initialization
+mkdir ~/.local/man/ && sudo chsh /bin/zsh && /bin/zsh
+
+# install fonts
+mkdir -p ~/ghq/github.com/ryanoasis && cd ~/ghq/github.com/ryanoasis && git clone git@github.com:ryanoasis/nerd-fonts
+cd nerd-fonts && ./install.sh
+
 #   asdf-install-missing-plugins
 #   asdf-install-missing-versions (read custom pre-install and post-install hooks)
 #   install select program scripts
+~/ghq/github.com/njhoffman/provision/programs/tmux
+
 #   init njhoffman gh repos (special: zettelkasten, zsh-histdb)
+#   uninstall snap packages (firefox)
 #   scan ~/bin and install dependencies
 
-# alacritty
-sudo add-apt-repository ppa:aslatter/ppa
-sudo apt install alacritty xsel
-
-# asdf (zinit handles!)
-sudo apt install curl git gcc autotools-dev libssl-dev zlib1g-dev add-apt-key keychain libreadline-dev libsqlite3-dev libbz2-dev make automake libevent-dev bison byacc
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
-asdf plugin add ghq && asdf install ghq latest
+# uninstall programs managed by asdf
+sudo apt remove jq
 
 # fzf post-install: ghq get -l junegunn/fzf && cp -rv man/man1/* /usr/share/man/man1 && mandb
 
