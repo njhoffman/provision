@@ -56,6 +56,7 @@ cargo install update-all
 ~/ghq/github.com/njhoffman/provision/programs/autokey/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/picom/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/tmuxp/install.sh
+~/ghq/github.com/njhoffman/provision/programs/rofi/install.debian.sh
 
 ~/ghq/github.com/njhoffman/provision/programs/nvenv/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/nvimpager/install.sh
@@ -66,21 +67,22 @@ cargo install update-all
 
 ~/ghq/github.com/njhoffman/provision/programs/colorls/install.gem.sh
 ~/ghq/github.com/njhoffman/provision/programs/ctrace/install.npm.sh
-# ~/ghq/github.com/njhoffman/provision/programs/navi/install.cargo.sh
-~/ghq/github.com/njhoffman/provision/programs/visidata/install.pip.sh
-~/ghq/github.com/njhoffman/provision/programs/vis/install.pip.sh
-~/ghq/github.com/njhoffman/provision/programs/pass/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/curlie/install.go.sh
-~/ghq/github.com/njhoffman/provision/programs/pup/install.go.sh
-~/ghq/github.com/njhoffman/provision/programs/htmlq/install.cargo.sh
 ~/ghq/github.com/njhoffman/provision/programs/dog/install.sh
-~/ghq/github.com/njhoffman/provision/programs/dust/install.cargo.sh
 ~/ghq/github.com/njhoffman/provision/programs/duf/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/dust/install.cargo.sh
+~/ghq/github.com/njhoffman/provision/programs/htmlq/install.cargo.sh
+# ~/ghq/github.com/njhoffman/provision/programs/navi/install.cargo.sh
+~/ghq/github.com/njhoffman/provision/programs/pass/install.sh
+~/ghq/github.com/njhoffman/provision/programs/pup/install.go.sh
+~/ghq/github.com/njhoffman/provision/programs/taskwarrior/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/timewarrior/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/ueberzug/install.pip.sh
+~/ghq/github.com/njhoffman/provision/programs/vis/install.pip.sh
+~/ghq/github.com/njhoffman/provision/programs/visidata/install.pip.sh
 ~/ghq/github.com/njhoffman/provision/programs/xh/install.cargo.sh
 ~/ghq/github.com/njhoffman/provision/programs/ytfzf/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/zathura/install.debian.sh
-
 # random init
 ~/ghq/github.com/njhoffman/provision/programs/gh-cli/install.extensions.sh
 bat cache --build
