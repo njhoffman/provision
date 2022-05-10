@@ -18,6 +18,8 @@ sudo apt-get install \
 
 mkdir -p ~/ghq/github.com/tmux && cd ~/ghq/github.com/tmux
 git clone git@github.com:tmux/tmux.git && cd tmux
+./autogen.sh
+./configure
 make
 sudo make install
 

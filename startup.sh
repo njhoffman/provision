@@ -7,11 +7,11 @@ sudo apt install libssl-dev libreadline-dev libsqlite3-dev libbz2-dev libevent-d
 # install network utils
 sudo apt install blueman cifs-utils curl net-tools nmap smbclient
 # install python and python packages
-sudo apt install python python-is-python3 python-pip python-setuptools
+sudo apt install python python-is-python3 python3-pip python-setuptools
 # install x11 utils
 sudo apt install xsel xclip xdotool wmctrl
 # install random utils
-sudo apt install autorandr ccze fasd grc jq thefuck ubuntu-restricted-extras
+sudo apt install autorandr ccze fasd grc jq sqlite3 thefuck ubuntu-restricted-extras
 #     mkvtoolnix
 #     mkvmerge -o outfile.mkv infile_01.mp4 \+ infile_02.mp4 \+ infile_03.mp4
 
@@ -27,9 +27,14 @@ export DOTBARE_DIR="$HOME/.cfg"
 export DOTBARE_TREE="$HOME"
 dotbare finit -u https://github.com/njhoffman/dotfiles.git
 
-# clone asdf
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+# clone asdf, install plugins and programs
 # asdf pre: sudo apt install re2c uuid-dev libxml2-dev icu-doc
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+asdf-install-missing-plugins
+asdf-install-missing-versions # (read custom pre-install and post-install hooks)
+
+# clone histdb
+rm -rfv ~/.histdb && git clone git@github.com:njhoffman/zsh-history.git ~/.histdb
 
 # log into zsh for zinit initialization
 mkdir ~/.local/man/ && sudo chsh /bin/zsh && /bin/zsh
@@ -38,12 +43,35 @@ mkdir ~/.local/man/ && sudo chsh /bin/zsh && /bin/zsh
 mkdir -p ~/ghq/github.com/ryanoasis && cd ~/ghq/github.com/ryanoasis && git clone git@github.com:ryanoasis/nerd-fonts
 cd nerd-fonts && ./install.sh
 
-#   asdf-install-missing-plugins
-#   asdf-install-missing-versions (read custom pre-install and post-install hooks)
-#   install select program scripts
-~/ghq/github.com/njhoffman/provision/programs/tmux
+# random language specific packages
+pip-upgrade-all
+cargo install update-all
 
-#   init njhoffman gh repos (special: zettelkasten, zsh-histdb)
+# install select program scripts
+~/ghq/github.com/njhoffman/provision/programs/tmux/install.sh
+~/ghq/github.com/njhoffman/provision/programs/i3/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/polybar/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/autokey/install.sh
+
+~/ghq/github.com/njhoffman/provision/programs/alacritty/install.cargo.sh
+~/ghq/github.com/njhoffman/provision/programs/kitty/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/wezterm/install.debian.sh
+
+~/ghq/github.com/njhoffman/provision/programs/colorls/install.gem.sh
+~/ghq/github.com/njhoffman/provision/programs/visidata/install.pip.sh
+
+~/ghq/github.com/njhoffman/provision/programs/dog/install.sh
+~/ghq/github.com/njhoffman/provision/programs/dust/install.cargo.sh
+~/ghq/github.com/njhoffman/provision/programs/duf/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/ueberzug/install.pip.sh
+~/ghq/github.com/njhoffman/provision/programs/xh/install.cargo.sh
+~/ghq/github.com/njhoffman/provision/programs/ytfzf/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/zathura/install.debian.sh
+
+# random init
+bat cache --build
+
+#   init njhoffman gh repos (special: zettelkasten)
 #   uninstall snap packages (firefox)
 #   scan ~/bin and install dependencies
 
