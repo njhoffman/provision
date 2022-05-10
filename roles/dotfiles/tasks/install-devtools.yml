@@ -9,23 +9,6 @@
     - ~/.vim/backup
     - ~/.vim/swap
 
-  # - name: install prerequisites for neovim
-  #   become: true
-  #   package:
-  #     name:
-  #       - autoconf
-  #       - automake
-  #       - cmake
-  #       - g++
-  #       - gettext
-  #       - git
-  #       - libtool
-  #       - libtool-bin
-  #       - make
-  #       - ninja-build
-  #       - pkg-config
-  #       - unzip
-
 - name: install vim-plug
   shell:
     cmd: sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
@@ -34,41 +17,6 @@
 
 - name: run vundle's :PluginInstall
   shell: nvim --headless +PlugUpdate +qa
-
-- name: install CocExtensions
-  shell: nvim --headless +CocInstall {{ item }} +qa
-  with_items:
-    - coc-css
-    - coc-cssmodules
-    - coc-dictionary
-    - coc-docker
-    - coc-eslint
-    - coc-explorer
-    - coc-floaterm
-    - coc-fzf-preview
-    - coc-git
-    - coc-gitignore
-    - coc-go
-    - coc-graphql
-    - coc-html
-    - coc-json
-    - coc-lists
-    - coc-markdownlint
-    - coc-marketplace
-    - coc-prettier
-    - coc-sh
-    - coc-solargraph
-    - coc-snippets
-    - coc-sql
-    - coc-styledcomponents
-    - coc-stylelintplus
-    - coc-tailwindcss
-    - coc-tasks
-    - coc-tslint
-    - coc-tsserver
-    - coc-webpack
-    - coc-yaml
-    - coc-yank
 
 - name: install homebrew
   shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew --version
@@ -90,6 +38,7 @@
     - glow
     - grc
     - httpstat
+    - hyperfine
     - lazydocker
     - lazygit
     - mpd
@@ -130,6 +79,7 @@
   package:
     name:
       - inxi
+      - clangd
 
 - name: directly download devtools scripts
   get_url:
@@ -140,4 +90,6 @@
     # owner:
     # group:
 
-
+# git clone https://github.com/timeopochin/cilo.git && cd cilo && make
+# luarocks
+# luarocks install luaformat

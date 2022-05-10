@@ -1,4 +1,10 @@
 ---
+- name: install dependencies
+  apt:
+    update_cache: true
+    pkg:
+      - git
+
 - name: clone asdf
   git:
     repo: https://github.com/asdf-vm/asdf.git

@@ -6,7 +6,7 @@
 
 - name: install dependencies
   apt:
-    update_cache: yes
+    update_cache: true
     pkg:
       - autoconf
       - curl

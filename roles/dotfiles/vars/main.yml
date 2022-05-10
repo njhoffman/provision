@@ -56,5 +56,6 @@ to_convert:
   - hURL https://github.com/fnord0/hURL/blob/master/hURL
   - reddio - aaronNG/reddio - local make install
   - fasd
-
+  - weechat
+  - https://github.com/stolk/diskgraph
 

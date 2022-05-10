@@ -3,9 +3,11 @@
 FROM ubuntu:20.10 AS base
 
 RUN apt-get update && apt-get install -y \
-  openssh-server sudo locales locales-all libreadline-dev
-  # python3 python
-  # RUN apt-get install -y curl git zsh bc python3 python unzip
+      openssh-server \
+      sudo locales locales-all libreadline-dev
+
+# python3 python
+# RUN apt-get install -y curl git zsh bc python3 python unzip
 
 # set up locales
 ENV LC_ALL en_US.UTF-8

@@ -1,20 +1,20 @@
 # @ansible_home = "/home/vagrant/.ansible"
 
-Vagrant.configure("2") do |config|
-  config.vm.define "local" do |local|
-    local.vm.box = "ubuntu/focal64"
+Vagrant.configure('2') do |config|
+  config.vm.define 'local' do |local|
+    local.vm.box = 'ubuntu/focal64'
     # 14.04: trusty, 16.04: xenial, 18.04: bionic, 20.04: focal
-    local.vm.box_check_update = "false"
+    local.vm.box_check_update = 'false'
     # config.vm.network :forwarded_port, guest: 9000, host: 9200
     # config.vm.network :forwarded_port, guest: 9001, host: 9201
-    local.vm.provider "virtualbox" do |vb|
-      vb.memory = "1024"
+    local.vm.provider 'virtualbox' do |vb|
+      vb.memory = '1024'
     end
 
-    local.vm.provision "ansible_local" do |ansible|
+    local.vm.provision 'ansible_local' do |ansible|
       ansible.limit    = 'all'
       ansible.verbose  = false
-      ansible.playbook = "main.yml"
+      ansible.playbook = 'main.yml'
 
       roles_file = 'requirements.yml'
 
