@@ -1,0 +1,135 @@
+---
+- name: create vim backup and swap directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - ~/.vim
+    - ~/.vim/backup
+    - ~/.vim/swap
+
+- name: install prerequisites for neovim
+  become: true
+  package:
+    name:
+      - autoconf
+      - automake
+      - cmake
+      - g++
+      - gettext
+      - libtool
+      - libtool-bin
+      - make
+      - ninja-build
+      - pkg-config
+      - unzip
+
+- import_tasks: ../../essentials/tasks/python.yml
+- import_tasks: ../../essentials/tasks/node.yml
+- import_tasks: ../../essentials/tasks/linuxbrew.yml
+- import_tasks: ../../shell/tasks/fonts.yml
+
+- name: clone neovim source
+  git:
+    repo: https://github.com/neovim/neovim.git
+    dest: "{{ localsrc_dir }}/neovim"
+
+- name: build neovim source
+  shell: make CMAKE_BUILD_TYPE=RelWithDebInfo
+  args:
+    chdir: "{{ localsrc_dir }}/neovim"
+
+- name: install neovim
+  become: true
+  shell: make install
+  args:
+    chdir: "{{ localsrc_dir }}/neovim"
+
+- name: clone vundle
+  git:
+    repo: https://github.com/VundleVim/Vundle.vim.git
+    dest: $HOME/.vim/bundle/Vundle.vim
+    version: master
+    update: no
+
+- name: generate ~/.vimrc
+  template:
+    src: vimrc.j2
+    dest: $HOME/.vimrc
+    mode: 0644
+  notify: install neovim plugins
+
+- name: install python providers
+  command: "{{ item }}"
+  with_items:
+    - python3 -m pip install --user --upgrade pynvim
+
+- name: install plugin dependent programs
+  become: true
+  package:
+    name:
+      - ripgrep
+      - bat
+      - taskwarrior
+      #
+
+- name: install plugin dependent homebrew programs
+  shell: brew install {{ item }}
+  with_items:
+    - fzf
+
+- name: run vundle's :PluginInstall
+  shell: nvim --headless +PluginInstall +qa
+
+- name: install CocExtensions
+  shell: nvim --headless +CocInstall {{ item }} +qa
+  with_items:
+    - coc-css
+    - coc-fzf-preview
+    - coc-gitignore
+    - coc-html
+    - coc-json
+    - coc-lists
+    - coc-markdownlint
+    - coc-solargraph
+    - coc-sql
+    - coc-tslint
+    - coc-tsserver
+    - coc-yaml
+# supporting packages
+# " apt-get install ccls
+# " gem install solargraph
+# " npm install -g graphql-lsp bash-language-server
+# " npm install -g dockerfile-language-server-nodejs
+# " terraform-lsp
+
+- name: clone nvimpager
+  git:
+    repo: https://github.com/lucc/nvimpager
+    dest: "{{ localsrc_dir }}"
+
+# apt-get install pandoc
+- name: install nvimpager
+  become: true
+  shell: make PREFIX=$HOME/.local install
+# ln -s ~/.config/nvim ~/.config/nvimpager
+
+
+
+# https://github.com/sharkdp/bat
+# cargo install --locked bat
+# ln -s /usr/bin/batcat ~/.local/bin/bat
+# mkdir -p "$(bat --config-dir)/themes"
+# cd "$(bat --config-dir)/themes"
+# Download a theme in '.tmTheme' format, for example:
+  # git clone https://github.com/greggb/sublime-snazzy
+# Update the binary cache
+# bat cache --build
+# bat --list-themes
+# mkdir -p "$(bat --config-dir)/syntaxes"
+# cd "$(bat --config-dir)/syntaxes"
+# Put new '.sublime-syntax' language definition files
+# in this folder (or its subdirectories), for example:
+# git clone https://github.com/tellnobody1/sublime-purescript-syntax
+

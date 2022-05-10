@@ -1,0 +1,122 @@
+---
+- name: install zsh dependencies
+  become: true
+  package:
+    name:
+      - ncurses-dev
+      - libncurses5-dev
+      # for install.info (makeinfo), specifies what package to install
+      - texi2html
+      - texinfo
+    state: present
+
+- name: create destination directory
+  become: true
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - /usr/local/src
+
+- name: clone zsh
+  become: true
+  git:
+    repo: git://zsh.git.sf.net/gitroot/zsh/zsh
+    dest: /usr/local/src/zsh
+    version: master
+    update: no
+
+- name: zsh preconfig
+  become: true
+  command: ./Util/preconfig
+  args:
+    chdir: /usr/local/src/zsh
+
+- name: zsh configure
+  become: true
+  command: ./configure --prefix=/usr --mandir=/usr/share/man --bindir=/bin --infodir=/usr/share/info --enable-maildir-support --enable-etcdir=/etc/zsh --enable-function-subdirs --enable-site-fndir=/usr/local/share/zsh/site-functions --enable-fndir=/usr/share/zsh/functions --with-tcsetpgrp --with-term-lib=ncursesw --enable-cap --enable-pcre --enable-readnullcmd=pager --enable-custom-patchlevel=Debian LDFLAGS="-Wl,--as-needed -g"
+  args:
+    chdir: /usr/local/src/zsh
+
+- name: make zsh
+  become: true
+  command: make
+  args:
+    chdir: /usr/local/src/zsh
+
+# - name: check zsh make
+#   become: true
+#   command: make check
+#   args:
+#     chdir: /usr/local/src/zsh
+
+# TODO: figure out why can't install zsh docs
+- name: make zsh docs
+  become: true
+  shell: "{{ item }}"
+  with_items:
+    - makeinfo ./Doc/zsh.texi --plaintext -o Doc/zsh.txt || true
+    - makeinfo ./Doc/zsh.texi --html -o Doc/html || true
+    - makeinfo ./Doc/zsh.texi --html --no-split --no-headers -o Doc/zsh.html || true
+  args:
+    chdir: /usr/local/src/zsh
+
+# TODO: figure out why install fails
+- name: install zsh
+  become: true
+  shell: "{{ item }}"
+  with_items:
+    - make install || true
+    # - make infodir=/usr/share/info install.info
+    # - make install.info
+  args:
+    chdir: /usr/local/src/zsh
+
+- name: add zsh to /etc/shells
+  become: true
+  shell: command -v zsh | tee -a /etc/shells
+
+# chsh -s /usr/bin/zsh
+
+- name: clone oh my zsh
+  git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: "~/.oh-my-zsh"
+    version: master
+    update: no
+
+- name: clone oh my zsh plugins
+  git:
+    repo: "{{ item.repo }}"
+    dest: ~/.oh-my-zsh/custom/{{ item.dest }}
+    version: "{{ item.version }}"
+  with_items:
+    - { repo: "https://github.com/djui/alias-tips.git", dest: "plugins/alias-tips", version: master }
+    # - { repo: "https://github.com/b4b4r07/enhancd", dest: "plugins/enhancd", version: master }
+    - { repo: "https://github.com/svenXY/timewarrior", dest: "plugins/timewarrior", version: master }
+    - { repo: "https://github.com/Tarrasch/zsh-autoenv", dest: "plugins/zsh-autoenv", version: master }
+    - { repo: "https://github.com/zsh-users/zsh-autosuggestions", dest: "plugins/zsh-autosuggestions", version: master }
+    - { repo: "https://github.com/zsh-users/zsh-completions", dest: "plugins/zsh-completions", version: master }
+    - { repo: "https://github.com/liangguohuan/zsh-dircolors-solarized", dest: "plugins/zsh-dircolors-solarized", version: master }
+    - { repo: "https://github.com/zsh-users/zsh-syntax-highlighting", dest: "plugins/zsh-syntax-highlighting", version: master }
+    - { repo: "https://github.com/romkatv/powerlevel10k", dest: "themes/powerlevel10k", version: master }
+
+- name: download zplug installer
+  get_url:
+    url: https://raw.githubusercontent.com/zplug/installer/master/installer.zsh
+    dest: "{{ localsrc_dir }}/zplug-installer.zsh"
+    mode: 0755
+
+# TODO: prevent 'already exists' error from stopping
+- name: install zplug
+  shell: ./zplug-installer.zsh || true
+  args:
+    chdir: "{{ localsrc_dir }}"
+
+# - name: install zplug
+#   shell: curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+#
+# antibody
+# curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
+# brew install getantibody/tap/antibody

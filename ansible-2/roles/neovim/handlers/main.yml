@@ -1,0 +1,3 @@
+---
+- name: install neovim plugins
+  command: nvim --headless +PluginInstall +qall

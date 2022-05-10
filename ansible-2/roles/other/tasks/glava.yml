@@ -1,0 +1,43 @@
+---
+- name: install glava dependencies
+  become: true
+  package:
+    name:
+    - build-essential
+    - gcc
+    - libgl1-mesa-dev
+    - liblua5.3-0
+    - liblua5.3-dev
+    - libobs-dev
+    - libobs0
+    - libpulse-dev
+    - libpulse0
+    - libxcomposite-dev
+    - libxext-dev
+    - libxext6
+    - libxrender-dev
+    - lua-filesystem
+    - lua-lgi
+    - meson
+    - ninja-build
+
+- name: clone glava
+  git:
+    repo: https://github.com/jarcode-foss/glava
+    dest: "{{ localsrc_dir }}/glava"
+
+- name: build glava
+  shell: "{{ item }}"
+  with_items:
+    - meson build --prefix /usr
+    - ninja -C build
+  args:
+    chdir: "{{ localsrc_dir }}/glava"
+
+- name: install glava
+  become: true
+  shell: ninja -C build install
+  args:
+    chdir: "{{ localsrc_dir }}/glava"
+
+

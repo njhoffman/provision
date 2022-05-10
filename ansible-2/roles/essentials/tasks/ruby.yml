@@ -1,0 +1,39 @@
+---
+- name: download ruby prerequisites
+  become: yes
+  package:
+    name:
+      - libssl-dev
+    state: present
+    
+- name: download rbenv installer
+  get_url:
+    url: https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer
+    dest: "{{ localsrc_dir }}"
+    mode: 0755
+    
+- name: update path
+  shell: export PATH=$PATH:$HOME/.rbenv/bin
+  
+- name: install rbenv
+  shell: env PATH=$PATH:$HOME/.rbenv/bin:$HOME/.rbenv/shims ./rbenv-installer
+  args:
+    chdir: "{{ localsrc_dir }}"
+  
+  # - shell: sudo su - root -c 'rbenv install -v {{ ruby_version }}'
+- name: install ruby
+  shell: rbenv install "{{ ruby_version }}"
+  ignore_errors: true
+ 
+- name: assign default ruby version
+  shell: rbenv global "{{ ruby_version }}"
+  
+# TODO: need to reload shell, source /etc/profile, environment: 
+- name: install bundler
+  shell: gem install bundler
+
+- name: clone rbenv-sudo plugin
+  git:
+    repo: git://github.com/dcarley/rbenv-sudo.git
+    dest: $HOME/.rbenv/plugins/rbenv-sudo
+    version: master

@@ -1,0 +1,87 @@
+---
+- name: include OS specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+
+- name: create directories
+  become: false
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - $HOME/.local/src
+    - $HOME/.local/share
+    - $HOME/.local/share/fonts
+
+- name: update repository list
+  become: yes
+  apt_repository:
+    repo: "{{ item }}"
+    state: 'present'
+    update_cache: false
+  register: fonts_multiverse_installed
+  notify: rebuild fonts cache
+  with_items: "{{ fonts_repositories }}"
+
+- name: update apt cache
+  become: yes
+  apt:
+    update_cache: yes
+  # when: ansible_os_family == "Debian" and fonts_multiverse_installed.changed
+
+- name: install microsoft core fonts prerequisites
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - fontconfig
+    - libfreetype6
+    - libfreetype6-dev
+
+- name: accept microsoft core fonts eula
+  become: yes
+  debconf:
+    name: ttf-mscorefonts-installer
+    question: msttcorefonts/accepted-mscorefonts-eula
+    value: "true"
+    vtype: select
+
+- name: install microsoft core fonts
+  become: yes
+  apt:
+    name: ttf-mscorefonts-installer
+    state: present
+  register: fonts_microsoft_installed
+  notify: rebuild fonts cache
+
+- name: install nerd fonts
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf
+    dest: "$HOME/.local/share/fonts"
+  notify: rebuild fonts cache
+
+- name: clone siji fonts
+  git:
+    repo: https://github.com/stark/siji
+    dest: "{{ localsrc_dir }}/siji"
+
+- name: install siji fonts
+  shell: ./install.sh
+  args:
+    chdir: "{{ localsrc_dir }}/siji"
+  notify: rebuild fonts cache
+
+- name: clone awesome-terminal-fonts
+  git:
+    repo: https://github.com/gabrielelana/awesome-terminal-fonts
+    dest: "{{ localsrc_dir }}/awesome-terminal-fonts"
+
+- name: install awesome-terminal-fonts
+  shell: ./install.sh
+  args:
+    chdir: "{{ localsrc_dir }}/awesome-terminal-fonts"
+  notify: rebuild fonts cache

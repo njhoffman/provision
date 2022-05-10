@@ -1,0 +1,15 @@
+# cluster health
+curl 'localhost:9200/_cat/health/?v'
+curl 'localhost:9200/_cat/nodes/?v'
+
+# list indices
+curl 'localhost:9200/_cat/indices?v'
+
+# delete index
+curl -XDELETE 'localhost:9200/indexname?pretty'
+
+# show records
+curl 'localhost:9200/indexname/_search?q=user:kimchy'
+
+# delete all indices
+curl -XDELETE 'localhost:9200/_all'

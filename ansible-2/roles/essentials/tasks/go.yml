@@ -1,0 +1,19 @@
+---
+- name: create go directory
+  become: true
+  file:
+    path: /usr/local/go
+    state: directory
+    mode: 0755
+
+
+- name: download go
+  get_url:
+    url: "https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz"
+    dest: "{{ localsrc_dir }}"
+
+- name: extract go tar file into go directory
+  become: true
+  unarchive:
+    src: "{{ localsrc_dir }}/go{{ go_version }}.linux-amd64.tar.gz"
+    dest: /usr/local

@@ -1,0 +1,11 @@
+---
+- name: Testing Playbook
+  hosts: local
+  become: true
+  vars:
+    resources_dir: "~/resources"
+
+  roles:
+    - resources
+    # - nvim
+    # - zsh

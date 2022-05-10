@@ -1,0 +1,23 @@
+# # config file version
+apiVersion: 1
+
+# # list of datasources that should be deleted from the database
+deleteDatasources:
+  - name: InfluxDB
+    orgId: 1
+
+# # list of datasources to insert/update depending
+# # on what's available in the database
+datasources:
+  - name: InfluxDB
+    type: influxdb
+    url: http://localhost:8080
+    password: telegraf
+    user: telegraf
+    database: telegraf
+    isDefault: true
+    orgId: 1
+    version: 1
+    editable: true
+
+# vim: syn=yaml

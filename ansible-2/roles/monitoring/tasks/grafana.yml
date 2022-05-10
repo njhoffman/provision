@@ -1,0 +1,48 @@
+---
+- name: add grafana apt key
+  become: true
+  apt_key:
+    url: https://packages.grafana.com/gpg.key
+
+- name: add grafana repo to apt
+  become: true
+  apt_repository:
+    repo: deb https://packages.grafana.com/oss/deb stable main
+    state: present
+    update_cache: true
+
+- name: install grafana
+  become: true
+  apt:
+    name: grafana
+    state: present
+
+- name: generate grafana.ini from template
+  become: true
+  template:
+    src: grafana.j2
+    dest: /etc/grafana/grafana.ini
+    mode: 0644
+
+- name: copy dashboard provisioning files
+  become: true
+  copy:
+    src: ../files/dashboards
+    dest: /etc/grafana/dashboards
+
+- name: copy datasource provisioning files
+  become: true
+  copy:
+    src: ../files/datasources
+    dest: /etc/grafana/datasources
+
+- name: enable and start grafana-server service
+  become: true
+  systemd:
+    name: grafana-server
+    state: started
+    enabled: true
+
+- name: display grafana-server ports
+  become: true
+  shell: netstat -plntu | grep grafana

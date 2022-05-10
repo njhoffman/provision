@@ -1,0 +1,8 @@
+---
+fonts_repositories:
+  - deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} multiverse
+  - deb-src http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} multiverse
+  - deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates multiverse
+  - deb-src http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates multiverse
+
+

@@ -1,0 +1,99 @@
+---
+- name: install prerequisites
+  become: true
+  package:
+    name:
+      - apt-transport-https
+      - make
+    state: present
+
+- name: install git & git-flow
+  become: true
+  package:
+    name:
+      - git
+      - git-flow
+    state: present
+
+- name: setup git configuration
+  git_config:
+    scope: global
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+  with_items:
+    - { name: "user.email", value: "{{ git_email }}" }
+    - { name: "user.name", value: "{{ git_name}}" }
+    - { name: "pull.rebase", value: "false" }
+    - { name: "core.filemode", value: "false" }
+
+- name: clone git-secrets
+  git:
+    repo: https://github.com/awslabs/git-secrets
+    dest: "{{ localsrc_dir }}/git-secrets"
+
+- name: install git-secrets
+  become: true
+  make:
+    target: install
+    chdir: "{{ localsrc_dir }}/git-secrets"
+
+- name: register global git-secrets aws hooks for all repositories
+  shell: git secrets --register-aws --global
+
+- name: add git-secret gpg key
+  become: true
+  apt_key:
+    url: https://api.bintray.com/users/sobolevn/keys/gpg/public.key
+
+- name: add git-secret deb repository
+  become: true
+  apt_repository:
+    repo: deb https://dl.bintray.com/sobolevn/deb git-secret main
+    state: present
+    update_cache: true
+
+- name: install git-secret
+  become: true
+  package:
+    state: present
+    name: git-secret
+
+
+### github
+# - name: Read SSH public key to authorize
+#   shell: cat /home/foo/.ssh/id_rsa.pub
+#   register: ssh_pub_key
+#
+# - name: Authorize key with GitHub
+#   local_action:
+#     module: github_key
+#     name: Access Key for Some Machine
+#     token: '{{ github_access_token }}'
+#     pubkey: '{{ ssh_pub_key.stdout }}'
+
+### gitlab
+# - name: "Adding a project deploy key"
+#   gitlab_deploy_key:
+#     api_url: https://gitlab.example.com/
+#     api_token: "{{ access_token }}"
+#     project: "my_group/my_project"
+#     title: "Jenkins CI"
+#     state: present
+#     key: "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAiPWx6WM4lhHNedGfBpPJNPpZ7yKu+dnn1SJejgt4596k6YjzGGphH2TUxwKzxcKDKKezwkpfnxPkSMkuEspGRt/aZZ9w..."
+#
+# - name: "Update the above deploy key to add push access"
+#   gitlab_deploy_key:
+#     api_url: https://gitlab.example.com/
+#     api_token: "{{ access_token }}"
+#     project: "my_group/my_project"
+#     title: "Jenkins CI"
+#     state: present
+#     can_push: yes
+#
+# - name: "Remove the previous deploy key from the project"
+#   gitlab_deploy_key:
+#     api_url: https://gitlab.example.com/
+#     api_token: "{{ access_token }}"
+#     project: "my_group/my_project"
+#     state: absent
+#     key: "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAiPWx6WM4lhHNedGfBpPJNPpZ7yKu+dnn1SJejgt4596k6YjzGGphH2TUxwKzxcKDKKezwkpfnxPkSMkuEspGRt/aZZ9w..."

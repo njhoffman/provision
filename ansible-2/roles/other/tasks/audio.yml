@@ -1,0 +1,147 @@
+---
+- name: install audio and mpd dependencies
+  become: true
+  package:
+    name:
+    - blueman
+    - g++
+    - libadplug-dev
+    - libao-dev
+    - libasound2-dev
+    - libaudiofile-dev
+    - libavahi-client-dev
+    - libavcodec-dev
+    - libavformat-dev
+    - libboost-dev
+    - libbz2-dev
+    - libcdio-paranoia-dev
+    - libcurl4-gnutls-dev
+    - libexpat-dev
+    - libfaad-dev
+    - libflac-dev
+    - libfluidsynth-dev
+    - libgme-dev
+    - libgtest-dev
+    - libicu-dev
+    - libid3tag0-dev
+    - libiso9660-dev
+    - libjack-jackd2-dev
+    - libmad0-dev
+    - libmikmod-dev
+    - libmikmod3
+    - libmms-dev
+    - libmodplug-dev
+    - libmp3lame-dev
+    - libmpcdec-dev
+    - libmpdclient-dev
+    - libmpg123-dev
+    - libnfs-dev
+    - libopenal-dev
+    - libopus-dev
+    - libpcre3-dev
+    - libresid-builder-dev
+    - libsamplerate0-dev
+    - libshine-dev
+    - libshout3-dev
+    - libsidplay2-dev
+    - libsidutils-dev
+    - libsmbclient-dev
+    - libsndfile1-dev
+    - libsndio-dev
+    - libsoxr-dev
+    - libsqlite3-dev
+    - libsystemd-dev
+    - libtwolame-dev
+    - libupnp-dev
+    - libvorbis-dev
+    - libwavpack-dev
+    - libwildmidi-dev
+    - libyajl-dev
+    - libzzip-dev
+    - meson
+    - pavucontrol
+    - wildmidi
+
+- name: install pulseaudio components
+  become: true
+  package:
+    name:
+      - libpulse-dev
+      - pulseaudio-module-bluetooth
+      - pavucontrol
+
+# - name: install beets
+#   shell: pip3 install --user beets
+# https://github.com/beetbox/beets
+# sudo python setup.py install
+# (/usr/local/lib/python3.8/dist-packages/)
+
+- name: create mpd directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - "$HOME/.mpd"
+    - "$HOME/.mpd/cache"
+    - "$HOME/.mpd/playlists"
+
+- name: download mpd
+  become: true
+  get_url:
+    url: http://www.musicpd.org/download/mpd/0.21/mpd-{{ mpd_version }}.tar.xz
+    dest: /usr/local/src
+
+- name: extract mpd
+  become: true
+  unarchive:
+    src: /usr/local/src/mpd-{{ mpd_version }}.tar.xz
+    dest: /usr/local/src
+
+- name: build and install mpd
+  become: true
+  shell: "{{ item }}"
+  with_items:
+    - meson . output/release --buildtype=debugoptimized -Db_ndebug=true -Dsysconfdir=/etc
+    - meson configure output/release
+    - ninja -C output/release
+    - ninja -C output/release install
+  args:
+    chdir: /usr/local/src/mpd-{{ mpd_version }}
+
+- name: create symbolic link to config
+  become: true
+  file:
+    src: "{{ config_dir }}/mpd/mpd.conf"
+    dest: /etc/mpd.conf
+    state: link
+
+- name: enable mpd service
+  shell: "{{ item }}"
+  with_items:
+    - touch "$HOME/tag_cache"
+    - systemctl --user enable mpd
+    - systemctl --user start mpd
+
+- name: clone mpc
+  git:
+    repo: https://github.com/MusicPlayerDaemon/mpc
+    dest: "{{ localsrc_dir }}/mpc"
+
+- name: build and install mpc
+  become: true
+  shell: "{{ item }}"
+  with_items:
+    - meson . output
+    - ninja -C output
+    - ninja -C output install
+  args:
+    chdir: "{{ localsrc_dir }}/mpc"
+
+# #TODO: pacmd load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
+# ytmdl
+# apt-get install ffmpeg
+# git clone && https://github.com/deepjyoti30/ytmdl && sudo python ./setup.py install
+# pip install --user ytmdl
+#
+# git clone https://github.com/salman-abedin/puri.git && cd puri && sudo make install

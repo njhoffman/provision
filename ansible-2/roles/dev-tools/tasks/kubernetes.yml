@@ -1,0 +1,154 @@
+---
+- name: ensure virtualization supported
+  shell: grep -E -o 'vmx|svm' /proc/cpuinfo | head -n 1
+
+- name: download and install kubectl
+  become: true
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/{{ lookup('url', 'https://storage.googleapis.com/kubernetes-release/release/stable.txt') }}/bin/linux/amd64/kubectl
+    dest: /usr/local/bin/kubectl
+    mode: 0775
+
+- name: show kubectl version
+  shell: kubectl version --client
+
+- name: download minikube
+  get_url:
+    url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    dest: "{{ localsrc_dir }}/minikube"
+
+- name: install minikube into path directory
+  become: true
+  shell: install minikube /usr/local/bin
+  args:
+    chdir: "{{ localsrc_dir }}"
+
+- name: show minkube version
+  shell: minikube version
+
+- name: clone k9s
+  git:
+    repo: https://github.com/derailed/k9s
+    dest: "{{ localsrc_dir }}/k9s"
+
+- name: build k9s
+  shell: make build
+  args:
+    chdir: "{{ localsrc_dir }}/k9s"
+
+- name: install k9s into path directory
+  become: true
+  shell: install k9s /usr/local/bin
+  args:
+    chdir: "{{ localsrc_dir }}/k9s/execs"
+
+- name: download helm
+  get_url:
+    url: https://get.helm.sh/helm-v{{ helm_version }}-linux-amd64.tar.gz
+    dest: "{{ localsrc_dir }}"
+
+- name: unextract helm
+  unarchive:
+    src: "{{ localsrc_dir }}/helm-v{{ helm_version }}-linux-amd64.tar.gz"
+    dest: "{{ localsrc_dir }}"
+
+- name: install helm
+  become: true
+  shell: install helm /usr/local/bin
+  args:
+    chdir: "{{ localsrc_dir }}/linux-amd64"
+
+- name: install helm plugins
+  shell: "helm plugin install {{ item }}"
+  ignore_errors: true # returns error if plugin already installed
+  with_items:
+    - https://github.com/databus23/helm-diff
+    - https://github.com/aslafy-z/helm-git
+
+- name: list helmplugins
+  shell: helm plugin list
+
+- name: download helmfile
+  get_url:
+    url: https://github.com/roboll/helmfile/releases/download/v0.125.0/helmfile_linux_amd64
+    dest: "{{ localsrc_dir }}/helmfile"
+
+- name: install helmfile
+  become: true
+  shell: install helmfile /usr/local/bin
+  args:
+    chdir: "{{ localsrc_dir }}"
+
+- name: create directory for krew (kubectl package manager)
+  file:
+    path: "{{ localsrc_dir }}/krew"
+    state: directory
+
+- name: download krew (kubectl package manager)
+  get_url:
+    url: "{{ item }}"
+    dest: "{{ localsrc_dir }}/krew"
+  with_items:
+    - https://github.com/kubernetes-sigs/krew/releases/download/v{{ krew_version }}/krew.yaml
+    - https://github.com/kubernetes-sigs/krew/releases/download/v{{ krew_version }}/krew.tar.gz
+
+- name: extract krew
+  unarchive:
+    src: "{{ localsrc_dir }}/krew/krew.tar.gz"
+    dest: "{{ localsrc_dir }}/krew"
+
+# KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_amd64"
+- name: install krew
+  shell: "{{ item }}"
+  with_items:
+    - ./krew-linux_amd64 install --manifest krew.yaml --archive=krew.tar.gz
+    - ./krew-linux_amd64 update
+  args:
+    chdir: "{{ localsrc_dir }}/krew"
+
+- name: install kubectl packages with krew
+  shell: kubectl krew install "{{ item }}"
+  with_items:
+    - ctx
+    - ns
+    - tree
+
+- name: list installed kubectl packages
+  shell: kubectl krew list
+
+- import_tasks: ../../essentials/tasks/linuxbrew.yml
+- name: install kubectx, stern, popeye, kpoof
+  shell: brew install "{{ item }}"
+  with_items:
+    - kubectx
+    - stern
+    - derailed/popeye/popeye
+    - farmotive/k8s/kpoof
+
+# curl -s https://packagecloud.io/install/repositories/datawireio/telepresence/script.deb.sh
+# os=ubuntu dist=focal ./script.deb.sh
+# sudo apt install --no-install-recommends telepresence
+
+#  go get github.com/grafana/loki/cmd/logcli
+# https://github.com/grafana/loki/releases/download/v1.6.1/logcli-linux-amd64.zip
+#   zsh auto_completion;
+#   To do so in all your shell sessions, add the following to your ~/.zshrc file:
+# {{{sh
+#   source <(kubectl completion zsh)
+#   # If you have an alias for kubectl, you can extend shell completion to work with that alias:
+#   echo 'alias k=kubectl' >>~/.zshrc
+#   echo 'complete -F __start_kubectl k' >>~/.zshrc
+#   # After reloading your shell, kubectl autocompletion should be working.
+#   # If you get an error like complete:13: command not found: compdef, then add the following to the beginning of your ~/.zshrc file:
+#
+#   autoload -Uz compinit
+#   compinit
+# }}}
+#
+# # stern: brew install stern or
+# mkdir -p $GOPATH/src/github.com/wercker
+# cd $GOPATH/src/github.com/wercker
+# git clone https://github.com/wercker/stern.git && cd stern
+# govendor sync
+# go install
+

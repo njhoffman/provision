@@ -1,0 +1,49 @@
+---
+- name: create nvm directory
+  file:
+    path: $HOME/.nvm
+    state: directory
+    mode: 0755
+
+- name: download nvm
+  get_url:
+    url: https://raw.githubusercontent.com/nvm-sh/nvm/v{{ nvm_version }}/install.sh
+    dest: "{{ localsrc_dir }}/nvm-install.sh"
+    mode: 0755
+
+- name: install nvm
+  shell: ./nvm-install.sh
+  args:
+    chdir: "{{ localsrc_dir }}"
+
+# TODO: doesn't work unless shell reloaded
+- name: load nvm variables
+  shell: "{{ item }}"
+  with_items:
+    - export NVM_DIR="{{ nvm_dir }}"
+    - sh "{{ nvm_dir }}/nvm.sh"
+    - sh "{{ nvm_dir }}/bash_completion"
+
+- name: install node
+  shell: sh ./nvm.sh install node
+  args:
+    chdir: "{{ nvm_dir }}"
+
+- name: configure node
+  shell: sh ./nvm.sh  alias default node
+  args:
+    chdir: "{{ nvm_dir }}"
+
+- name: install misc global node packages
+  shell: npm install -g "{{ item }}"
+  with_items:
+    - "@prettier/plugin-ruby"
+    - npm-check
+    - cost-of-modules
+    - yarn
+    - graphql-language-service-cli
+
+- name: install node modules in resources
+  shell: npm install
+  args:
+    chdir: "{{ resources_dir }}"

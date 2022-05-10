@@ -1,0 +1,40 @@
+---
+- name: add rofi dependencies
+  become: true
+  package:
+    name:
+      - check
+      - bison
+      - flex
+      - libxkbcommon-x11-dev
+      - libstartup-notification0-dev
+      - librsvg2-dev
+
+- name: remove existing rofi directory
+  file:
+    path: "{{ localsrc_dir }}/rofi"
+    state: absent
+
+- name: clone rofi
+  git:
+    repo: https://github.com/davatorium/rofi
+    dest: "{{ localsrc_dir }}/rofi"
+    recursive: true
+    update: yes
+
+- name: build rofi
+  shell: "{{ item }}"
+  with_items:
+    - autoreconf -i
+    - ./configure --prefix=${HOME}/.local
+    - make V=1
+  args:
+    chdir: "{{ localsrc_dir }}/rofi"
+
+- name: install rofi
+  become: true
+  shell: make install
+  args:
+    chdir: "{{ localsrc_dir }}/rofi"
+
+

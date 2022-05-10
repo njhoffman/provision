@@ -1,0 +1,106 @@
+---
+- name: install i3-gaps dependencies
+  become: true
+  package:
+    name:
+    - libev-dev
+    - libpango1.0-dev
+    - libstartup-notification0-dev
+    - libtool
+    - libxcb-cursor-dev
+    - libxcb-icccm4-dev
+    - libxcb-keysyms1-dev
+    - libxcb-randr0-dev
+    - libxcb-util0-dev
+    - libxcb-xinerama0-dev
+    - libxcb-xkb-dev
+    - libxcb1-dev
+    - libxkbcommon-dev
+    - libxkbcommon-x11-dev
+    - libyajl-dev
+    - xutils-dev
+
+- name: clone xcb-util-xrm
+  git:
+    repo: https://github.com/Airblader/xcb-util-xrm
+    dest: "{{ localsrc_dir }}/xcb-util-xrm"
+
+- name: build xcb-util-xrm
+  shell: "{{ item }}"
+  with_items:
+    - git submodule update --init
+    - ./autogen.sh --prefix=/usr
+    - make
+  args:
+    chdir: "{{ localsrc_dir }}/xcb-util-xrm"
+
+- name: install xcb-util-xrm
+  become: true
+  shell: make install
+  args:
+    chdir: "{{ localsrc_dir }}/xcb-util-xrm"
+
+- name: clone i3-gaps
+  git:
+    repo: https://www.github.com/Airblader/i3
+    dest: "{{ localsrc_dir }}/i3-gaps"
+    version: gaps
+
+- name: clean i3-gaps build
+  file:
+    path: "{{ localsrc_dir }}/i3-gaps/build"
+    state: absent
+
+- name: make i3-gaps build directory
+  file:
+    path: "{{ localsrc_dir }}/i3-gaps/build"
+    state: directory
+    mode: 0755
+
+- name: configure i3-gaps
+  shell: autoreconf --force --install
+  args:
+    chdir: "{{ localsrc_dir }}/i3-gaps"
+
+- name: build i3-gaps
+  shell: "{{ item }}"
+  with_items:
+    - ../configure --prefix=/usr --sysconfdir=/etc
+    - make
+  args:
+    chdir: "{{ localsrc_dir }}/i3-gaps/build"
+
+- name: uninstall existing i3
+  become: true
+  package:
+    name:
+      i3
+      i3-wm
+    state: absent
+
+- name: install i3-gaps
+  become: true
+  shell: make install
+  args:
+    chdir: "{{ localsrc_dir }}/i3-gaps/build"
+
+- name: clone i3-radius extension
+  git:
+    repo: https://github.com/terroo/i3-radius
+    dest: "{{ localsrc_dir }}/i3-radius"
+
+- name: install i3-radius
+  shell: ./build.sh
+  args:
+    chdir: "{{ localsrc_dir }}/i3-radius"
+
+- name: make i3-radius
+  shell: make
+  args:
+    chdir: "{{ localsrc_dir }}/i3-radius/build"
+
+- name: install i3-radius
+  become: true
+  shell: make install
+  args:
+    chdir: "{{ localsrc_dir }}/i3-radius/build"

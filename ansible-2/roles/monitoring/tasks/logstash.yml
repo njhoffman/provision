@@ -1,0 +1,36 @@
+---
+- name: install logstash public signing key
+  become: true
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+- name: add repo definition to apt
+  become: true
+  apt_repository:
+    repo: deb https://artifacts.elastic.co/packages/7.x/apt stable main
+    state: present
+    update_cache: true
+
+- name: install logstash
+  become: true
+  apt:
+    name: logstash
+    state: present
+
+- name: enable and start logstash service
+  become: true
+  systemd:
+    name: logstash
+    state: started
+    enabled: true
+
+# cd /etc/logstash
+## must first login
+# wget https://download.maxmind.com/app/geoip_download_by_token?edition_id=GeoLite2-City&date=20200707&suffix=tar.gz&token=v2.local.hRW-g-oXj97av6l7WtziulU9SZuriZJA5GeF9SyibhyXGCKrbHzsg0pLTryFtn-qNHeJaqmQEkelfks2AHxE21np_dRbn0yD05sA39RnYL0t7y_FMwcEMeRPekItrU7mFjoKqKgiT8uqQYRGfPJJN7MU5lEWNC-k9jKaCCwld10Zi6N6KOa4YhPOajkDjAev_zgEdLvU
+# tar xzf GeoLite2-City.tar.gz
+# cp GeoLite2-City_*/GeoLite2-City.mmdb .
+#
+# cp -rv $DIR/config/logstash/patterns /etc/logstash
+# cp $DIR/config/logstash/conf.d/logstash.conf /etc/logstash/conf.d
+# cp $DIR/config/logstash/conf.d/*.conf /etc/logstash/conf.d
+

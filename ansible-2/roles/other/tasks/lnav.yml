@@ -1,0 +1,31 @@
+---
+- name: lnav dependencies
+  become: true
+  package:
+    name:
+      - krb5-config
+      - libkrb5-dev
+      - libssl-dev
+      - libsasl2-dev
+      - libsasl2-modules-gssapi-mit
+
+- name: clone lnav
+  git:
+    repo: https://github.com/tstack/lnav
+    dest: "{{ localsrc_dir }}/lnav"
+
+- name: build lnav
+  shell: "{{ item }}"
+  with_items:
+    - ./autogen.sh
+    - ./configure
+    - make
+  args:
+    chdir: "{{ localsrc_dir }}/lnav"
+
+- name: install lnav
+  become: true
+  shell: make install
+  args:
+    chdir: "{{ localsrc_dir }}/lnav"
+

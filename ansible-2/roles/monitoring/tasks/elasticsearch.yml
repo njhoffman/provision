@@ -1,0 +1,31 @@
+---
+- name: install oracle openjdk prerequisite
+  become: true
+  apt:
+    name: openjdk-11-jdk # default-jre
+    state: present
+
+- name: verify java installed
+  shell: java -version
+
+- name: download elasticsearch deb installation file
+  get_url:
+    url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ elasticsearch_version }}-amd64.deb
+    dest: "{{ localsrc_dir }}"
+
+- name: install elasticsearch
+  become: true
+  apt:
+    deb: "{{ localsrc_dir }}/elasticsearch-{{ elasticsearch_version }}-amd64.deb"
+
+- name: enable and start elasticsearch service
+  become: true
+  systemd:
+    name: elasticsearch
+    state: started
+    enabled: true
+
+- name: verify elasticsearch is running
+  shell: curl http://127.0.0.1:{{ elasticsearch_port }}
+  args:
+    warn: false

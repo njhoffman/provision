@@ -1,0 +1,45 @@
+---
+- name: add influxdb apt key
+  become: true
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+
+- name: add influx repo
+  become: true
+  apt_repository:
+    repo: deb https://repos.influxdata.com/ubuntu focal stable
+    state: present
+    update_cache: true
+
+- name: install telegraf
+  become: true
+  apt:
+    name: telegraf
+
+- name: backup default telegraf conf
+  become: true
+  copy:
+    src: /etc/telegraf/telegraf.conf
+    dest: /etc/telegraf/telegraf.conf.default
+
+- name: generate telegraf conf from template
+  become: true
+  template:
+    src: telegraf.j2
+    dest: /etc/telegraf/telegraf.conf
+
+- name: start and enable telegraf service
+  become: true
+  systemd:
+    name: telegraf
+    state: started
+    enabled: true
+
+- name: test telegraf settings
+  become: true
+  shell: "{{ item }}"
+  with_items:
+    - telegraf -test -config /etc/telegraf/telegraf.conf --input-filter cpu
+    - telegraf -test -config /etc/telegraf/telegraf.conf --input-filter net
+    - telegraf -test -config /etc/telegraf/telegraf.conf --input-filter mem
+

@@ -1,0 +1,35 @@
+---
+- name: add influxdb apt key
+  become: true
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+
+- name: add influxdb repo
+  become: true
+  apt_repository:
+    repo: deb https://repos.influxdata.com/ubuntu groovy stable
+    state: present
+    update_cache: false
+
+- name: install influxdb and influxdb-client
+  become: true
+  apt:
+    name: [ 'influxdb', 'influxdb-client' ]
+    state: present
+
+- name: enable and start influxdb service
+  become: true
+  systemd:
+    name: influxdb
+    state: started
+    enabled: true
+
+- name: create telegraf database and user
+  shell: "{{ item }}"
+  with_items:
+    - influx -execute 'create database {{ telegraf_database }}'
+    - influx -execute "create user {{ telegraf_username }} with password '{{ telegraf_password }}'"
+
+- name: display influxd ports (should be 8086 and 8088)
+  become: true
+  shell: netstat -plntu | grep influxd

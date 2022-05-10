@@ -1,0 +1,48 @@
+---
+- import_tasks: ./conky.yml
+  tags: [ conky ]
+
+- import_tasks: ./compton.yml
+  tags: [ compton ]
+
+- import_tasks: ./i3.yml
+  tags: [ i3 ]
+
+- import_tasks: ./polybar.yml
+  tags: [ polybar ]
+
+- import_tasks: ./rofi.yml
+  tags: [ rofi ]
+
+- name: misc window management installs
+  become: true
+  package:
+    name:
+      - nitrogen
+
+- name: prereqs for flashfocus
+  become: true
+  package:
+    name:
+      - libffi-dev
+      - libxcb-render0-dev
+      - netcat-openbsd
+      - python3-xcffib
+
+- name: install flashfocus
+  pip:
+    name:
+      - flashfocus
+
+# libxcb
+# xcb-util
+# xcb-util-wm
+# https://github.com/baskerville/bspwm
+
+# insall gnome material-ui extension
+# install scrot
+
+# install slim: sudo apt-get install slim && dpkg-reconfigure slim
+# cp slim themes to /usr/share/slim/themes
+# cd ~/.local/src && git clone https://github.com/adi1090x/slim_themes && cp -rv slip_themes/themes/* /usr/share/slim/themes
+# /etc/slim.conf -> current_theme bridge
