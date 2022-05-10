@@ -56,6 +56,7 @@ cargo install update-all
 ~/ghq/github.com/njhoffman/provision/programs/autokey/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/picom/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/tmuxp/install.sh
+
 ~/ghq/github.com/njhoffman/provision/programs/nvenv/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/nvimpager/install.sh
 
@@ -95,14 +96,6 @@ sudo apt remove jq
 
 # rofi, rofi-themes ~/.local/share/rofi/themes/
 # apt install rofi
-
-sudo apt install xclip libpcre2-dev libpcre3-dev nnn
-ghq get -l https://github.com/vlang/v
-ghq get -l https://github.com/NTBBloodbath/nvenv
-mkdir -p ~/.vim/sessions/restart ~/.vim/sessions/saved
-pip3 install --user neovim-remote tasklib
-# inside vim - LspInstall,
-# sudo apt install python3.10-venv
 
 sudo apt install mpd mpc
 ln -s ~/.config/mpd/mpd.conf
