@@ -1,0 +1,35 @@
+---
+- name: install build essentials
+  become: true
+  package:
+    name:
+      - apt-transport-https
+      - autoconf
+      - automake
+      - autotools-dev
+      - build-essential
+      - ca-certificates
+      - cmake
+      - cmake-data
+      - dirmngr
+      - gdb
+      - gnupg-agent
+      - make
+      - mercurial
+      - meson
+      - ninja-build
+      - pkg-config
+      - software-properties-common
+    state: present
+
+- import_tasks: ./linuxbrew.yml
+  tags: [ linuxbrew ]
+
+
+# sdkman for java version control
+
+# curl -s "https://get.sdkman.io" | bash
+# source "$HOME/.sdkman/bin/sdkman-init.sh"
+# sdk version && sdk list java && sdk install java
+# sdk use java 11.0 && sdk default java 11.0
+# sdk broadcast

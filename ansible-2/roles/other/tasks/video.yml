@@ -1,0 +1,13 @@
+---
+# lshw -C display to get nvidia/amd/intel
+#
+# - nvtop
+# - nvidia-smi
+#
+# - intel-gpu-tools: intel_gpu_top intel-gpu-overlay --size 200%
+# - libvdpau-va-gl
+# - intel-media-va-driver-non-free intel-media-va-driver intel-media-drivers
+# - vainfo
+# - glxgears
+
+

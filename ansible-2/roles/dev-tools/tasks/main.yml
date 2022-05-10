@@ -1,0 +1,46 @@
+---
+- import_tasks: ./aws.yml
+  tags: [ aws ]
+
+- import_tasks: ./docker.yml
+  tags: [ docker ]
+
+- import_tasks: ./kubernetes.yml
+  tags: [ kubernetes ]
+
+- import_tasks: ./postgres.yml
+  tags: [ postgres ]
+
+- import_tasks: ./terraform.yml
+  tags: [ terraform ]
+
+- import_tasks: ./twilio.yml
+  tags: [ twilio ]
+
+- import_tasks: ./utils.yml
+  tags: [ utils ]
+
+# _ apt-get install ccls
+
+# npm install -g diff-so-fancy
+# https://github.com/cheat/cheat/releases/download/4.0.4/cheat-linux-amd64.gz
+# gunzip cheat-linux-amd64
+# chmod +x cheat-linux-amd64
+# mv cheat-linux-amd64 /usr/local/bin/cheat
+#
+# brew install watchman
+#
+# android tools
+# apt-get install qemu-kvm uridge-utils
+# apt-get install openjdk-8-jdk
+# wget https://github.com/facebook/watchman/releases/download/v2020.08.17.00/watchman-v2020.08.17.00-linux.zip
+# unzip watchman-*-linux.zip
+# sudo mkdir -p /usr/local/{bin,lib} /usr/local/var/run/watchman
+# sudo cp bin/* /usr/local/bin
+# sudo cp lib/* /usr/local/lib
+# sudo chmod 755 /usr/local/bin/watchman
+# sudo chmod 2777 /usr/local/var/run/watchman
+#
+# snap install gitkraken --classic
+#
+# brew install git-delta

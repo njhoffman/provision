@@ -1,0 +1,4 @@
+---
+fonts_repositories:
+  - deb http://ftp.debian.org/debian/ stable main non-free contrib
+  - deb-src http://ftp.debian.org/debian/ stable main non-free contrib

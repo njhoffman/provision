@@ -1,0 +1,74 @@
+---
+- name: create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - ~/.config
+
+### create github.com ssh key manually
+- name: create ssh directory
+  file:
+    path: "~/.ssh"
+    state: directory
+    mode: 0700
+#
+# - name: add github ssh key
+#   become: true
+#   copy:
+#     src: ~/.ssh/github_rsa
+#     dest: ~/.ssh/github_rsa
+#     mode: 0600
+#
+# - name: configure ssh to use ansible key for github.com
+#   become: true
+#   template:
+#     src: templates/ssh_config.j2
+#     dest: ~/.ssh/config
+#     mode: 0644
+#
+# - name: clone personal resources repository from github
+#   become: false
+#   git:
+#     repo: ssh://git@github.com/njhoffman/resources.git
+#     dest: "{{ resources_dir }}"
+#     key_file: "~/.ssh/github_rsa"
+#     accept_hostkey: yes
+#     version: master
+#     update: no
+#
+- name: symbolic link config files
+  shell: find {{ resources_dir }}/config/.config -maxdepth 1 -type f -exec ln -vs {} "$HOME/.config/" ';'
+
+- name: symbolic link config directories
+  shell: find {{ resources_dir }}/config/.config -maxdepth 1 -type d -exec ln -vs {} "$HOME/.config/" ';'
+
+- name: symbolic link dotfiles
+  shell: find {{ resources_dir }}/config/dotfiles -maxdepth 1 -type f -exec ln -vs {} "$HOME/" ';'
+
+- name: symbolic link dotfile directories
+  shell: find {{ resources_dir }}/config/dotfiles -maxdepth 1 -type d -exec ln -vs {} "$HOME/" ';'
+
+- name: symbolic link bin directory
+  file:
+    path: $HOME/bin
+    src: "{{ resources_dir }}/bin"
+    state: link
+
+- name: symbolic link shell directory
+  file:
+    path: $HOME/.shell
+    src: "{{ resources_dir }}/config/.shell"
+    state: link
+
+# TODO: figure out how to fail and not quit here
+- name: test for ~/.shell/.bashrc import line
+  shell: grep -c "^$HOME/.shell/.bashrc" $HOME/.bashrc || true
+  register: test_bashrc_import
+
+- name: add ~/.shell/.bashrc import to ~/.bashrc
+  lineinfile:
+    dest: $HOME/.bashrc
+    line: '[[ -f "$HOME/.shell/.bashrc" ]] && source "$HOME/.shell/.bashrc"'
+  when: test_bashrc_import == "0"

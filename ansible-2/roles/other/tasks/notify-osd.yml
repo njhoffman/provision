@@ -1,0 +1,33 @@
+---
+- name: install notify-osd icons
+  become: true
+  package:
+    state: present
+    name:
+      - notify-osd-icons
+
+- name: download enhanced notify-osd
+  get_url:
+    url: http://ppa.launchpad.net/leolik/leolik/ubuntu/pool/main/n/notify-osd/notify-osd_0.9.35+16.04.20160415-0ubuntu1-leolik~ppa2_amd64.deb
+    dest: "{{ localsrc_dir }}/notify-osd.deb"
+
+- name: install enhanced notify-osd
+  become: true
+  shell: dpkg -i ./notify-osd.deb
+  args:
+    chdir: "{{ localsrc_dir }}"
+
+- name: restart notification daemon
+  become: true
+  shell: pkill notify-osd || true
+
+- name: test enhanced notify-osd
+  shell: notify-send --urgency=LOW --expire-time=6000 --icon=face-laugh "Success" "Enhanced notify-osd installed"
+
+# if still not showing...
+# export $(dbus-launch)
+# /usr/lib/x86_64-linux-gnu/notify-osd --expire-time=6000 "testing" "one two"
+# ...reading settings from '/home/nicholas/.notify-osd'
+
+# [dbus-send --type=method_call --dest='org.freedesktop.Notifications' /org/freedesktop/Notifications org.freedesktop.Notifications.Notify string:'[APPLICATION]' uint32:1 string:'[ICON]' string:'Title' string:'body' array:string:'' dict:string:string:'','' int32:[TIMEOUT]
+

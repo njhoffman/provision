@@ -1,0 +1,137 @@
+---
+- import_tasks: ./audio.yml
+  tags: [ audio ]
+
+- import_tasks: ./video.yml
+  tags: [ video ]
+
+- import_tasks: ./chrome.yml
+  tags: [ chrome ]
+
+# - import_tasks: ./glava.yml
+#   tags: [ glava ]
+
+- import_tasks: ./lnav.yml
+  tags: [ lnav ]
+
+- import_tasks: ./neofetch.yml
+  tags: [ neofetch ]
+
+- import_tasks: ./notify-osd.yml
+  tags: [ notify-osd ]
+
+- import_tasks: ./system-monitors.yml
+  tags: [ system-monitors]
+
+# - name: add apt repositories for miscellaneous installs
+#   apt_repository:
+#     repo: universe
+# pip install --user subliminal http-prompt
+# git-core, colordiff, xsel, yodl, multitail, gnome-settings-daemon
+
+- name: miscellaneous installs
+  become: true
+  package:
+    state: present
+    name:
+     - autokey-gtk
+     - cifs-utils
+     - dclock
+     # - expressvpn # TODO: add expressvpn repository
+     - expect # unbuffer command
+     - feh
+     - fd-find
+     - gnome-tweak-tool
+     - httpie
+     - imagemagick
+     - inotify-tools
+     - locate
+     - net-tools
+     - nmap
+     - p7zip-full
+     - pv
+     - ranger
+     - samba
+     - samba-common-bin
+     - smbclient
+     - scrot
+     - viewnior
+     - wifi-qr         # nmcli
+     - zathura
+
+- name: miscellaneous snap installs
+  become: true
+  shell: snap install {{ item }} --classic
+  with_items:
+    - slack
+
+# expressvpn: gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 0xAFF2A1415F6A3A38
+# expressvpn activate: EHJ58OMHFY8TBSHHVREPESH
+
+- name: kvm hypervisor
+  become: true
+  package:
+    state: present
+    name:
+      - bridge-utils
+      - cpu-checker
+      - libosinfo-bin
+      - libvirt-clients
+      - libvirt-daemon
+      - libvirt-daemon-system
+      - libvirt-dev
+      - osinfo-db-tools
+      - qemu-kvm
+      - virtinst
+      - virtualbox
+
+- import_tasks: ../../essentials/tasks/linuxbrew.yml
+- name: install brew managed packages
+  shell: brew install {{ item }}
+  with_items:
+    - lazygit
+    - fzf
+
+# git clone https://github.com/junegunn/fzf.git
+# make && sudo make install
+# cp -rv shell ~/bin/fzf
+
+- name: download filebot installer
+  get_url:
+    url: https://raw.githubusercontent.com/filebot/plugins/master/installer/deb.sh
+    dest: "{{ localsrc_dir }}/filebot-installer.sh"
+    mode: 0755
+
+# TODO: pass Y opiton to installing packages
+# - name: install filebot
+#   shell: ./filebot-installer.sh
+#   args:
+#     chdir: "{{ localsrc_dir }}"
+
+# TODO: license filebot
+
+- name: download kernel upgrade script
+  get_url:
+    url: https://raw.githubusercontent.com/pimlie/ubuntu-mainline-kernel.sh/master/ubuntu-mainline-kernel.sh
+    dest: "{{ localsrc_dir }}"
+
+- name: install kernel upgrade script
+  become: true
+  shell: install ubuntu-mainline-kernel.sh /usr/local/bin/
+  args:
+    chdir: "{{ localsrc_dir }}"
+
+# - name: install latest kernel
+#   become: true
+#   shell: ubuntu-mainline-kernel.sh -i
+
+# install service to reset backlight permissions on bootup
+# systemctl enable backlight.wervice && systemctl start backlight.service && systemctl status backlight.servicce
+
+
+# sysctl -w fs.inotify.max_user_watches=
+# sysctl -w fs
+# sysctl -w fs.inotify.max_user_watches = 524288
+# sysctl -w net.ipv6.conf.all.disable_ipv6 = 1
+# net.ipv6.conf.default.disable_ipv6 = 1
+# net.ipv6.conf.wlp2s0.disable_ipv6 = 1

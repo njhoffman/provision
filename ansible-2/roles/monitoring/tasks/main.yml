@@ -1,0 +1,16 @@
+---
+# TIG: Telegraf Influxdb Grafana
+- import_tasks: ./influxdb.yml
+  tags: [ influxdb ]
+- import_tasks: ./telegraf.yml
+  tags: [ telegraf ]
+- import_tasks: ./grafana.yml
+  tags: [ grafana ]
+
+# ELK: Elasticsearch Logstash Kibana
+- import_tasks: ./elasticsearch.yml
+  tags: [ elasticsearch ]
+- import_tasks: ./logstash.yml
+  tags: [ logstash ]
+- import_tasks: ./kibana.yml
+  tags: [ kibana ]

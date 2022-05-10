@@ -1,0 +1,11 @@
+[Unit]
+Description=Set backlight brightness values writable to everybody
+Before=nodered.service
+
+[Service]
+type=oneshot
+User=root
+ExecStart=/bin/bash -c "/bin/chmod a+w /sys/class/backlight/intel_backlight/brightness"
+
+[Install]
+WantedBy=multi-user.target

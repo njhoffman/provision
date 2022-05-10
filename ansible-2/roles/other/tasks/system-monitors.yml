@@ -1,0 +1,77 @@
+---
+- name: requirements for system monitor packages
+  become: true
+  package:
+    state: present
+    name:
+      - linux-tools-generic
+      - linux-tools-common
+      - zlib1g-dev
+
+- name: system monitors
+  become: true
+  package:
+    state: present
+    name:
+     # - atop
+     - glances
+     - htop
+     - iftop
+     - nethogs
+     - nmon
+     - powertop
+     - s-tui
+     - speedometer
+     - stress
+     - vnstat
+
+- name: install nodejs managed packages
+  shell: npm install -g {{ item }}
+  with_items:
+    - gtop
+
+- name: download atop
+  get_url:
+    url: https://www.atoptool.nl/download/atop-{{ atop_version }}.tar.gz
+    dest: "{{ localsrc_dir }}"
+
+- name: unextract atop
+  unarchive:
+    src: "{{ localsrc_dir }}/atop-{{ atop_version }}.tar.gz"
+    dest: "{{ localsrc_dir }}"
+
+# TODO: remove binary files to prevent errors
+- name: install atop
+  become: true
+  shell: make sysvinstall
+  ignore_errors: true
+  args:
+    chdir: "{{ localsrc_dir }}/atop-{{ atop_version }}"
+
+- name: download netatop module for atop
+  get_url:
+    url: https://www.atoptool.nl/download/netatop-{{ netatop_version }}.tar.gz
+    dest: "{{ localsrc_dir }}"
+
+- name: unextract netatop module
+  unarchive:
+    src: "{{ localsrc_dir }}/netatop-{{ netatop_version }}.tar.gz"
+    dest: "{{ localsrc_dir }}"
+
+- name: make netatop module
+  shell: make
+  args:
+    chdir: "{{ localsrc_dir }}/netatop-{{ netatop_version }}"
+
+- name: install netatop module
+  become: true
+  shell: make install
+  args:
+    chdir: "{{ localsrc_dir }}/netatop-{{ netatop_version }}"
+
+- name: enable netatop daemon on boot
+  become: true
+  shell: "{{ item }}"
+  with_items:
+    - systemctl start netatop
+    - systemctl enable netatop

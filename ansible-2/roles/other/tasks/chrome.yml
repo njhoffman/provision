@@ -1,0 +1,21 @@
+---
+- name: download chrome
+  get_url:
+    url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    dest: "{{ localsrc_dir }}"
+
+- name: install chrome
+  become: true
+  shell: apt-get install ./google-chrome-stable_current_amd64.deb
+  args:
+    chdir: "{{ localsrc_dir }}"
+
+# - name: install tor browser
+#   wget https://www.torproject.org/dist/torbrowser/9.5.1/tor-browser-linux64-9.5.1_en-US.tar.xz
+# tar -xvJf tor-browser-linux64-8.5.1_en-US.tar.xz
+# sudo mv tor-browser_en-US /opt
+# cd /opt/tor-browser_en-US
+# ./start-tor-browser.desktop --register-app
+
+# themes: GTK3+
+# extensions: adblock, dark reader, graphql network, jsonview, react developer tools, react-sight, redux devtools

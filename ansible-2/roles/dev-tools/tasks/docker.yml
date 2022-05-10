@@ -1,0 +1,50 @@
+---
+# requirements:
+# $ sudo apt-get install \
+#     apt-transport-https \
+#     ca-certificates \
+#     curl \
+#     gnupg-agent \
+#     software-properties-common
+- name: add docker key
+  become: true
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+  tags: docker
+
+  # groovy (20.10 not released yet, find a way to check)
+  # sudo add-apt-repository \
+  #  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+  #  $(lsb_release -cs) \
+  #  stable"
+
+- name: install docker
+  become: true
+  package:
+    name: docker
+  tags: docker
+
+  # sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stabl
+  # sudo groupadd docker
+  # sudo usermod -aG docker ${USER}
+  # docker run hello-world
+
+- name: download and install docker compose
+  become: true
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
+    dest: /usr/local/bin/docker-compose
+    mode: 0755
+  tags: docker
+
+- name: download docker machine
+  get_url:
+    url: "https://github.com/docker/machine/releases/download/v{{ docker_machine_version }}/docker-machine-Linux-x86_64"
+    dest: "{{ localsrc_dir }}/docker-machine"
+  tags: docker
+
+- name: install docker machine
+  become: true
+  shell: install {{ localsrc_dir }}/docker-machine /usr/local/bin/docker-machine
+  tags: docker

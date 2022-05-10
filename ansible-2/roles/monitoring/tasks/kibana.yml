@@ -1,0 +1,28 @@
+---
+- name: install oracle openjdk prerequisite
+  become: true
+  apt:
+    name: openjdk-11-jdk # default-jre
+    state: present
+
+- name: verify java installed
+  shell: java -version
+
+- name: download kibana archive
+  get_url:
+    url: https://artifacts.elastic.co/downloads/kibana/kibana-{{ kibana_version }}-linux-x86_64.tar.gz
+    dest: "{{ localsrc_dir }}"
+
+- name: unextract kibana
+  unarchive:
+    src: "{{ localsrc_dir }}/kibana-{{ kibana_version }}-linux-x86_64.tar.gz"
+    dest: "{{ localsrc_dir }}"
+
+- name: install kibana
+  shell: "{{ localsrc_dir }}/kibana-{{ kibana_version }}-linux-x86_64/bin/kibana"
+
+- name: verify kibana is running
+  shell: curl http://127.0.0.1:{{ kibana_port }}
+  args:
+    warn: false
+

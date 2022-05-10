@@ -1,0 +1,99 @@
+---
+- name: Provisioning Playbook
+  hosts: localhost
+  connection: local
+  become: false
+  vars:
+    # must hardcode these so root level can access user specific files
+    # possible solution: anything that requires sudo make install goes in /usr/local
+    resources_dir: /home/nicholas/resources
+    config_dir:    /home/nicholas/.config
+    localsrc_dir:  /home/nicholas/.local/src
+
+  roles:
+    - role: essentials
+      tags: [ essentials ]
+      vars:
+        git_email:    njhoffman1982@gmail.com
+        git_name:     Nicholas Hoffman
+        go_version:   1.13
+        nvm_version:  0.35.3
+        nvm_dir:      $HOME/.nvm
+        ruby_version: 2.7.1
+
+    - role: resources
+      tags: [ resources ]
+
+    - role: neovim
+      tags: [ neovim, nvim ]
+
+    - role: projects
+      tags: [ projects ]
+      vars:
+        - projects_dir:   $HOME/projects
+        - forks_dir:      $HOME/forks
+        - references_dir: $HOME/reference
+
+    - role: dev-tools
+      tags: [ dev-tools ]
+      vars:
+        docker_compose_version: 1.27.4
+        docker_machine_version: 0.16.2
+        helm_version:           3.3.0-rc.1
+        krew_version:           0.3.3
+        terraform_version:      0.12.15
+
+    - role: monitoring
+      tags: [ monitoring ]
+      vars:
+        - telegraf_hostname:      priapus
+        - telegraf_database:      telegraf
+        - telegraf_username:      telegraf
+        - telegraf_password:      telegraf
+        - telegraf_interval:      5s
+        - telegraf_net_interface: wlx00c0ca35dbc6
+        - elasticsearch_version:  7.8.0
+        - kibana_version:         7.8.0
+        - kibana_port:            5601
+        - influxdb_http_port:     8086
+        - influxdb_bind_port:     8088 # RPC calls, CLI
+        - grafana_port:           8090
+        - elasticsearch_port:     9200
+        - logstash_port:          9600
+        # 9300?
+
+    - role: other
+      tags: [ other ]
+      vars:
+        - atop_version:    2.5.0
+        - netatop_version: 3.1
+        - mpd_version:     0.21.24
+
+    - role: shell
+      tags: [ shell ]
+      vars:
+        tmux_version: 3.2-rc
+
+    - role: window-management
+      tags: [ window-management ]
+
+
+# image view{er
+      https://github.com/karlch/vimiv
+
+# TODO:
+#   add kernel updating task
+#   essentials: automate github and gitlab ssh keys
+#   resources: add source ~/.shell/.bashrc to ~/.bashrc
+#   dev-tools: fix dev-tools/utils github utility make install "cant find go"
+#   other: add expressvpn repository to apt
+#   other: initialize openvpn instead of expressvpn binary
+#   shell: fix gnome-terminal
+#   shell: fix zsh build issue
+#   shell: chsh /bin/zsh
+#   shell: settings from ~/resources/config/.config/gtk-3.0/settings.ini
+#   monitor:  add option to provision elasticsearch, kibana, grafana and influxdb as docker containers
+#   monitor: ensure grafana datasource/dashboard provisioning works
+#   monitor: provision elasticsearch
+#   monitor: provision logstash
+#   monitor: provision kibana

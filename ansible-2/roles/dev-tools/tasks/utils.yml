@@ -1,0 +1,58 @@
+---
+- name: install misc dev packages
+  become: true
+  package:
+    name:
+      - colordiff
+      - ccze
+      - jq
+      - shellcheck
+      - silversearcher-ag
+      - tig
+      - valgrind
+    state: present
+  tags: utils
+
+- name: install misc snap packages
+  become: true
+  shell: snap install {{ item }}
+  with_items:
+    yq
+
+- name: install nodejs dev packages
+  shell: npm install -g {{ item }}
+  with_items:
+    - yarn
+    - gulp
+    - npm-check
+  tags: utils
+
+- name: clone taskwarrior
+  git:
+    repo: https://github.com/GothenburgBitFactory/taskwarrior.git
+    dest: "{{ localsrc_dir }}/taskwarrior"
+  tags: utils
+
+- name: clone github utility
+  git:
+    repo: https://github.com/github/hub
+    dest: "{{ localsrc_dir }}/hub"
+  tags: utils
+
+# TODO: "make: go: Command not found"
+# - name: install github utility
+#   shell: make install prefix=/usr/local
+#   become: true
+#   args:
+#     chdir: "{{ localsrc_dir }}/hub"
+
+- name: install emojify
+  become: true
+  get_url:
+    url: https://raw.githubusercontent.com/mrowa44/emojify/master/emojify
+    dest: /usr/local/bin/emojify
+    mode: 0755
+  tags: utils
+
+# pip install gloang-migrate
+#

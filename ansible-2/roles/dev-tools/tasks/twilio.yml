@@ -1,0 +1,22 @@
+---
+- name: install dependencies for twilio-cli
+  become: true
+  package:
+    name:
+      - libsecret-1-dev
+
+- import_tasks: ../../essentials/tasks/node.yml
+
+- name: install twilio-cli with npm
+  npm:
+    name: twilio-cli
+    global: true
+
+# twilio autocomplete:
+# extract TWILIO_ACCOUNT_SID, TWILIO_API_KEY, TWILIO_API_SECRET from git-secret
+#
+# twilio plugins:install @twilio-labs/plugin-watch
+# twilio autocomplete
+#
+# proxying localhost:
+# twilio phone-numbers:update [PN sid or E.164] --sms-url http://localhost:5000/handle_sms

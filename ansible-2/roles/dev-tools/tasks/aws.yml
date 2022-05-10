@@ -1,0 +1,66 @@
+---
+- name: install awscli dependencies
+  become: true
+  package:
+    name:
+      - libbz2-dev
+      - libffi-dev
+      - libncurses-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - libssl-dev
+      - zlib1g-dev
+    state: present
+
+- name: download latest awscli v2
+  get_url:
+    url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: "{{ localsrc_dir }}/awscliv2.zip"
+    # curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    # unzip awscliv2.zip
+    # sudo ./aws/install
+- name: extract awscli
+  unarchive:
+    src: "{{ localsrc_dir }}/awscliv2.zip"
+    dest: "{{ localsrc_dir }}"
+
+- name: install awscli
+  become: true
+  shell: ./install --update
+  args:
+    chdir: "{{ localsrc_dir }}/aws"
+
+- name: download latest ecs-cli
+  get_url:
+    url: https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest
+    dest: "{{ localsrc_dir }}/ecs-cli"
+    mode: 0755
+
+- name: install awscli
+  become: true
+  copy:
+    src: "{{ localsrc_dir }}/ecs-cli"
+    dest: /usr/local/bin/ecs-cli
+
+- name: clone elasticbeanstalk cli
+  git:
+    repo: https://github.com/aws/aws-elastic-beanstalk-cli-setup.git
+    dest: "{{ localsrc_dir }}/aws-elastic-beanstalk-cli-setup"
+
+- name: install elasticbeanstalk cli
+  become: true
+  shell: "{{ localsrc_dir }}/aws-elastic-beanstalk-cli-setup/scripts/bundled_installer"
+
+- name: install aws-shell
+  shell: pip3 install aws-shell
+
+- name: download aws-iam-authenticator
+  get_url:
+    url: https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.7/2020-07-08/bin/linux/amd64/aws-iam-authenticator
+    dest: "{{ localsrc_dir }}"
+
+- name: install aws-iam-authenticator
+  become: true
+  shell: install aws-iam-authenticator /usr/local/bin
+  args:
+    chdir: "{{ localsrc_dir }}"

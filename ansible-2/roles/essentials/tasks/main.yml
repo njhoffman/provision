@@ -1,0 +1,9 @@
+---
+- import_tasks: ./build.yml
+  tags: [ build, builders ]
+
+- import_tasks: ./git.yml
+  tags: [ git ]
+
+- import_tasks: ./compilers.yml
+  tags: [ compile, compilers ]

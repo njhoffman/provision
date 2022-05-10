@@ -1,0 +1,12 @@
+---
+- name: clone neofetch
+  git:
+    repo: https://github.com/dylanaraps/neofetch
+    dest: "{{ localsrc_dir }}/neofetch"
+
+- name: make neofetch
+  become: true
+  shell: make install
+  args:
+    chdir: "{{ localsrc_dir }}/neofetch"
+

@@ -1,0 +1,59 @@
+---
+- name: install tmux dependencies
+  become: true
+  package:
+    name:
+      - bison
+      - flex
+      - libevent-dev
+      - ncurses-dev
+
+- name: create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - ~/.tmux
+    - ~/.tmux/plugins
+
+- name: clone tmux
+  become: true
+  git:
+    repo: https://github.com/tmux/tmux.git
+    dest: /usr/local/src/tmux
+
+- name: clone tmux-plugins
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+
+- name: configure tmux
+  become: true
+  shell: "{{ item }}"
+  args:
+    chdir: /usr/local/src/tmux
+  with_items:
+    - git checkout {{ tmux_version }}
+    - ./autogen.sh
+    - ./configure
+
+- name: install tmux
+  become: true
+  shell: "{{ item }}"
+  args:
+    chdir: /usr/local/src/tmux
+  with_items:
+    - make
+    - make install
+
+- name: install tmux plugin related packages
+  become: true
+  package:
+    name:
+      - autocutsel # sync between primary and x11 clipboards TODO: install service
+      - xsel     # tmux-yank
+      - urlview  # tmux-urlview
+
+# TODO: install tpm plugins automatically
+# Ctrl-A+U, Ctrl-A+I

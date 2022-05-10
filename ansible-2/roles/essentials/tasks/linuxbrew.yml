@@ -1,0 +1,15 @@
+---
+- name: download linuxbrew
+  get_url:
+    url: https://raw.githubusercontent.com/Homebrew/install/master/install.sh
+    dest: "{{ localsrc_dir }}/linuxbrew-install.sh"
+    mode: 0755
+
+- name: install linuxbrew
+  shell: ./linuxbrew-install.sh
+  args:
+    chdir: "{{ localsrc_dir }}"
+
+# echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> /home/nicholas/.profile
+# eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+# brew install gcc

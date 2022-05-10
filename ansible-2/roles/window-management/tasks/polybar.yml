@@ -1,0 +1,55 @@
+---
+- name: install polybar dependencies
+  become: true
+  package:
+    name:
+    - alsa-tools
+    - libasound2-dev
+    - libcairo2-dev
+    - libcurl4-openssl-dev
+    - libiw-dev
+    - libmpdclient-dev
+    - libpulse-dev
+    - libxcb-composite0-dev
+    - libasound2-dev
+    - libcurl4-openssl-dev
+    - libjsoncpp-dev
+    - libmpdclient-dev
+    - libnl-genl-3-dev
+    - libpulse-dev
+    - libxcb-cursor-dev
+    - libxcb-xkb-dev
+    - libxcb-xrm-dev
+    - libxcb-ewmh-dev
+    - libxcb-ewmh2
+    - libxcb-icccm4-dev
+    - libxcb-image0-dev
+    - libxcb-randr0-dev
+    - libxcb-util0-dev
+    - libxcb-xkb-dev
+    - libxcb-xrm-dev
+    - libxcb1-dev
+    - python3-xcbgen
+    - xcb
+    - xcb-proto
+  tags:
+    - polybar
+    - window-management
+
+- name: clone polybar
+  become: true
+  git:
+    repo: https://github.com/jaagr/polybar.git
+    dest: /usr/local/src/polybar
+  tags:
+    - polybar
+    - window-management
+
+- name: build polybar
+  become: true
+  shell: ./build.sh --all-features -f
+  args:
+    chdir: /usr/local/src/polybar
+  tags:
+    - polybar
+    - window-management

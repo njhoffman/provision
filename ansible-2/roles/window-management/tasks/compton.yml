@@ -1,0 +1,61 @@
+---
+- name: install compton dependencies
+  become: true
+  package:
+    name:
+      - asciidoc
+      - gcc
+      - libdbus-1-dev
+      - libconfig-dev
+      - libdrm-dev
+      - libev-dev
+      - libev-libevent-dev
+      - libev4
+      - libev-dev
+      - libgl1-mesa-dev
+      - libgles2-mesa-dev
+      - libx11-dev
+      - libxcb1-dev
+      - libx11-xcb-dev
+      - libxcb-composite0-dev
+      - libxcb-cursor-dev
+      - libxcb-damage0-dev
+      - libxcb-ewmh-dev
+      - libxcb-ewmh2
+      - libxcb-icccm4-dev
+      - libxcb-image0-dev
+      - libxcb-keysyms1-dev
+      - libxcb-present-dev
+      - libxcb-randr0-dev
+      - libxcb-shape0-dev
+      - libxcb-sync-dev
+      - libxcb-util0-dev
+      - libxcb-util0-dev
+      - libxcb-xinerama0-dev
+      - libxcb-xkb-dev
+      - libxcb-xrm-dev
+      - libxcb1-dev
+      - libxcomposite-dev
+      - libxdg-basedir-dev
+      - libxinerama-dev
+      - libxrandr-dev
+      - libxrender-dev
+      - make
+      - pkg-config
+      - uthash-dev
+      - xcb
+      - xcb-proto
+    state: present
+
+- name: clone compton
+  become: true
+  git:
+    repo: https://github.com/tryone144/compton.git
+    dest: /usr/local/src/compton
+
+- name: install compton
+  become: true
+  shell: make && make install
+  args:
+    chdir: /usr/local/src/compton
+

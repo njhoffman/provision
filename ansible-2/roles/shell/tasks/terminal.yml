@@ -1,0 +1,85 @@
+---
+- name: install terminal required dependencies
+  become: true
+  package:
+    name:
+      - gnutls-dev
+      - gperf
+      - gtk-doc-tools
+      - intltool
+      - libgtk-3-dev
+      - libtool
+      - libxml2-utils
+    state: present
+
+- name: create local src directory
+  file:
+    path: "{{ localsrc_dir }}"
+    state: directory
+    mode: 0755
+
+- name: clone vte-ng
+  git:
+    repo: https://github.com/thestinger/vte-ng.git
+    dest: "{{ localsrc_dir }}/vte-ng"
+
+- name: build vte-ng
+  shell: "{{ item }}"
+  with_items:
+    - ./autogen.sh --disable-introspection --disable-vala
+    - make
+  args:
+    chdir: "{{ localsrc_dir }}/vte-ng"
+
+- name: install vte-ng
+  become: true
+  shell: make install
+  args:
+    chdir: "{{ localsrc_dir }}/vte-ng"
+
+- name: clone termite
+  git:
+    repo: https://github.com/thestinger/termite.git
+    dest: "{{ localsrc_dir }}/termite"
+    version: master
+    recursive: true
+    update: yes
+
+- name: configure termite
+  shell: make
+  args:
+    chdir: "{{ localsrc_dir }}/termite"
+
+- name: build and install termite
+  become: true
+  shell: "{{ item }}"
+  with_items:
+    - make install
+    - ldconfig
+    - mkdir -p /lib/terminfo/x
+  args:
+    chdir: "{{ localsrc_dir }}/termite"
+
+- name: create termite symlink
+  become: true
+  file:
+    state: link
+    src: /usr/local/share/terminfo/x/xterm-termite
+    dest: /lib/terminfo/x/xterm-termite
+
+# - name: get termite colors
+#   git:
+#     repo: https://github.com/khamer/base16-termite.git
+#     dest: ~/.config/termite/base16-themes
+#     version: master
+
+# if gnome-terminal doesn't work:
+#   LANG=en_US.UTF-8
+#   LC_ALL=en_US.UTF-8t
+# to /etc/default/locale or:
+#   sudo apt install dconf-cli
+#   dconf reset -f /org/gnome/terminal
+#   sudo apt-get remove gnome-terminal
+#   sudo apt-get install gnome-terminal
+#   sudo locale-gen --purge
+#   sudo dpkg-reconfigure locales

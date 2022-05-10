@@ -1,0 +1,31 @@
+---
+- name: install compiler prereqs
+  become: true
+  package:
+    name:
+      - curl
+
+- name: install g++, gcc
+  become: true
+  package:
+    name:
+      - g++
+      - g++-multilib
+      - gcc
+      - gcc-multilib
+    state: present
+
+- import_tasks: ./go.yml
+  tags: [ go ]
+
+- import_tasks: ./python.yml
+  tags: [ python ]
+
+- import_tasks: ./node.yml
+  tags: [ node, nodejs, nvm ]
+
+- import_tasks: ./ruby.yml
+  tags: [ ruby ]
+
+# rustup (rust builder)
+# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh

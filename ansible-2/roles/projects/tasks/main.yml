@@ -1,0 +1,59 @@
+---
+- name: create directories
+  become: true
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - "{{ projects_dir }}"
+    - "{{ forks_dir }}"
+    - "{{ references_dir }}"
+
+#  add note about adding ssh keys to github and gitlab
+- name: clone projects
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ projects_dir }}/{{ item.dest }}"
+  with_items:
+    - { repo: "git@github.com:njhoffman/algorithmia.git", dest: "algorithmia" }
+    - { repo: "git@github.com:njhoffman/better-musician.git", dest: "better-musician/client" }
+    - { repo: "git@github.com:njhoffman/better-musician-api.git", dest: "better-musician/api" }
+    - { repo: "git@github.com:njhoffman/debugger-256.git", dest: "debugger-256" }
+    - { repo: "git@github.com:njhoffman/fakercli.git", dest: "fakercli" }
+        #  - { repo: "git@gitlab.com:njhoffman/modteets.git", dest: "modteets" }
+    - { repo: "git@github.com:njhoffman/movieman.git", dest: "movieman" }
+    - { repo: "git@github.com:njhoffman/musicman.git", dest: "musicman" }
+    - { repo: "git@github.com:njhoffman/onemission-deploy.git", dest: "onemission" }
+    - { repo: "git@github.com:njhoffman/prettyjson-256.git", dest: "prettyjson-256" }
+    - { repo: "git@github.com:njhoffman/redmon-pretty.git", dest: "redmon-pretty" }
+    - { repo: "git@github.com:njhoffman/resume.git", dest: "resume" }
+    - { repo: "git@github.com:njhoffman/spadash-admin.git", dest: "spadash-admin" }
+    - { repo: "git@github.com:njhoffman/youtube-mp3.git", dest: "youtube-mp3" }
+
+- name: npm install projects
+  shell: cd {{ item }} && npm_config_loglevel=silent npm ci
+  with_items:
+    - algorithmia/js
+    - algorithmia/generator
+    - better-musician/client
+    - better-musician/api
+    - debugger-256
+    - fakercli
+    # - modteets
+    # - modteets/client
+    # - modteets/server
+    - movieman
+    - musicman
+    - onemission
+    - prettyjson-256
+    - redmon-pretty
+    - resume
+    - spadash-admin
+    - spadash-admin/client
+    - spadash-admin/server
+    - youtube-mp3
+  args:
+    chdir: "{{ projects_dir }}"
+
+# ~/bin/goto-config
