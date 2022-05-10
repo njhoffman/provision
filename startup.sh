@@ -47,19 +47,31 @@ cd nerd-fonts && ./install.sh
 pip-upgrade-all
 cargo install update-all
 
+# mkdir -p ~/ghq/github.com/wez && cd ~/ghq/github.com/wez
+# git clone git@github.com:wez/wezterm.git && cd wezterm
 # install select program scripts
 ~/ghq/github.com/njhoffman/provision/programs/tmux/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/i3/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/polybar/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/autokey/install.sh
+~/ghq/github.com/njhoffman/provision/programs/picom/install.sh
+~/ghq/github.com/njhoffman/provision/programs/tmuxp/install.sh
+~/ghq/github.com/njhoffman/provision/programs/nvenv/install.sh
+~/ghq/github.com/njhoffman/provision/programs/nvimpager/install.sh
 
 ~/ghq/github.com/njhoffman/provision/programs/alacritty/install.cargo.sh
-~/ghq/github.com/njhoffman/provision/programs/kitty/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/kitty/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/wezterm/install.debian.sh
 
 ~/ghq/github.com/njhoffman/provision/programs/colorls/install.gem.sh
+~/ghq/github.com/njhoffman/provision/programs/ctrace/install.npm.sh
+# ~/ghq/github.com/njhoffman/provision/programs/navi/install.cargo.sh
 ~/ghq/github.com/njhoffman/provision/programs/visidata/install.pip.sh
-
+~/ghq/github.com/njhoffman/provision/programs/vis/install.pip.sh
+~/ghq/github.com/njhoffman/provision/programs/pass/install.sh
+~/ghq/github.com/njhoffman/provision/programs/curlie/install.go.sh
+~/ghq/github.com/njhoffman/provision/programs/pup/install.go.sh
+~/ghq/github.com/njhoffman/provision/programs/htmlq/install.cargo.sh
 ~/ghq/github.com/njhoffman/provision/programs/dog/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/dust/install.cargo.sh
 ~/ghq/github.com/njhoffman/provision/programs/duf/install.debian.sh
@@ -69,6 +81,7 @@ cargo install update-all
 ~/ghq/github.com/njhoffman/provision/programs/zathura/install.debian.sh
 
 # random init
+~/ghq/github.com/njhoffman/provision/programs/gh-cli/install.extensions.sh
 bat cache --build
 
 #   init njhoffman gh repos (special: zettelkasten)
@@ -91,18 +104,14 @@ pip3 install --user neovim-remote tasklib
 # inside vim - LspInstall,
 # sudo apt install python3.10-venv
 
-pip3 install tmuxp
-
 sudo apt install mpd mpc
 ln -s ~/.config/mpd/mpd.conf
-pip3 install vis
 # cp /etc/pulse/default.pa
 
 # docker post-install: usermod -aG docker nicholas && docker build whalesay/whalesay
 
 touch ~/.config/nitrogen/bg-saved.cfg
 sudo apt install nitrogen
-sudo apt install picom
 sudo apt install flashfocus # systemctl --user start flashfocus.service && systemctl --user enable flashfocus.service
 
 sudo apt install avahi-autoipd avahi-daemon avahi-discover avahi-utils

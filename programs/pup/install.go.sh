@@ -1,3 +1,3 @@
 #!/bin/bash
 
-go get github.com/ericchiang/pup
+go install github.com/ericchiang/pup@latest

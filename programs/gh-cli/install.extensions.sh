@@ -1,5 +1,7 @@
 #!/bin/bash
 
+gh auth login
+
 # https://github.com/chelnak/gh-changelog
 
 # gh-cli post-install: install github extensions:

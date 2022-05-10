@@ -1,2 +1,2 @@
 #!/bin/bash
-npm install ngrok
+npm install -g ctrace
