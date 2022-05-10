@@ -1,10 +1,42 @@
 #!/bin/bash
 
 # steps:
-#   install core utils, zsh
-#   add ssh key to github
-#   install dotbare
+#   install core utils, zsh, random utils
+#     sudo apt install git zsh
+#     sudo apt install
+#     neofetch \
+#     xclip \
+#     xsel \
+#     grc \
+#     jq \
+#     fasd \
+#     samba-client \
+#     cifs-utils \
+#     net-tools \
+#     python \
+#     python-is-python3 \
+#     blueman \
+#     nmap \
+#     autorandr \
+#     wmctrl \
+#     xdotool \
+#     ubuntu-restricted-extras \
+#     mkvtoolnix
+#     mkvmerge -o outfile.mkv infile_01.mp4 \+ infile_02.mp4 \+ infile_03.mp4
+#     sudo chsh /bin/zsh
+#   add ssh key to github, clone provision
+#     ssh-keygen && ssh -T rsa -C 'njhoffman1982@gmail.com' && ssh-add -l -E sha256
+#     eval "$(ssh-agent -s)" && ssh -add -l -E md5
+#     mkdir -p ~/ghq/github.com/njhoffman && cd ~/ghq/github.com/njhoffman && git clone git@github.com:njhoffman/provision.git
+#   install dotbare, clone dotbare
+#     git clone https://github.com/kazhala/dotbare.git ~/.dotbare
+#     export PATH=$PATH:$HOME/.dotbare
+#     export DOTBARE_DIR="$HOME/.cfg"
+#     export DOTBARE_TREE="$HOME"
+#     dotbare finit -u https://github.com/njhoffman/dotfiles.git
 #   install fonts
+#     ghq get -l ryanoasis/nerd-fonts
+#     ./install.sh
 #   uninstall snap packages (firefox)
 #   log into zsh, zinit initializes asdf
 #   asdf-install-missing-plugins
@@ -13,41 +45,9 @@
 #   init njhoffman gh repos (special: zettelkasten, zsh-histdb)
 #   scan ~/bin and install dependencies
 
-# random apt:
-#  neofetch \
-#  xclip \
-#  xsel \
-#  grc \
-#  jq \
-#  fasd \
-#  samba-client \
-#  cifs-utils \
-#  net-tools \
-#  blueman \
-#  blueman-manager \
-#  nmap \
-#  autorandr \
-#  wmctrl \
-#  xdotool
-sudo apt install ubuntu-restricted-extras
-sudo apt install mkvtoolnix
-# mkvmerge -o outfile.mkv infile_01.mp4 \+ infile_02.mp4 \+ infile_03.mp4
-
-sudo apt install python-is-python3
-
-export PATH=$PATH:$HOME/.dotbare
-export DOTBARE_DIR="$HOME/.cfg"
-export DOTBARE_TREE="$HOME"
-dotbare finit -u https://github.com/njhoffman/dotfiles.git
-
 # alacritty
 sudo add-apt-repository ppa:aslatter/ppa
 sudo apt install alacritty xsel
-
-# setup ssh key
-ssh-keygen && ssh -T rsa -C 'njhoffman1982@gmail.com' && ssh-add -l -E sha256
-eval "$(ssh-agent -s)" && ssh -add -l -E md5
-# TODO: add key to github and bitbucket accounts
 
 # asdf (zinit handles!)
 sudo apt install curl git gcc autotools-dev libssl-dev zlib1g-dev add-apt-key keychain libreadline-dev libsqlite3-dev libbz2-dev make automake libevent-dev bison byacc
@@ -58,9 +58,6 @@ asdf plugin add ghq && asdf install ghq latest
 
 # rofi, rofi-themes ~/.local/share/rofi/themes/
 # apt install rofi
-
-ghq get -l ryanoasis/nerd-fonts
-./install.sh
 
 sudo apt install xclip libpcre2-dev libpcre3-dev nnn
 ghq get -l https://github.com/vlang/v
