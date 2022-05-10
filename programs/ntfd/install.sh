@@ -5,6 +5,7 @@
 # install haskell stack toolchain
 curl -sSL https://get.haskellstack.org/ | sh
 
-ghq get -l kamek-pf/ntfd
+mkdir -p ~/ghq/github.com/kamek-pf && cd ~/ghq/github.com/kamek-pf
+git clone git@github.com:kamek-pf/ntfd.git && cd ntfd
 stack build
 stack install

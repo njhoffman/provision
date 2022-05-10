@@ -47,33 +47,38 @@ cd nerd-fonts && ./install.sh
 pip-upgrade-all
 cargo install update-all
 
-# mkdir -p ~/ghq/github.com/wez && cd ~/ghq/github.com/wez
-# git clone git@github.com:wez/wezterm.git && cd wezterm
-# install select program scripts
-~/ghq/github.com/njhoffman/provision/programs/tmux/install.sh
-~/ghq/github.com/njhoffman/provision/programs/i3/install.debian.sh
-~/ghq/github.com/njhoffman/provision/programs/polybar/install.debian.sh
+# install essential programs
+~/ghq/github.com/njhoffman/provision/programs/alacritty/install.cargo.sh
 ~/ghq/github.com/njhoffman/provision/programs/autokey/install.sh
-~/ghq/github.com/njhoffman/provision/programs/picom/install.sh
-~/ghq/github.com/njhoffman/provision/programs/tmuxp/install.sh
-~/ghq/github.com/njhoffman/provision/programs/rofi/install.debian.sh
-
+~/ghq/github.com/njhoffman/provision/programs/i3/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/kitty/install.sh
+~/ghq/github.com/njhoffman/provision/programs/neuron/install.nix.sh
 ~/ghq/github.com/njhoffman/provision/programs/nvenv/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/nvimpager/install.sh
-
-~/ghq/github.com/njhoffman/provision/programs/alacritty/install.cargo.sh
-~/ghq/github.com/njhoffman/provision/programs/kitty/install.sh
+~/ghq/github.com/njhoffman/provision/programs/picom/install.sh
+~/ghq/github.com/njhoffman/provision/programs/polybar/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/rofi/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/tmux/install.sh
+~/ghq/github.com/njhoffman/provision/programs/tmuxp/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/wezterm/install.debian.sh
 
+# install optional programs
 ~/ghq/github.com/njhoffman/provision/programs/colorls/install.gem.sh
 ~/ghq/github.com/njhoffman/provision/programs/ctrace/install.npm.sh
 ~/ghq/github.com/njhoffman/provision/programs/curlie/install.go.sh
 ~/ghq/github.com/njhoffman/provision/programs/dog/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/duf/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/dust/install.cargo.sh
+~/ghq/github.com/njhoffman/provision/programs/glances/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/googler/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/glow/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/htmlq/install.cargo.sh
+~/ghq/github.com/njhoffman/provision/programs/mainline/install.sh
+~/ghq/github.com/njhoffman/provision/programs/mdless/install.gem.sh
 # ~/ghq/github.com/njhoffman/provision/programs/navi/install.cargo.sh
+~/ghq/github.com/njhoffman/provision/programs/ntfd/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/pass/install.sh
+~/ghq/github.com/njhoffman/provision/programs/procs/install.cargo.sh
 ~/ghq/github.com/njhoffman/provision/programs/pup/install.go.sh
 ~/ghq/github.com/njhoffman/provision/programs/taskwarrior/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/timewarrior/install.sh

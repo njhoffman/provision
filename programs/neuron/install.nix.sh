@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# curl -L https://nixos.org/nix/install | sh
+curl -L https://nixos.org/nix/install | sh
+source ~/.nix-profile/etc/profile.d/nix.sh
 nix-env -iA cachix -f https://cachix.org/api/v1/install
 cachix use srid
 nix-env -if https://github.com/srid/neuron/archive/master.tar.gz

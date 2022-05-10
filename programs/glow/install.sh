@@ -1,5 +1,6 @@
 #!/bin/bash
 
-ghq get -l https://github.com/charmbracelet/glow.git
+mkdir -p ~/ghq/github.com/charmbracelet && cd ~/ghq/github.com/charmbracelet
+git clone git@github.com:charmbracelet/glow.git && cd glow
 go build
 install glow ~/.local/bin
