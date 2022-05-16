@@ -5,13 +5,15 @@ sudo apt install add-apt-key bison byacc build-essential git keychain locate man
 # install core dev libs
 sudo apt install libssl-dev libreadline-dev libsqlite3-dev libbz2-dev libevent-dev zlib1g-dev
 # install network utils
-sudo apt install blueman cifs-utils curl net-tools nmap smbclient
+sudo apt install \
+  blueman cifs-utils curl net-tools nmap smbclient traceroute \
+  nfs-common # : lockd, statd, showmount, nfsstat, gssd, idmapd and mount.nfs.
 # install python and python packages
 sudo apt install python python-is-python3 python3-pip python-setuptools
 # install x11 utils
 sudo apt install xsel xclip xdotool wmctrl
 # install random utils
-sudo apt install autorandr ccze fasd grc jq sqlite3 thefuck ubuntu-restricted-extras
+sudo apt install autorandr ccze fasd grc jq sqlite3 thefuck ubuntu-restricted-extras wdiff
 #     mkvtoolnix
 #     mkvmerge -o outfile.mkv infile_01.mp4 \+ infile_02.mp4 \+ infile_03.mp4
 
