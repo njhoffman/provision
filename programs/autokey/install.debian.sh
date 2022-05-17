@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo apt install autokey-gtk
+sudo apt install autokey-common autokey-gtk

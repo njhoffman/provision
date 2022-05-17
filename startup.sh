@@ -8,14 +8,14 @@ sudo apt install libssl-dev libreadline-dev libsqlite3-dev libbz2-dev libevent-d
 sudo apt install \
   blueman cifs-utils curl net-tools nmap smbclient traceroute \
   nfs-common # : lockd, statd, showmount, nfsstat, gssd, idmapd and mount.nfs.
+# install avahi utils
+sudo apt install avahi-autoipd avahi-daemon avahi-discover avahi-utils
 # install python and python packages
 sudo apt install python python-is-python3 python3-pip python-setuptools
 # install x11 utils
 sudo apt install xsel xclip xdotool wmctrl
 # install random utils
 sudo apt install autorandr ccze fasd grc jq sqlite3 thefuck ubuntu-restricted-extras wdiff
-#     mkvtoolnix
-#     mkvmerge -o outfile.mkv infile_01.mp4 \+ infile_02.mp4 \+ infile_03.mp4
 
 # add ssh key to github, clone provision
 ssh-keygen && ssh -T rsa -C 'njhoffman1982@gmail.com' && ssh-add -l -E sha256
@@ -52,6 +52,7 @@ cargo install update-all
 # install essential programs
 ~/ghq/github.com/njhoffman/provision/programs/alacritty/install.cargo.sh
 ~/ghq/github.com/njhoffman/provision/programs/autokey/install.sh
+# ~/ghq/github.com/njhoffman/provision/programs/chrome/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/i3/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/kitty/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/neuron/install.nix.sh
@@ -65,6 +66,7 @@ cargo install update-all
 ~/ghq/github.com/njhoffman/provision/programs/wezterm/install.debian.sh
 
 # install optional programs
+~/ghq/github.com/njhoffman/provision/programs/bpytop/install.pip.sh
 ~/ghq/github.com/njhoffman/provision/programs/colorls/install.gem.sh
 ~/ghq/github.com/njhoffman/provision/programs/ctrace/install.npm.sh
 ~/ghq/github.com/njhoffman/provision/programs/curlie/install.go.sh
@@ -78,6 +80,7 @@ cargo install update-all
 ~/ghq/github.com/njhoffman/provision/programs/mainline/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/mdless/install.gem.sh
 # ~/ghq/github.com/njhoffman/provision/programs/navi/install.cargo.sh
+~/ghq/github.com/njhoffman/provision/programs/nitrogen/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/ntfd/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/pass/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/procs/install.cargo.sh
@@ -98,13 +101,7 @@ bat cache --build
 #   uninstall snap packages (firefox)
 #   scan ~/bin and install dependencies
 
-# uninstall programs managed by asdf
-sudo apt remove jq
-
 # fzf post-install: ghq get -l junegunn/fzf && cp -rv man/man1/* /usr/share/man/man1 && mandb
-
-# rofi, rofi-themes ~/.local/share/rofi/themes/
-# apt install rofi
 
 sudo apt install mpd mpc
 ln -s ~/.config/mpd/mpd.conf
@@ -116,13 +113,14 @@ touch ~/.config/nitrogen/bg-saved.cfg
 sudo apt install nitrogen
 sudo apt install flashfocus # systemctl --user start flashfocus.service && systemctl --user enable flashfocus.service
 
-sudo apt install avahi-autoipd avahi-daemon avahi-discover avahi-utils
-
 sudo add-apt-repository ppa:micahflee/ppa # release focal
 sudo apt install torbrowser-launcher
 # settings -> themes -> dark mode
 
 npm install -g github-files-fetcher
+
+# install wallpapers
+git clone git@github.com:njhoffman/resources-wallpaper.git ~/wallpaper
 
 # TODO: figure out command to disable ipv6 for access point
 #!/bin/sh -e
