@@ -125,6 +125,8 @@ git clone git@github.com:njhoffman/resources-wallpaper.git ~/wallpaper
 # if nvidia:
 ubuntu-drivers autoinstall
 
+~/.config/zsh/install-completions.sh
+
 # TODO: figure out command to disable ipv6 for access point
 #!/bin/sh -e
 # sysctl -w net.ipv6.conf.all.disable_ipv6=1

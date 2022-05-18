@@ -12,3 +12,9 @@ cd ~/Downloads
 curl -LO "$base/$folder/$file"
 sudo chmod +x ./$file
 sudo apt install -y ./$file
+
+# install terminfo file
+tempfile=$(mktemp) \
+  && curl -o $tempfile https://raw.githubusercontent.com/wez/wezterm/master/termwiz/data/wezterm.terminfo \
+  && tic -x -o ~/.terminfo $tempfile \
+  && rm $tempfile

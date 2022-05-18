@@ -14,5 +14,15 @@ git clone git@github.com:wez/wezterm.git && cd wezterm
 cargo build --release
 # cargo run --release --bin wezterm -- start
 mkdir -p ~/.local/bin
-install target/release/wezterm ~/.local/bin
-sudo cp ./wezterm.desktop /usr/share/applications/org.wezfurlong.wezterm.desktop
+# install target/release/wezterm ~/.local/bin
+# TODO: make bin work outside of installatino directory
+
+sudo desktop-fie-install ./Alacritty.desktop
+sudo update-desktop-database
+# sudo cp ./wezterm.desktop /usr/share/applications/org.wezfurlong.wezterm.desktop
+
+# install terminfo file
+tempfile=$(mktemp) \
+  && curl -o $tempfile https://raw.githubusercontent.com/wez/wezterm/master/termwiz/data/wezterm.terminfo \
+  && tic -x -o ~/.terminfo $tempfile \
+  && rm $tempfile
