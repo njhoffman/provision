@@ -15,3 +15,4 @@ cargo build --release
 # cargo run --release --bin wezterm -- start
 mkdir -p ~/.local/bin
 install target/release/wezterm ~/.local/bin
+sudo cp ./wezterm.desktop /usr/share/applications/org.wezfurlong.wezterm.desktop

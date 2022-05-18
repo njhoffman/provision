@@ -8,10 +8,11 @@
 # protobuf or wal2json
 # to encode the changes in either Protobuf format or JSON format.
 
-ghq get -l eulerto/wal2json -b master --single-branch \
-&& git checkout d2b7fef021c46e0d429f2c1768de361069e58696 \
-&& make && make install
+# ghq get -l eulerto/wal2json -b master --single-branch \
+# && git checkout d2b7fef021c46e0d429f2c1768de361069e58696 \
+ghq get -l eulerto/wal2json && make && make install
 
+# /home/nicholas/.asdf/installs/postgres/14.2/data/postgresql.conf
 # postgresql.conf
 # ############ REPLICATION ##############
 # # MODULES

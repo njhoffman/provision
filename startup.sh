@@ -122,6 +122,9 @@ npm install -g github-files-fetcher
 # install wallpapers
 git clone git@github.com:njhoffman/resources-wallpaper.git ~/wallpaper
 
+# if nvidia:
+ubuntu-drivers autoinstall
+
 # TODO: figure out command to disable ipv6 for access point
 #!/bin/sh -e
 # sysctl -w net.ipv6.conf.all.disable_ipv6=1
