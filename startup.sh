@@ -15,7 +15,7 @@ sudo apt install python python-is-python3 python3-pip python-setuptools
 # install x11 utils
 sudo apt install xsel xclip xdotool wmctrl
 # install random utils
-sudo apt install autorandr ccze fasd grc jq sqlite3 thefuck ubuntu-restricted-extras wdiff
+sudo apt install autorandr ccze fasd grc jq most sqlite3 thefuck ubuntu-restricted-extras wdiff
 
 # add ssh key to github, clone provision
 ssh-keygen && ssh -T rsa -C 'njhoffman1982@gmail.com' && ssh-add -l -E sha256
