@@ -11,4 +11,4 @@ sudo apt install \
 
 # TODO: dynamically get latest version
 
-pip3 install https://download.electrum.org/4.2.1/Electrum-4.2.1.tar.gz
+pip3 install https://download.electrum.org/4.2.2/Electrum-4.2.2.tar.gz
