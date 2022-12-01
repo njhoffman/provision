@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# switch terminal font to DejaVuSansMono Nerd Font, grey on black
+# switch appearance (gsettings) to dark mode
+# gsettings set org.gnome.desktop.interface cursor-blink-time 500
+
 # install core utils, zsh
 sudo apt install add-apt-key bash-doc bison byacc build-essential git keychain locate manpages-dev pkg-config zsh # autotools-dev automake
 # install core dev libs
