@@ -4,5 +4,8 @@ sudo apt-get install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb
 cargo install alacritty
 
 # installing desktop entry
+cp ./Alacritty.desktop ~/.local/share/applications
+sudo cp ./Alacritty.desktop /usr/share/applications
+
 sudo desktop-file-install ./Alacritty.desktop
 sudo update-desktop-database

@@ -1,13 +1,37 @@
 #!/bin/bash
 
 mkdir -p ~/.vim/sessions
-
 rm ~/.config/nvim/plugin/packer_compiled.lua
-sudo apt get install taskwarrior
+
+bash ~/.local/src/provision/programs/neuron/install.nix.sh
+
+sudo apt get install taskwarrior dafault-jre default-jdk pwsh
+
+cd ~/Downloads && wget https://github.com/PowerShell/PowerShell/releases/download/v7.2.7/powershell-lts_7.2.7-1.deb_amd64.deb &&
+  dgkg -i powershell-lts_7.2.7-1.deb_amd64.deb
+
+go install github.com/abenz1267/gomvp@latest
+go install github.com/davidrjenni/reftools/cmd/fillstruct@latest
+go install github.com/go-delve/delve/cmd/dlv@latest
+go install github.com/golang/mock/mockgen@latest
+go install github.com/jimmyfrasche/closed/cmds/fillswitch@latest
+go install github.com/josharian/impl@latest
+go install github.com/motemen/go-iferr@latest
+go install github.com/onsi/ginkgo@latest
+go install github.com/tmc/json-to-struct@latest
+go install golang.org/x/tools/cmd/callgraph@latest
+go install golang.org/x/tools/cmd/goimports@latest
+go install golang.org/x/tools/cmd/gorename@latest
+go install golang.org/x/tools/cmd/guru@latest
+go install gotest.tools/gotestsum@latest
+
+luarocks --local install lunamark
+pip install howdoi
 
 # fix vimade
-# pip3 install --user neovim neovim-remote
-# gem install neovim
+pip3 install --user neovim neovim-remote
+gem install neovim
+npm install -g neovim
 
 # plugins - [2022-12-01 01:49:15] ERROR: plugins.config.neuron-nvim - [2022-12-01 01:49:15] neuron is not executable
 # plugins - [2022-12-01 01:49:15] ERROR: plugins.config.telescope-nvim - [2022-12-01 01:49:15] howdoi requires howdoi (https://github.com/gleitz/howdoi)
@@ -107,8 +131,8 @@ ghq get -l neovim/neovim
 user="$HOME"
 make distclean && make deps
 # make CMAKE_BUILD_TYPE=Debug
-make CMAKE_BUILD_TYPE=RelWithDebInfo
-make CMAKE_INSTALL_PREFIX="$user/.local" install
+make CMAKE_INSTALL_PREFIX="$HOME/.local" CMAKE_BUILD_TYPE=RelWithDebInfo install
+install build/bin/nvim ~/.local/bin
 # sudo make install
 
 # make test | bat -l Makefile

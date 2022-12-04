@@ -3,11 +3,12 @@
 # switch terminal font to DejaVuSansMono Nerd Font, grey on black
 # switch appearance (gsettings) to dark mode
 # gsettings set org.gnome.desktop.interface cursor-blink-time 500
+# gsettings set org.gnome.desktop.interface cursor-blink-timeout 20
 
 # install core utils, zsh
 sudo apt install add-apt-key bash-doc bison byacc build-essential git keychain locate manpages-dev pkg-config zsh # autotools-dev automake
 # install core dev libs
-sudo apt install libssl-dev libreadline-dev libsqlite3-dev libbz2-dev libevent-dev zlib1g-dev
+sudo apt install devscripts libssl-dev libreadline-dev libsqlite3-dev libbz2-dev libevent-dev zlib1g-dev
 # install network utils
 sudo apt install \
   blueman cifs-utils curl net-tools nmap smbclient traceroute \
@@ -15,11 +16,13 @@ sudo apt install \
 # install avahi utils
 sudo apt install avahi-autoipd avahi-daemon avahi-discover avahi-utils
 # install python and python packages
-sudo apt install python python-is-python3 python3-pip python-setuptools
+sudo apt install python python-is-python3 python3-pip python-setuptools python3-venv
 # install x11 utils
 sudo apt install xsel xclip xdotool wmctrl
 # install random utils
-sudo apt install autorandr ccze fasd grc jq most sqlite3 thefuck ubuntu-restricted-extras wdiff
+sudo apt install autorandr ccze fasd grc jq most sqlite3 thefuck wdiff
+# video utils and codecs
+sudo apt install ubuntu-restricted-extras ffmpeg
 
 # add ssh key to github, clone provision
 ssh-keygen && ssh -T rsa -C 'njhoffman1982@gmail.com' && ssh-add -l -E sha256
@@ -49,14 +52,18 @@ mkdir ~/.local/man/ && sudo chsh /bin/zsh && /bin/zsh
 mkdir -p ~/ghq/github.com/ryanoasis && cd ~/ghq/github.com/ryanoasis && git clone git@github.com:ryanoasis/nerd-fonts
 cd nerd-fonts && ./install.sh
 
+# go packages
+go install golang.org/x/tools/gopls@latest
+
 # random language specific packages
 pip-upgrade-all
 cargo install update-all
 
 # install essential programs
 ~/ghq/github.com/njhoffman/provision/programs/alacritty/install.cargo.sh
-~/ghq/github.com/njhoffman/provision/programs/autokey/install.sh
+~/ghq/github.com/njhoffman/provision/programs/autokey/install.debian.sh
 # ~/ghq/github.com/njhoffman/provision/programs/chrome/install.sh
+~/ghq/github.com/njhoffman/provision/programs/docker/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/i3/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/kitty/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/neuron/install.nix.sh
@@ -69,36 +76,53 @@ cargo install update-all
 ~/ghq/github.com/njhoffman/provision/programs/tmuxp/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/wezterm/install.debian.sh
 
-# install optional programs
-~/ghq/github.com/njhoffman/provision/programs/bpytop/install.pip.sh
-~/ghq/github.com/njhoffman/provision/programs/colorls/install.gem.sh
+### install optional programs
+# npm packages
+npm install -g github-files-fetcher ctrace hexdump hue-cli how-2 jira-cli jira lua-fmt markdownlint-cli mdr \
+  neovim ngrok nodemon npm-check pwmetrics stylelint speedometer tldr tree-sitter-cli \
+  tracerbench twilio-cli ultra-runner webtorrent-cli yt-play-cli yt-search
 ~/ghq/github.com/njhoffman/provision/programs/ctrace/install.npm.sh
+# ├── prettyfile@1.0.0 -> ./../../../../../../ghq/github.com/njhoffman/prettyfile
+
 ~/ghq/github.com/njhoffman/provision/programs/curlie/install.go.sh
-~/ghq/github.com/njhoffman/provision/programs/dog/install.sh
-~/ghq/github.com/njhoffman/provision/programs/duf/install.debian.sh
-~/ghq/github.com/njhoffman/provision/programs/dust/install.cargo.sh
-~/ghq/github.com/njhoffman/provision/programs/glances/install.debian.sh
-~/ghq/github.com/njhoffman/provision/programs/googler/install.debian.sh
-~/ghq/github.com/njhoffman/provision/programs/glow/install.sh
-~/ghq/github.com/njhoffman/provision/programs/htmlq/install.cargo.sh
-~/ghq/github.com/njhoffman/provision/programs/mainline/install.sh
-~/ghq/github.com/njhoffman/provision/programs/mdless/install.gem.sh
-# ~/ghq/github.com/njhoffman/provision/programs/navi/install.cargo.sh
-~/ghq/github.com/njhoffman/provision/programs/nitrogen/install.debian.sh
-~/ghq/github.com/njhoffman/provision/programs/ntfd/install.sh
-~/ghq/github.com/njhoffman/provision/programs/pass/install.sh
-~/ghq/github.com/njhoffman/provision/programs/procs/install.cargo.sh
+~/ghq/github.com/njhoffman/provision/programs/ergo/install.go.sh
+~/ghq/github.com/njhoffman/provision/programs/golang-migrate/install.go.sh
 ~/ghq/github.com/njhoffman/provision/programs/pup/install.go.sh
-~/ghq/github.com/njhoffman/provision/programs/taskwarrior/install.debian.sh
-~/ghq/github.com/njhoffman/provision/programs/timewarrior/install.sh
-~/ghq/github.com/njhoffman/provision/programs/ueberzug/install.pip.sh
+~/ghq/github.com/njhoffman/provision/programs/scc/install.go.sh
+~/ghq/github.com/njhoffman/provision/programs/jira-cli/install.go.sh
+
+~/ghq/github.com/njhoffman/provision/programs/dust/install.cargo.sh
+~/ghq/github.com/njhoffman/provision/programs/htmlq/install.cargo.sh
+~/ghq/github.com/njhoffman/provision/programs/procs/install.cargo.sh
+~/ghq/github.com/njhoffman/provision/programs/xh/install.cargo.sh
+
+~/ghq/github.com/njhoffman/provision/programs/colorls/install.gem.sh
+~/ghq/github.com/njhoffman/provision/programs/mdless/install.gem.sh
+
 ~/ghq/github.com/njhoffman/provision/programs/vis/install.pip.sh
 ~/ghq/github.com/njhoffman/provision/programs/visidata/install.pip.sh
-~/ghq/github.com/njhoffman/provision/programs/xh/install.cargo.sh
-~/ghq/github.com/njhoffman/provision/programs/ytfzf/install.debian.sh
+# ~/ghq/github.com/njhoffman/provision/programs/bpytop/install.pip.sh
+# ~/ghq/github.com/njhoffman/provision/programs/ueberzug/install.pip.sh
+
+~/ghq/github.com/njhoffman/provision/programs/btop/install.sh
+~/ghq/github.com/njhoffman/provision/programs/dog/install.sh
+~/ghq/github.com/njhoffman/provision/programs/glow/install.sh
+~/ghq/github.com/njhoffman/provision/programs/mainline/install.sh
+~/ghq/github.com/njhoffman/provision/programs/ytfzf/install.sh
+# ~/ghq/github.com/njhoffman/provision/programs/navi/install.cargo.sh
+~/ghq/github.com/njhoffman/provision/programs/ntfd/install.sh
+~/ghq/github.com/njhoffman/provision/programs/pass/install.sh
+~/ghq/github.com/njhoffman/provision/programs/timewarrior/install.sh
+
+~/ghq/github.com/njhoffman/provision/programs/duf/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/glances/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/googler/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/nitrogen/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/taskwarrior/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/zathura/install.debian.sh
 # random init
 ~/ghq/github.com/njhoffman/provision/programs/gh-cli/install.extensions.sh
+
 bat cache --build
 
 #   init njhoffman gh repos (special: zettelkasten)
@@ -107,8 +131,14 @@ bat cache --build
 
 # fzf post-install: ghq get -l junegunn/fzf && cp -rv man/man1/* /usr/share/man/man1 && mandb
 
-sudo apt install mpd mpc
-ln -s ~/.config/mpd/mpd.conf
+cargo install alt broot cargo-update chr devicon-lookup dotenv-linter exa \
+  maple navi spotify-tui spotifyd st stylua taskwarrior-tui tealdeer zeta-note zoxide
+
+pip3 install youtube-dl howdoi assume command-not-found pynvim
+
+sudo apt install mpd mpc ncmpcpp pavucontrol libpulse0 pamixer
+sudo rm /etc/mpd.conf && sudo ln -s ~/.config/mpd/mpd.conf /etc/mpd.conf
+mkdir ~/.mpd/playlists && touch ~/.mpd/tag_cache
 # cp /etc/pulse/default.pa
 
 # docker post-install: usermod -aG docker nicholas && docker build whalesay/whalesay
@@ -120,8 +150,6 @@ sudo apt install flashfocus # systemctl --user start flashfocus.service && syste
 sudo add-apt-repository ppa:micahflee/ppa # release focal
 sudo apt install torbrowser-launcher
 # settings -> themes -> dark mode
-
-npm install -g github-files-fetcher
 
 # install wallpapers
 git clone git@github.com:njhoffman/resources-wallpaper.git ~/wallpaper
