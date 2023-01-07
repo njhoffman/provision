@@ -1,9 +1,13 @@
 #!/bin/bash
 
 # switch terminal font to DejaVuSansMono Nerd Font, grey on black
-# switch appearance (gsettings) to dark mode
 # gsettings set org.gnome.desktop.interface cursor-blink-time 500
 # gsettings set org.gnome.desktop.interface cursor-blink-timeout 20
+
+# switch appearance (gsettings) to dark mode
+sudo apt install qt5ct qt5-style-plugins
+# If it's not there already, add this line in /etc/environment "QT_QPA_PLATFORMTHEME=qt5ct"
+# From your menu launch qt5 settings Under style select "gtk2" and the same for Standard dialogues.
 
 # install core utils, zsh
 sudo apt install add-apt-key bash-doc bison byacc build-essential git keychain locate manpages-dev pkg-config zsh # autotools-dev automake

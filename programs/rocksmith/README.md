@@ -1,0 +1,6 @@
+
+JACK: a professional sound server API and pair of daemon implementations to provide real-time, low-latency connections for both audio and MIDI data between applications.The JACK API is also implemented by PipeWire, which is able to act as a complete drop-in replacement provider for JACK clients, mapping JACK API calls to equivalent PipeWire calls.[5] If used as a replacement for ALSA and PulseAudio as well, it can unify the different sound servers and APIs that might be typically found on a machine, and allow better integration between different software.
+
+Audio Stream Input/Output (ASIO) is a computer sound card driver protocol for digital audio specified by Steinberg, providing a low-latency and high fidelity interface between a software application and a computer's sound card. Whereas Microsoft's DirectSound is commonly used as an intermediary signal path for non-professional users, ASIO allows musicians and sound engineers to access external hardware directly. There is also an experimental ASIO driver for Wine, WineASIO,[1] for a Windows compatibility layer for Linux. WineASIO driver uses the JACK sound server as its audio back-end and allows many ASIO-aware applications to run with low latency under WINE.
+
+

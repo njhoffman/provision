@@ -21,18 +21,23 @@ sudo apt install \
   libxcb-shape0 \
   libxcb-shape0-dev
 
-# cd /path/where/you/want/the/repository
-#
-# # clone the repository
-# git clone https://www.github.com/Airblader/i3 i3-gaps
-# cd i3-gaps
-#
-# # compile
-# mkdir -p build && cd build
-# meson ..
-# ninja
+sudo apt-get install python3 python3-pip python3-setuptools python3-wheel ninja-build
+pip3 install --user meson
 
-sudo install i3 /usr/bin && sudo install i3bar /usr/bin && sudo install i3-config-wizard /usr/bin && sudo install i3-dump-log /usr/bin && sudo install i3-input /usr/bin && sudo install i3-msg /usr/bin && sudo install i3-nagbar /usr/bin
+ghq get -l i3/i3
+
+# compile
+mkdir -p build && cd build
+meson ..
+ninja
+
+sudo install i3 /usr/bin &&
+  sudo install i3bar /usr/bin &&
+  sudo install i3-config-wizard /usr/bin &&
+  sudo install i3-dump-log /usr/bin &&
+  sudo install i3-input /usr/bin &&
+  sudo install i3-msg /usr/bin &&
+  sudo install i3-nagbar /usr/bin
 
 # sudo add-apt-repository ppa:regolith-linux/release
 # sudo apt update
