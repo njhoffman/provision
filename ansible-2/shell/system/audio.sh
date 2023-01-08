@@ -14,13 +14,13 @@ apt update
 apt install glava
 
 # wget http://www.musicpd.org/download/mpc/0/mpc-0.33.tar.xz
-apt install g++ \
+sudo apt install g++ \
   pavucontrol \
   libpcre3-dev \
   libmad0-dev libmpg123-dev libid3tag0-dev \
   libflac-dev libvorbis-dev libopus-dev \
   libadplug-dev libaudiofile-dev libsndfile1-dev libfaad-dev \
-  libfluidsynth-dev libgme-dev libmikmod2-dev libmodplug-dev \
+  libfluidsynth-dev libgme-dev libmodplug-dev \
   libmpcdec-dev libwavpack-dev libwildmidi-dev \
   libsidplay2-dev libsidutils-dev libresid-builder-dev \
   libavcodec-dev libavformat-dev \
