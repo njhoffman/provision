@@ -1,4 +1,5 @@
 <!-- https://www.reddit.com/r/linux_gaming/comments/jmediu/guide_for_setup_rocksmith_2014_steam_no_rs_cable/ -->
+<!-- https://www.reddit.com/r/linux_gaming/comments/j6ok9y/rocksmith_2014_remastered_focusrite_solo_2i2usb/ -->
 
 Hello! So, i got Rocksmith 2014 working with JACK and minimal(~10ms) latency.
 
