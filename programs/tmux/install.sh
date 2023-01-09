@@ -16,8 +16,7 @@ sudo apt-get install \
   tk-dev \
   zlib1g-dev
 
-mkdir -p ~/ghq/github.com/tmux && cd ~/ghq/github.com/tmux
-git clone git@github.com:tmux/tmux.git && cd tmux
+ghq get -l tmux/tmux
 ./autogen.sh
 ./configure
 make

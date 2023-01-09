@@ -34,11 +34,11 @@ ninja
 sudo rm /usr/bin/i3 /usr/bin/i3bar /usr/bin/i3-config-wizard /usr/bin/i3-dump-log /usr/bin/i3-input /usr/bin/i3-msg /usr/bin/i3-nagbar
 sudo rm /bin/i3 /bin/i3bar /bin/i3-config-wizard /bin/i3-dump-log /bin/i3-input /bin/i3-msg /bin/i3-nagbar
 
-sudo install i3 /usr/bin &&
-  sudo install i3bar /usr/bin &&
-  sudo install i3-config-wizard /usr/bin &&
-  sudo install i3-dump-log /usr/bin &&
-  sudo install i3-input /usr/bin &&
-  sudo install i3-msg /usr/bin &&
-  sudo install i3-nagbar /usr/bin
+sudo install i3 /usr/local/bin &&
+  sudo install i3bar /usr/local/bin &&
+  sudo install i3-config-wizard /usr/local/bin &&
+  sudo install i3-dump-log /usr/local/bin &&
+  sudo install i3-input /usr/local/bin &&
+  sudo install i3-msg /usr/local/bin &&
+  sudo install i3-nagbar /usr/local/bin
 
