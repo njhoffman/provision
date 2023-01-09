@@ -27,6 +27,10 @@ sudo apt install autorandr ccze fasd grc jq most sqlite3 thefuck wdiff
 # video utils and codecs
 sudo apt install ubuntu-restricted-extras ffmpeg
 
+# copy custom grc confs for root programs
+sudo cp -rv "$HOME/.config/grc/confs/"* /usr/share/grc
+
+
 # add ssh key to github, clone provision
 ssh-keygen && ssh -T rsa -C 'njhoffman1982@gmail.com' && ssh-add -l -E sha256
 eval "$(ssh-agent -s)" && ssh -add -l -E md5
@@ -139,10 +143,7 @@ cargo install alt broot cargo-update chr devicon-lookup dotenv-linter exa \
 
 pip3 install youtube-dl howdoi assume command-not-found pynvim
 
-sudo apt install mpd mpc ncmpcpp pavucontrol libpulse0 pamixer
-sudo rm /etc/mpd.conf && sudo ln -s ~/.config/mpd/mpd.conf /etc/mpd.conf
-mkdir ~/.mpd/playlists && touch ~/.mpd/tag_cache
-# cp /etc/pulse/default.pa
+sudo apt install mpc ncmpcpp pavucontrol libpulse0 pamixer
 
 # docker post-install: usermod -aG docker nicholas && docker build whalesay/whalesay
 
