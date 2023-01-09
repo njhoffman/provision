@@ -5,7 +5,7 @@
 # gsettings set org.gnome.desktop.interface cursor-blink-timeout 20
 
 # switch appearance (gsettings) to dark mode
-sudo apt install qt5ct qt5-style-plugins qt5-style-kvantum # lxappearance
+sudo apt install qt5ct qt5-style-plugins qt5-style-kvantum gnome-tweaks gnome-shell-extensions # lxappearance
 echo -e "export QT_QPA_PLATFORMTHEME=qt5ct\nexport QT_STYLE_OVERRIDE=kvantum" | sudo tee -a /etc/environment
 # kvantum manager -> kvadaptadark, kvarcdark, kvgnomedark, kvflat, kvcyan
 
@@ -27,10 +27,6 @@ sudo apt install autorandr ccze fasd grc jq most sqlite3 thefuck wdiff
 # video utils and codecs
 sudo apt install ubuntu-restricted-extras ffmpeg
 
-# copy custom grc confs for root programs
-sudo cp -rv "$HOME/.config/grc/confs/"* /usr/share/grc
-
-
 # add ssh key to github, clone provision
 ssh-keygen && ssh -T rsa -C 'njhoffman1982@gmail.com' && ssh-add -l -E sha256
 eval "$(ssh-agent -s)" && ssh -add -l -E md5
@@ -50,6 +46,9 @@ git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 asdf-install-missing-plugins
 asdf-install-missing-versions # (read custom pre-install and post-install hooks)
 
+# copy custom grc confs for root programs
+sudo cp -rv "$HOME/.config/grc/confs/"* /usr/share/grc
+
 # clone histdb
 rm -rfv ~/.histdb && git clone git@github.com:njhoffman/zsh-history.git ~/.histdb
 
@@ -67,7 +66,7 @@ cargo install update-all
 
 # install essential programs
 ~/ghq/github.com/njhoffman/provision/programs/alacritty/install.cargo.sh
-~/ghq/github.com/njhoffman/provision/programs/autokey/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/autokey/install.sh
 # ~/ghq/github.com/njhoffman/provision/programs/chrome/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/docker/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/i3/install.debian.sh
@@ -81,7 +80,6 @@ cargo install update-all
 ~/ghq/github.com/njhoffman/provision/programs/tmux/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/tmuxp/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/wezterm/install.debian.sh
-
 
 ### install optional programs
 # npm packages
@@ -127,23 +125,35 @@ npm install -g github-files-fetcher ctrace hexdump hue-cli how-2 jira-cli jira l
 ~/ghq/github.com/njhoffman/provision/programs/nitrogen/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/taskwarrior/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/zathura/install.debian.sh
+
 # random init
 ~/ghq/github.com/njhoffman/provision/programs/gh-cli/install.extensions.sh
-
 bat cache --build
-
 #   init njhoffman gh repos (special: zettelkasten)
 #   uninstall snap packages (firefox)
 #   scan ~/bin and install dependencies
-
 # fzf post-install: ghq get -l junegunn/fzf && cp -rv man/man1/* /usr/share/man/man1 && mandb
+
+# personal packages
+ghq get -l njhoffman/prettypath && luarocks install ./prettypath-dev-1.rockspec
+ghq get -l njhoffman/clever-f.vim
+ghq get -l njhoffman/fidget.nvim
+ghq get -l njhoffman/fzfmenu
+ghq get -l njhoffman/nvim-notify
+ghq get -l njhoffman/provision
+ghq get -l njhoffman/slimux
+ghq get -l njhoffman/telescope.nvim
+ghq get -l njhoffman/vim-easy-align
+ghq get -l njhoffman/which-key.nvim@master
+~/bin/repoman/repos
 
 cargo install alt broot cargo-update chr devicon-lookup dotenv-linter exa \
   maple navi spotify-tui spotifyd st stylua taskwarrior-tui tealdeer zeta-note zoxide
 
 pip3 install youtube-dl howdoi assume command-not-found pynvim
 
-sudo apt install mpc ncmpcpp pavucontrol libpulse0 pamixer
+# audio utilities
+sudo apt install mpc ncmpcpp pavucontrol libpulse0 pamixer alsa-utils alsa-tools librust-alsa-sys-dev libalsaplayer-dev libasound2-dev 
 
 # docker post-install: usermod -aG docker nicholas && docker build whalesay/whalesay
 
@@ -159,6 +169,8 @@ sudo apt install torbrowser-launcher
 git clone git@github.com:njhoffman/resources-wallpaper.git ~/wallpaper
 
 # if nvidia:
+sudo apt install mesa-utils
+~/ghq/github.com/njhoffman/provision/programs/gpustat/install.debian.sh
 ubuntu-drivers autoinstall
 
 # TODO: figure out command to disable ipv6 for access point
