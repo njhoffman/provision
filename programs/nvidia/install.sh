@@ -1,6 +1,8 @@
 #!/bin/bash
 # https://help.ubuntu.com/community/BinaryDriverHowto/Nvidia
 
+sudo apt install mesa-utils glmark2 
+
 sudo apt install git qtdeclarative5-dev cmake
 # To get Nvidia System Monitor from Git, build and install it, use:
 ghq get -l congard/nvidia-system-monitor-qt
