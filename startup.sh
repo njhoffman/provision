@@ -3,6 +3,10 @@
 # switch terminal font to DejaVuSansMono Nerd Font, grey on black
 # gsettings set org.gnome.desktop.interface cursor-blink-time 500
 # gsettings set org.gnome.desktop.interface cursor-blink-timeout 20
+# sudo chmod -R 755 /usr/share/themes/Zukitwo
+# gsettings set org.gnome.desktop.interface gtk-theme "Zukitwo"
+# gsettings set org.gnome.desktop.wm.preferences theme "Zukitwo"
+# gsettings set org.gnome.shell.extensions.user-theme name "Zukitwo"
 
 # switch appearance (gsettings) to dark mode
 sudo apt install qt5ct qt5-style-plugins qt5-style-kvantum gnome-tweaks gnome-shell-extensions # lxappearance
