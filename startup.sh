@@ -171,6 +171,7 @@ git clone git@github.com:njhoffman/resources-wallpaper.git ~/wallpaper
 # if nvidia:
 sudo apt install mesa-utils
 ~/ghq/github.com/njhoffman/provision/programs/gpustat/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/nvidia/install.sh
 ubuntu-drivers autoinstall
 
 # TODO: figure out command to disable ipv6 for access point
