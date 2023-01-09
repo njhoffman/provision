@@ -6,18 +6,16 @@
 
 # switch appearance (gsettings) to dark mode
 sudo apt install qt5ct qt5-style-plugins qt5-style-kvantum # lxappearance
-echo "export QT_QPA_PLATFORMTHEME=qt5ct" >> ~/.profile
-echo "export QT_STYLE_OVERRIDE=kvantum" >> ~/.profile
+echo -e "export QT_QPA_PLATFORMTHEME=qt5ct\nexport QT_STYLE_OVERRIDE=kvantum" | sudo tee -a /etc/environment
 # kvantum manager -> kvadaptadark, kvarcdark, kvgnomedark, kvflat, kvcyan
 
 # install core utils, zsh
 sudo apt install add-apt-key bash-doc bison byacc build-essential git keychain locate manpages-dev pkg-config zsh # autotools-dev automake
 # install core dev libs
-sudo apt install devscripts libssl-dev libreadline-dev libsqlite3-dev libbz2-dev libevent-dev zlib1g-dev
+sudo apt install devscripts  libssl-dev libreadline-dev libsqlite3-dev libbz2-dev libevent-dev zlib1g-dev
 # install network utils
-sudo apt install \
-  blueman cifs-utils curl net-tools nmap smbclient traceroute \
-  nfs-common # : lockd, statd, showmount, nfsstat, gssd, idmapd and mount.nfs.
+sudo apt install blueman cifs-utils curl net-tools nmap smbclient traceroute nfs-common 
+# --  sudo apt install lockd, statd, showmount, nfsstat, gssd, idmapd and mount.nfs.
 # install avahi utils
 sudo apt install avahi-autoipd avahi-daemon avahi-discover avahi-utils
 # install python and python packages
@@ -43,6 +41,7 @@ dotbare finit -u https://github.com/njhoffman/dotfiles.git
 
 # clone asdf, install plugins and programs
 # asdf pre: sudo apt install re2c uuid-dev libxml2-dev icu-doc
+# asdf php pre: sudo apt install libcurl4-openssl-dev libzip-dev libpq-dev libonig-dev libgd-dev
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 asdf-install-missing-plugins
 asdf-install-missing-versions # (read custom pre-install and post-install hooks)
@@ -53,16 +52,14 @@ rm -rfv ~/.histdb && git clone git@github.com:njhoffman/zsh-history.git ~/.histd
 # log into zsh for zinit initialization
 mkdir ~/.local/man/ && sudo chsh /bin/zsh && /bin/zsh
 
-# install fonts
-mkdir -p ~/ghq/github.com/ryanoasis && cd ~/ghq/github.com/ryanoasis && git clone git@github.com:ryanoasis/nerd-fonts
-cd nerd-fonts && ./install.sh
-
 # go packages
 go install golang.org/x/tools/gopls@latest
 
 # random language specific packages
 pip-upgrade-all
 cargo install update-all
+
+~/ghq/github.com/njhoffman/provision/other/nerd-fonts.sh
 
 # install essential programs
 ~/ghq/github.com/njhoffman/provision/programs/alacritty/install.cargo.sh
@@ -80,6 +77,7 @@ cargo install update-all
 ~/ghq/github.com/njhoffman/provision/programs/tmux/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/tmuxp/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/wezterm/install.debian.sh
+
 
 ### install optional programs
 # npm packages
@@ -121,7 +119,7 @@ npm install -g github-files-fetcher ctrace hexdump hue-cli how-2 jira-cli jira l
 
 ~/ghq/github.com/njhoffman/provision/programs/duf/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/glances/install.debian.sh
-~/ghq/github.com/njhoffman/provision/programs/googler/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/googler/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/nitrogen/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/taskwarrior/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/zathura/install.debian.sh
