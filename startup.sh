@@ -16,9 +16,9 @@ echo -e "export QT_QPA_PLATFORMTHEME=qt5ct\nexport QT_STYLE_OVERRIDE=kvantum" | 
 # install core utils, zsh
 sudo apt install add-apt-key bash-doc bison byacc build-essential git keychain locate manpages-dev pkg-config zsh # autotools-dev automake
 # install core dev libs
-sudo apt install devscripts  libssl-dev libreadline-dev libsqlite3-dev libbz2-dev libevent-dev zlib1g-dev
+sudo apt install devscripts libssl-dev libreadline-dev libsqlite3-dev libbz2-dev libevent-dev zlib1g-dev
 # install network utils
-sudo apt install blueman cifs-utils curl net-tools nmap smbclient traceroute nfs-common 
+sudo apt install blueman cifs-utils curl net-tools nmap smbclient traceroute nfs-common
 # --  sudo apt install lockd, statd, showmount, nfsstat, gssd, idmapd and mount.nfs.
 # install avahi utils
 sudo apt install avahi-autoipd avahi-daemon avahi-discover avahi-utils
@@ -70,6 +70,7 @@ cargo install update-all
 
 # install essential programs
 ~/ghq/github.com/njhoffman/provision/programs/alacritty/install.cargo.sh
+~/ghq/github.com/njhoffman/provision/programs/ansible/install.pip.sh
 ~/ghq/github.com/njhoffman/provision/programs/autokey/install.sh
 # ~/ghq/github.com/njhoffman/provision/programs/chrome/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/docker/install.debian.sh
@@ -90,7 +91,9 @@ cargo install update-all
 npm install -g github-files-fetcher ctrace hexdump hue-cli how-2 jira-cli jira lua-fmt markdownlint-cli mdr \
   neovim ngrok nodemon npm-check pwmetrics stylelint speedometer tldr tree-sitter-cli \
   tracerbench twilio-cli ultra-runner webtorrent-cli yt-play-cli yt-search
+
 ~/ghq/github.com/njhoffman/provision/programs/ctrace/install.npm.sh
+
 # ├── prettyfile@1.0.0 -> ./../../../../../../ghq/github.com/njhoffman/prettyfile
 
 ~/ghq/github.com/njhoffman/provision/programs/curlie/install.go.sh
@@ -124,9 +127,12 @@ npm install -g github-files-fetcher ctrace hexdump hue-cli how-2 jira-cli jira l
 ~/ghq/github.com/njhoffman/provision/programs/timewarrior/install.sh
 
 ~/ghq/github.com/njhoffman/provision/programs/duf/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/feh/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/glances/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/googler/install.sh
 ~/ghq/github.com/njhoffman/provision/programs/nitrogen/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/nnn/install.debian.sh
+~/ghq/github.com/njhoffman/provision/programs/ranger/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/taskwarrior/install.debian.sh
 ~/ghq/github.com/njhoffman/provision/programs/zathura/install.debian.sh
 
@@ -157,7 +163,7 @@ cargo install alt broot cargo-update chr devicon-lookup dotenv-linter exa \
 pip3 install youtube-dl howdoi assume command-not-found pynvim
 
 # audio utilities
-sudo apt install mpc ncmpcpp pavucontrol libpulse0 pamixer alsa-utils alsa-tools librust-alsa-sys-dev libalsaplayer-dev libasound2-dev 
+sudo apt install mpc ncmpcpp pavucontrol libpulse0 pamixer alsa-utils alsa-tools librust-alsa-sys-dev libalsaplayer-dev libasound2-dev
 
 # docker post-install: usermod -aG docker nicholas && docker build whalesay/whalesay
 
