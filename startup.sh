@@ -11,6 +11,7 @@
 # To install the themes you will need to download the theme package of your choice and place it in the following path: ~/.themes; for themes in Gnome 43 there is no longer a separate stylesheet, you can create a symlink for the files inside the gtk-4.0 folder which is inside the theme package, or just copy the files inside the gtk-4.0 folder into the ~/.conifg/gtk-4.0 path.
 # As I mentioned before, the GTK4 themes don't need to be applied with Tweaks, they are applied automatically but, if you have applications open you will have to close and open them for the theme to be applied, but for GTK3 applications you do need to apply them with Tweaks, as usual.
 # Icons: Suru++, Shell: Tokyonight-Storm-BL, Legacy: Juno-ocean
+# ~/bin/inotify-stats
 
 # /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf set: wifi.powersave = 2
 # sudo sed -i 's/3/2/' /etc/NetworkManager/conf.d/*
