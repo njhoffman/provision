@@ -28,15 +28,14 @@ alias snippets-view="jq .devtools.preferences.scriptSnippets $HOME/.config/googl
 
 # chrome://flags/#enable-force-dark,  devtools -> preferences -> theme -> dark
 ghq get -l https://github.com/zenorocha/codecopy
-echo "nodejs 15.14.0" >.tool-versions # fork and update manifest by 2023
+echo "nodejs 15.14.0" > .tool-versions # fork and update manifest by 2023
 npm install
 npm run build
 # Load unpacked: ~/ghq/github.com/zenorocha/codecopy/dist
 
 # create 'Development'
 # extensions, developer mode:
-#  vimium: https://chrome.google.com/webstore/detail/vimium
-#    - copy settings over
+#  vimium-c:
 #  redux-devtools: https://chrome.google.com/webstore/detail/redux-devtools/
 #    - https://github.com/reduxjs/redux-devtools/extension
 #  react-developer-tools: https://chrome.google.com/webstore/detail/react-developer-tools/

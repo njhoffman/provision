@@ -18,7 +18,10 @@ sudo apt-get install \
   build-essential \
   gcc
 
-ghq get -l https://github.com/jarcode-foss/glava
+# ghq get -l https://github.com/jarcode-foss/glava
+# https://github.com/jarcode-foss/glava/pull/246
+# git pull merge https://github.com/jarcode-foss/glava
+
 meson build --prefix /usr
 ninja -C build
 sudo ninja -C build install
