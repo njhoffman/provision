@@ -37,3 +37,5 @@ make
 sudo make install
 
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+cd ~/.tmux/plugins/tpm/bin
+update_plugins all
