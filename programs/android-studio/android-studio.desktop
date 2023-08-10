@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Android Studio
+GenericName=Android Studio
+Comment=Image viewer
+Exec=/opt/android-studio/studio.sh
+Icon=io.elementary.code
+Type=Application
+StartupNotify=true
+# NoDisplay=true
+Hidden=false
+Terminal=false
