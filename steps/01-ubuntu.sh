@@ -6,8 +6,7 @@ file="ubuntu-$version-desktop-amd64.iso"
 url="http://releases.ubuntu.com/$version/$file"
 # url=http://cdimage.ubuntu.com/focal/daily-live/current/focal-desktop-amd64.iso
 
-cd "$HOME/Downloads"
-wget "$url"
+cd "$HOME/Downloads" && wget "$url"
 umount "$partition"
 sudo dd if="$HOME/Downloads/$file" of="$partition" bs=4M oflag=sync status=progress
 # sudo apt install gnome-multi-writer pv

@@ -1,27 +1,6 @@
 #!/bin/bash
 
-# random init
-~/ghq/github.com/njhoffman/provision/programs/gh-cli/install.extensions.sh
-bat cache --build
-#   init njhoffman gh repos (special: zettelkasten)
-#   uninstall snap packages (firefox)
-#   scan ~/bin and install dependencies
-# fzf post-install: ghq get -l junegunn/fzf && cp -rv man/man1/* /usr/share/man/man1 && mandb
-
-cargo install alt broot cargo-update chr devicon-lookup dotenv-linter exa \
-  maple navi spotify-tui spotifyd st stylua taskwarrior-tui tealdeer zeta-note zoxide
-
-pip3 install youtube-dl howdoi assume command-not-found pynvim
-
 # docker post-install: usermod -aG docker nicholas && docker build whalesay/whalesay
-
-touch ~/.config/nitrogen/bg-saved.cfg
-sudo apt install nitrogen
-sudo apt install flashfocus # systemctl --user start flashfocus.service && systemctl --user enable flashfocus.service
-
-sudo add-apt-repository ppa:micahflee/ppa # release focal
-sudo apt install torbrowser-launcher
-# settings -> themes -> dark mode
 
 # thumbnails
 # sudo apt-get install ffmpeg ffmpegthumbnailer gstreamer0.10-ffmpeg
