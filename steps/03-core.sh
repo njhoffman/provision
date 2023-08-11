@@ -14,6 +14,8 @@ sudo apt install xsel xclip xdotool wmctrl
 sudo apt install autorandr ccze fasd grc jq most sqlite3 thefuck wdiff
 # video utils and codecs
 sudo apt install ubuntu-restricted-extras ffmpeg
+# audio utilities
+sudo apt install mpc ncmpcpp pavucontrol libpulse0 pamixer alsa-utils alsa-tools librust-alsa-sys-dev libalsaplayer-dev libasound2-dev
 # install network utils
 sudo apt install blueman cifs-utils curl net-tools nmap smbclient traceroute nfs-common
 # --  sudo apt install lockd, statd, showmount, nfsstat, gssd, idmapd and mount.nfs.

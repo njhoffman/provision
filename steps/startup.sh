@@ -8,26 +8,10 @@ bat cache --build
 #   scan ~/bin and install dependencies
 # fzf post-install: ghq get -l junegunn/fzf && cp -rv man/man1/* /usr/share/man/man1 && mandb
 
-# personal packages
-ghq get -l njhoffman/prettypath && luarocks install ./prettypath-dev-1.rockspec
-ghq get -l njhoffman/clever-f.vim
-ghq get -l njhoffman/fidget.nvim
-ghq get -l njhoffman/fzfmenu
-ghq get -l njhoffman/nvim-notify
-ghq get -l njhoffman/provision
-ghq get -l njhoffman/slimux
-ghq get -l njhoffman/telescope.nvim
-ghq get -l njhoffman/vim-easy-align
-ghq get -l njhoffman/which-key.nvim@master
-~/bin/repoman/repos
-
 cargo install alt broot cargo-update chr devicon-lookup dotenv-linter exa \
   maple navi spotify-tui spotifyd st stylua taskwarrior-tui tealdeer zeta-note zoxide
 
 pip3 install youtube-dl howdoi assume command-not-found pynvim
-
-# audio utilities
-sudo apt install mpc ncmpcpp pavucontrol libpulse0 pamixer alsa-utils alsa-tools librust-alsa-sys-dev libalsaplayer-dev libasound2-dev
 
 # docker post-install: usermod -aG docker nicholas && docker build whalesay/whalesay
 
@@ -38,9 +22,6 @@ sudo apt install flashfocus # systemctl --user start flashfocus.service && syste
 sudo add-apt-repository ppa:micahflee/ppa # release focal
 sudo apt install torbrowser-launcher
 # settings -> themes -> dark mode
-
-# install wallpapers
-git clone git@github.com:njhoffman/resources-wallpaper.git ~/wallpaper
 
 # thumbnails
 # sudo apt-get install ffmpeg ffmpegthumbnailer gstreamer0.10-ffmpeg
