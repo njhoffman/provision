@@ -10,7 +10,8 @@ cd "$HOME/Downloads"
 wget "$url"
 umount "$partition"
 sudo dd if="$HOME/Downloads/$file" of="$partition" bs=4M oflag=sync status=progress
-
-# sudo apt install gnome-multi-writer
-# sudo apt install pv
+# sudo apt install gnome-multi-writer pv
 # sudo dd if="$HOME/Downloads/ubuntu-23.04-desktop-amd64.iso" | pv | sudo dd of="$partition" bs=4M conv=fdatasync
+#
+# after reboot, update packages, restart,
+# terminal preferences: deja vu sans mono font, transparent custom background
