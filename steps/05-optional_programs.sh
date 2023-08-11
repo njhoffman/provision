@@ -1,12 +1,9 @@
 #!/bin/bash
 
 ### install optional programs
+
 # go packages
 go install golang.org/x/tools/gopls@latest
-
-# random language specific packages
-pip-upgrade-all
-cargo install update-all
 
 # npm packages
 npm install -g github-files-fetcher ctrace hexdump hue-cli how-2 jira-cli jira lua-fmt markdownlint-cli mdr \
@@ -23,7 +20,6 @@ cargo install update-all
 ~/ghq/github.com/njhoffman/provision/programs/ctrace/install.npm.sh
 
 # ├── prettyfile@1.0.0 -> ./../../../../../../ghq/github.com/njhoffman/prettyfile
-
 ~/ghq/github.com/njhoffman/provision/programs/curlie/install.go.sh
 ~/ghq/github.com/njhoffman/provision/programs/ergo/install.go.sh
 ~/ghq/github.com/njhoffman/provision/programs/golang-migrate/install.go.sh
