@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # install core utils, zsh
-sudo apt install add-apt-key bash-doc bison byacc build-essential locate manpages-dev pkg-config zsh # autotools-dev automake
+sudo apt install bash-doc bison byacc build-essential locate manpages-dev pkg-config zsh # autotools-dev automake
 # install core dev libs
 sudo apt install devscripts libssl-dev libreadline-dev libsqlite3-dev libbz2-dev libevent-dev zlib1g-dev
 # install avahi utils

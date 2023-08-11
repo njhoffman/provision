@@ -14,22 +14,27 @@ sudo cp -rv "$HOME/.config/grc/confs/"* /usr/share/grc
 # clone histdb
 rm -rfv ~/.histdb && git clone git@github.com:njhoffman/zsh-history.git ~/.histdb
 
-# log into zsh for zinit initialization
-mkdir ~/.local/man/ && sudo chsh /bin/zsh && /bin/zsh
-~/ghq/github.com/njhoffman/provision/programs/alacritty/install.cargo.sh
-~/ghq/github.com/njhoffman/provision/programs/ansible/install.pip.sh
-~/ghq/github.com/njhoffman/provision/other/nerd-fonts.sh
-~/ghq/github.com/njhoffman/provision/programs/autokey/install.sh
-# ~/ghq/github.com/njhoffman/provision/programs/chrome/install.sh
-~/ghq/github.com/njhoffman/provision/programs/docker/install.debian.sh
-~/ghq/github.com/njhoffman/provision/programs/i3/install.debian.sh
-~/ghq/github.com/njhoffman/provision/programs/kitty/install.sh
-~/ghq/github.com/njhoffman/provision/programs/neuron/install.nix.sh
-~/ghq/github.com/njhoffman/provision/programs/nvenv/install.sh
-~/ghq/github.com/njhoffman/provision/programs/nvimpager/install.sh
-~/ghq/github.com/njhoffman/provision/programs/picom/install.sh
-~/ghq/github.com/njhoffman/provision/programs/polybar/install.debian.sh
-~/ghq/github.com/njhoffman/provision/programs/rofi/install.debian.sh
-~/ghq/github.com/njhoffman/provision/programs/tmux/install.sh
-~/ghq/github.com/njhoffman/provision/programs/tmuxp/install.sh
-~/ghq/github.com/njhoffman/provision/programs/wezterm/install.debian.sh
+## log into zsh for zinit initialization
+mkdir ~/.local/man/ && sudo chsh "$USER" -s /bin/zsh && /bin/zsh
+##
+
+dir="$HOME/ghq/github.com/njhoffman/provision/programs"
+dir_other="$HOME/ghq/github.com/njhoffman/provision/other"
+
+"$dir/alacritty/install.cargo.sh"
+"$dir/ansible/install.pip.sh"
+"$dir_other/nerd-fonts.sh"
+"$dir/autokey/install.sh"
+# $dir/chrome/install.sh"
+"$dir/docker/install.debian.sh"
+"$dir/i3/install.debian.sh"
+"$dir/kitty/install.sh"
+"$dir/neuron/install.nix.sh"
+"$dir/nvenv/install.sh"
+"$dir/nvimpager/install.sh"
+"$dir/picom/install.sh"
+"$dir/polybar/install.debian.sh"
+"$dir/rofi/install.debian.sh"
+"$dir/tmux/install.sh"
+"$dir/tmuxp/install.sh"
+"$dir/wezterm/install.debian.sh"
