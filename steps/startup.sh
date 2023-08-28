@@ -33,6 +33,8 @@ ubuntu-drivers autoinstall
 
 # ~./fonts/install.sh
 
+cargo install git-interactive-rebase-tool
+
 # sudo apt install gnome-calendar - online connections:
 
 # 1722 dpkg, 8 snap, alias 8, export 44

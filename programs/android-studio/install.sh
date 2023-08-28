@@ -18,6 +18,10 @@ tar xvf "$file"
 sudo cp -r android-studio /opt
 
 # cd /opt/android-studio/ && ./studio.sh
+/opt/android-studio/bin/studio.sh # finish installation
+
+# plugins: Material UI Theme, Catpuccin Theme, IdeaVIM, Rainbow Brackets, ADB Idea, Codeglance
+# Key Promoter X, Adb Input, JSON to Kotlin class Plugin, Android Wifi ADB, Android Drawable Preview
 
 ## Android Studio configuration environment variables ##
 # STUDIO_VM_OPTIONS	Sets the location of the studio.vmoptions file. This file contains settings that affect the performance characteristics of the Java HotSpot Virtual Machine. This file can also be accessed from within Android Studio. See Customize your VM options.

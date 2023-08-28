@@ -2,7 +2,7 @@
 Name=Android Studio
 GenericName=Android Studio
 Comment=Image viewer
-Exec=/opt/android-studio/studio.sh
+Exec=/opt/android-studio/bin/studio.sh
 Icon=io.elementary.code
 Type=Application
 StartupNotify=true

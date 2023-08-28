@@ -3,10 +3,32 @@
 dir="$HOME/ghq/github.com/njhoffman/provision/programs"
 
 # npm packages
-npm install -g github-files-fetcher ctrace hexdump hue-cli how-2 jira-cli jira lua-fmt markdownlint-cli mdr \
-  neovim ngrok nodemon npm-check pwmetrics stylelint speedometer tldr tree-sitter-cli \
-  tracerbench twilio-cli ultra-runner webtorrent-cli yt-play-cli yt-search
-"$dir/ctrace/install.npm.sh"
+npm install -g \
+  ctrace \
+  github-files-fetcher \
+  hexdump \
+  how-2 \
+  hue-cli \
+  jira \
+  jira-cli \
+  lua-fmt \
+  markdownlint-cli \
+  mdr \
+  neovim \
+  ngrok \
+  nodemon \
+  npm-check \
+  pwmetrics \
+  speedometer \
+  stylelint \
+  tldr \
+  tracerbench \
+  tree-sitter-cli \
+  twilio-cli \
+  ultra-runner \
+  webtorrent-cli \
+  yt-play-cli \
+  yt-search
 
 # go packages
 go list std
@@ -15,39 +37,56 @@ go list -m
 ls "$GOPATH"/go "$GOROOT"/bin
 # callgraph curlie dlv ergo go gofmt goimports gomvp gopls gorename gotestsum guru impl jqp json-to-struct mockgen pup scc
 # curl -fsSL "https://github.com/abice/go-enum/releases/download/v0.5.5/go-enum_$(uname -s)_$(uname -m)" -o ~/.local/bin/go-enum && chmod +x ~/.local/bin/go-enum
-go install golang.org/x/vuln/cmd/govulncheck@latest
-go install github.com/antonmedv/fx@latest
-go install github.com/boyter/scc@latest
-go install github.com/rs/curlie@latest
-go install github.com/cristianoliveira/ergo@latest
-go install github.com/ericchiang/pup@latest
-go install github.com/mrtazz/checkmake/cmd/checkmake@latest
-go install github.com/eh-am/i3-tree@latest
-go install github.com/kyoh86/richgo@latest
-go install github.com/noahgorstein/jqp@latest
-go install github.com/ankitpokhrel/jira-cli/cmd/jira@latest
-go install golang.org/x/tools/gopls@latest
-go install callgraph@latest
-go install github.com/ankitpokhrel/jira-cli/cmd/jira@latest
-go install github.com/mcandre/stank@latest
-go install github.com/tigrawap/slit/cmd/slit@latest
-go install github.com/motemen/gore/cmd/gore@latest
-go install github.com/jesseduffield/lazynpm@latest
-go install github.com/gcla/termshark/v2/cmd/termshark@latest
-go install github.com/PuerkitoBio/goquery@latest
-go install github.com/go-delve/delve/cmd/dlv@latest
-go install github.com/ankitpokhrel/jira-cli/cmd/jira@latest
-# ├── prettyfile@1.0.0 -> ./../../../../../../ghq/github.com/njhoffman/prettyfile
+go install \
+  callgraph@latest \
+  golang.org/x/vuln/cmd/govulncheck@latest \
+  github.com/antonmedv/fx@latest \
+  github.com/boyter/scc@latest \
+  github.com/rs/curlie@latest \
+  github.com/cristianoliveira/ergo@latest \
+  github.com/ericchiang/pup@latest \
+  github.com/mrtazz/checkmake/cmd/checkmake@latest \
+  github.com/eh-am/i3-tree@latest \
+  github.com/kyoh86/richgo@latest \
+  github.com/noahgorstein/jqp@latest \
+  github.com/ankitpokhrel/jira-cli/cmd/jira@latest \
+  golang.org/x/tools/gopls@latest \
+  github.com/ankitpokhrel/jira-cli/cmd/jira@latest \
+  github.com/mcandre/stank@latest \
+  github.com/tigrawap/slit/cmd/slit@latest \
+  github.com/motemen/gore/cmd/gore@latest \
+  github.com/jesseduffield/lazynpm@latest \
+  github.com/gcla/termshark/v2/cmd/termshark@latest \
+  github.com/PuerkitoBio/goquery@latest \
+  github.com/go-delve/delve/cmd/dlv@latest \
+  github.com/ankitpokhrel/jira-cli/cmd/jira@latest
 "$dir/curlie/install.go.sh"
 "$dir/ergo/install.go.sh"
 "$dir/golang-migrate/install.go.sh"
 "$dir/pup/install.go.sh"
 "$dir/scc/install.go.sh"
 "$dir/jira-cli/install.go.sh"
+# ├── prettyfile@1.0.0 -> ./../../../../../../ghq/github.com/njhoffman/prettyfile
 
 # cargo packages
-cargo install alt broot cargo-update chr devicon-lookup dotenv-linter exa \
-  maple navi spotify-tui spotifyd st stylua taskwarrior-tui tealdeer zeta-note zoxide
+cargo install \
+  alt \
+  broot \
+  cargo-update \
+  chr \
+  devicon-lookup \
+  dotenv-linter \
+  exa \
+  maple \
+  navi \
+  spotify-tui \
+  spotifyd \
+  st \
+  stylua \
+  taskwarrior-tui \
+  tealdeer \
+  zeta-note \
+  zoxide
 "$dir/dust/install.cargo.sh"
 "$dir/htmlq/install.cargo.sh"
 "$dir/procs/install.cargo.sh"
