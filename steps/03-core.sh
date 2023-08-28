@@ -7,7 +7,7 @@ sudo apt install devscripts libssl-dev libreadline-dev libsqlite3-dev libbz2-dev
 # install avahi utils
 sudo apt install avahi-autoipd avahi-daemon avahi-discover avahi-utils
 # install python and python packages
-sudo apt install python python-is-python3 python3-pip python-setuptools python3-venv
+sudo apt install python3 2to3 python3-pip pipx python-setuptools python3-venv
 # install x11 utils
 sudo apt install xsel xclip xdotool wmctrl
 # install random utils

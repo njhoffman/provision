@@ -15,3 +15,12 @@ sudo dpkg -i "autokey-common_${ver}_all.deb"
 sudo dpkg -i "autokey-gtk_${ver}_all.deb"
 sudo dpkg -i "autokey-qt_${ver}_all.deb"
 rm "$HOME/Downloads/autokey-"*.deb
+
+# ghq get -l git@github.com:autokey/autokey.git
+# pip3 install .
+# git checkout $VERSION
+# uscan -dd
+# cd .. && tar xzvf autokey-$VERSION.tar.gz
+# cd "autokey-$VERSION"
+# dpkg-buildpackage -b
+# dpkg-buildpackage -us -uc

@@ -11,12 +11,12 @@ sudo apt-get install \
   libsqlite3-dev \
   libssl-dev \
   openssl \
-  python-pip \
-  python-setuptools \
+  python3-pip \
   tk-dev \
   zlib1g-dev
 
-ghq get -l tmux/tmux
+mkdir -p ~/ghq/github.com/tmux && cd ~/ghq/github.com/tmux
+git clone git@github.com:tmux/tmux.git && cd tmux
 # to get ctrl-i working:
 # key_bindings:
 #   - { key: I, mods: Control, chars: "\x1b[105;5u" }
@@ -31,11 +31,13 @@ ghq get -l tmux/tmux
 # else if (onlykey >= 97 && onlykey <= 122 && onlykey != 105)
 
 # autoconf
+autoupdate -f
 ./autogen.sh
 ./configure
 make
 sudo make install
 
+mkdir ~/.tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 cd ~/.tmux/plugins/tpm/bin
-update_plugins all
+TMUX_PLUGIN_MANAGER_PATH=~/.tmux/plugins/tpm update_plugins all
