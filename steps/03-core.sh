@@ -19,3 +19,4 @@ sudo apt install mpc ncmpcpp pavucontrol libpulse0 pamixer alsa-utils alsa-tools
 # install network utils
 sudo apt install blueman cifs-utils curl net-tools nmap smbclient traceroute nfs-common
 # --  sudo apt install lockd, statd, showmount, nfsstat, gssd, idmapd and mount.nfs.
+sudo apt install keychain

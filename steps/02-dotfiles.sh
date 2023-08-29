@@ -14,3 +14,6 @@ export PATH=$PATH:$HOME/.dotbare
 export DOTBARE_DIR="$HOME/.cfg"
 export DOTBARE_TREE="$HOME"
 dotbare finit -u git@github.com:njhoffman/dotfiles.git
+
+# setup bat syntax
+bat cache --clean && bat cache --build

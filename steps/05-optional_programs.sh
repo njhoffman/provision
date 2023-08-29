@@ -33,33 +33,26 @@ npm install -g \
 # go packages
 go list std
 go install golang.org/x/tools/gopls@latest
+go install golang.org/x/cmd/govulncheck@latest
 go list -m
 ls "$GOPATH"/go "$GOROOT"/bin
 # callgraph curlie dlv ergo go gofmt goimports gomvp gopls gorename gotestsum guru impl jqp json-to-struct mockgen pup scc
 # curl -fsSL "https://github.com/abice/go-enum/releases/download/v0.5.5/go-enum_$(uname -s)_$(uname -m)" -o ~/.local/bin/go-enum && chmod +x ~/.local/bin/go-enum
-go install \
-  callgraph@latest \
-  golang.org/x/vuln/cmd/govulncheck@latest \
-  github.com/antonmedv/fx@latest \
-  github.com/boyter/scc@latest \
-  github.com/rs/curlie@latest \
-  github.com/cristianoliveira/ergo@latest \
-  github.com/ericchiang/pup@latest \
-  github.com/mrtazz/checkmake/cmd/checkmake@latest \
-  github.com/eh-am/i3-tree@latest \
-  github.com/kyoh86/richgo@latest \
-  github.com/noahgorstein/jqp@latest \
-  github.com/ankitpokhrel/jira-cli/cmd/jira@latest \
-  golang.org/x/tools/gopls@latest \
-  github.com/ankitpokhrel/jira-cli/cmd/jira@latest \
-  github.com/mcandre/stank@latest \
-  github.com/tigrawap/slit/cmd/slit@latest \
-  github.com/motemen/gore/cmd/gore@latest \
-  github.com/jesseduffield/lazynpm@latest \
-  github.com/gcla/termshark/v2/cmd/termshark@latest \
-  github.com/PuerkitoBio/goquery@latest \
-  github.com/go-delve/delve/cmd/dlv@latest \
-  github.com/ankitpokhrel/jira-cli/cmd/jira@latest
+
+# callgraph@latest \
+
+# github.com/mcandre/stank@latest \
+# github.com/motemen/gore/cmd/gore@latest \
+# github.com/PuerkitoBio/goquery@latest \
+go install github.com/antonmedv/fx@latest
+go install github.com/mrtazz/checkmake/cmd/checkmake@latest
+go install github.com/eh-am/i3-tree@latest
+go install github.com/kyoh86/richgo@latest
+go install github.com/noahgorstein/jqp@latest
+go install github.com/tigrawap/slit/cmd/slit@latest
+go install github.com/jesseduffield/lazynpm@latest
+go install github.com/gcla/termshark/v2/cmd/termshark@latest
+go install github.com/go-delve/delve/cmd/dlv@latest
 "$dir/curlie/install.go.sh"
 "$dir/ergo/install.go.sh"
 "$dir/golang-migrate/install.go.sh"
@@ -72,8 +65,7 @@ go install \
 cargo install \
   alt \
   broot \
-  cargo-update \
-  chr \
+  cargo-update \ # chr \
   devicon-lookup \
   dotenv-linter \
   exa \
@@ -98,11 +90,16 @@ cargo install update-all
 "$dir/mdless/install.gem.sh"
 
 # python packages
+"$dir/flashfocus/install.pip.sh"
 "$dir/vis/install.pip.sh"
 "$dir/visidata/install.pip.sh"
 # $dir/bpytop/install.pip.sh
 # $dir/ueberzug/install.pip.sh
-pip3 install youtube-dl howdoi assume command-not-found pynvim
+pipx install youtube-dl
+pipx install howdoi
+pipx install assume
+# pipx install command-not-found
+pip3 install pynvim
 pip-upgrade-all
 
 "$dir/btop/install.sh"
@@ -126,14 +123,11 @@ pip-upgrade-all
 "$dir/zathura/install.debian.sh"
 
 # random packages and config
-bat cache --build
 #   init njhoffman gh repos (special: zettelkasten)
 #   uninstall snap packages (firefox)
 #   scan ~/bin and install dependencies
 # fzf post-install: ghq get -l junegunn/fzf && cp -rv man/man1/* /usr/share/man/man1 && mandb
 touch ~/.config/nitrogen/bg-saved.cfg
-sudo apt install nitrogen
-sudo apt install flashfocus # systemctl --user start flashfocus.service && systemctl --user enable flashfocus.service
 
 "$dir/gh-cli/install.extensions.sh"
 

@@ -1,3 +1,4 @@
 #!/bin/bash
 
-pip3 install flashfocus
+pipx install flashfocus
+# systemctl --user start flashfocus.service && systemctl --user enable flashfocus.service

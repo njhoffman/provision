@@ -26,6 +26,9 @@ make distclean && make deps
 make CMAKE_INSTALL_PREFIX="$HOME/.local" CMAKE_BUILD_TYPE=RelWithDebInfo install
 install build/bin/nvim ~/.local/bin
 
+ln -s ~/.local/share/nvim/lazy ~/lazy
+mkdir -p ~/.local/share/nvim/sessions/restart
+
 ## dependencies
 mkdir -p ~/ghq/github.com/njhoffman && cd ~/ghq/github.com && git clone git@github.com:njhoffman/telescope.nvim
 mkdir ~/git && ln -s ~/ghq/github.com/njhoffman/telescope.nvim ~/git/telescope.nvim
@@ -41,9 +44,11 @@ luarocks --local install lunamark
 pipx install howdoi
 # fix vimade
 pipx install --install-dep neovim-remote
-pip3 install neovim neovim-remote
+pip3 install neovim
+pipx install neovim-remote
 gem install neovim
 npm install -g neovim
+
 go install github.com/abenz1267/gomvp@latest
 go install github.com/davidrjenni/reftools/cmd/fillstruct@latest
 go install github.com/go-delve/delve/cmd/dlv@latest

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # personal packages
-ghq get -l njhoffman/prettypath && luarocks install ./prettypath-dev-1.rockspec
+ghq get -l njhoffman/prettypath && luarocks install ./prettypath-dev-2.rockspec
 ghq get -l njhoffman/clever-f.vim
 ghq get -l njhoffman/fidget.nvim
 ghq get -l njhoffman/fzfmenu
