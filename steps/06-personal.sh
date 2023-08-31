@@ -16,3 +16,17 @@ ghq get -l njhoffman/which-key.nvim@master
 
 # install wallpapers
 git clone git@github.com:njhoffman/resources-wallpaper.git ~/wallpaper
+
+# setup a sink by default for pulseaudio
+pacmd load-module module-pipe-sink file=/tmp/pulse.fifo
+pacmd list-sinks # search your default sink
+pacmd load-module module-combine-sink slaves=yoursink,fifo_output
+pacmd set-default-sink combined
+
+## alsa config
+# pcm.writeFile {
+#   type file
+#   slave.pcm null
+#   file "/tmp/alsa.fifo"
+#   format "raw"
+# }
