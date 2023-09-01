@@ -1,8 +1,18 @@
 #!/usr/bin/env bash
+version=2.1.1
+
 pip3 install notify-send.py
+
 curl -sSL https://get.haskellstack.org/ | sh
 ghq get -l phuhl/linux_notification_center
-make
+# make
+# sudo make install
+
+tar -xvzf linux_notification_center-"$version".tar.gz
+cd linux_notification_center-"$version"
+wget https://github.com/phuhl/linux_notification_center/releases/download/"$version"/deadd-notification-center
+mkdir -p .out
+mv deadd-notification-center .out
 sudo make install
 
 notify-send.py "Icons are" "COOL" \
