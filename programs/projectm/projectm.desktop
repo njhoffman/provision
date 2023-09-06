@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=ProjectM Visualizer
+GenericName=ProjectM Visualizer
+Comment=ProjectM Music Visualizer
+Exec=/opt/projectm/projectMSDL
+Icon=sonic-visualiser
+Type=Application
+StartupNotify=true
+# NoDisplay=true
+Hidden=false
+Terminal=false
