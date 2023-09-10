@@ -1,6 +1,34 @@
+charon:  9391/1918
 minerva: 11306/1623
 
 
+------
+charon
+------
+11th Gen Intel Core i7-1195G7 @ 2.90GHz (x86_64)
+4 cores @ 5000 MHz  |  15.2 GiB RAM
+Number of Processes: 8  |  Test Iterations: 1  |  Test Duration: Medium
+--------------------------------------------------------------------------------
+CPU Mark:                          9391
+  Integer Math                     34720 Million Operations/s
+  Floating Point Math              13677 Million Operations/s
+  Prime Numbers                    42.6 Million Primes/s
+  Sorting                          13785 Thousand Strings/s
+  Encryption                       5612 MB/s
+  Compression                      103161 KB/s
+  CPU Single Threaded              2020 Million Operations/s
+  Physics                          878 Frames/s
+  Extended Instructions (SSE)      6304 Million Matrices/s
+
+Memory Mark:                       1918
+  Database Operations              3304 Thousand Operations/s
+  Memory Read Cached               19312 MB/s
+  Memory Read Uncached             10992 MB/s
+  Memory Write                     10870 MB/s
+  Available RAM                    5040 Megabytes
+  Memory Latency                   67 Nanoseconds
+  Memory Threaded                  46742 MB/s
+--------------------------------------------------------------------------------
 -------
 minerva
 -------
