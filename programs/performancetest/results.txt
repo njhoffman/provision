@@ -1,0 +1,30 @@
+minerva: 11306/1623
+
+
+-------
+minerva
+-------
+AMD Ryzen 5 1600 Six-Core Processor (x86_64)
+6 cores @ 3200 MHz  |  15.5 GiB RAM
+Number of Processes: 12  |  Test Iterations: 1  |  Test Duration: Medium
+--------------------------------------------------------------------------------
+CPU Mark:                          11306
+  Integer Math                     37152 Million Operations/s
+  Floating Point Math              20634 Million Operations/s
+  Prime Numbers                    27.3 Million Primes/s
+  Sorting                          18994 Thousand Strings/s
+  Encryption                       11804 MB/s
+  Compression                      151247 KB/s
+  CPU Single Threaded              1983 Million Operations/s
+  Physics                          805 Frames/s
+  Extended Instructions (SSE)      5534 Million Matrices/s
+
+Memory Mark:                       1623
+  Database Operations              3178 Thousand Operations/s
+  Memory Read Cached               23637 MB/s
+  Memory Read Uncached             14706 MB/s
+  Memory Write                     8456 MB/s
+  Available RAM                    1726 Megabytes
+  Memory Latency                   61 Nanoseconds
+  Memory Threaded                  31047 MB/s
+--------------------------------------------------------------------------------
