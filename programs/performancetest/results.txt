@@ -1,13 +1,39 @@
-charon:  9391/1918
-minerva: 11306/1623
+morpheus:  6229/2197
+charon:    9391/1918
+minerva:  11306/1623
 
+--------
+morpheus
+--------
+Intel Core i7-1185G7 @ 3.00GHz (x86_64)
+4 cores @ 4800 MHz<Plug>(StopHL)  |  15.3 GiB RAM
+--------------------------------------------------------------------------------
+CPU Mark:                          6229
+  Integer Math                     35018 Million Operations/s
+  Floating Point Math              10308 Million Operations/s
+  Prime Numbers                    29.6 Million Primes/s
+  Sorting                          7809 Thousand Strings/s
+  Encryption                       3599 MB/s
+  Compression                      59303 KB/s
+  CPU Single Threaded              2478 Million Operations/s
+  Physics                          512 Frames/s
+  Extended Instructions (SSE)      3268 Million Matrices/s
+
+Memory Mark:                       2197
+  Database Operations              1793 Thousand Operations/s
+  Memory Read Cached               19148 MB/s
+  Memory Read Uncached             13725 MB/s
+  Memory Write                     11992 MB/s
+  Available RAM                    9132 Megabytes
+  Memory Latency                   52 Nanoseconds
+  Memory Threaded                  31988 MB/s
+--------------------------------------------------------------------------------
 
 ------
 charon
 ------
 11th Gen Intel Core i7-1195G7 @ 2.90GHz (x86_64)
 4 cores @ 5000 MHz  |  15.2 GiB RAM
-Number of Processes: 8  |  Test Iterations: 1  |  Test Duration: Medium
 --------------------------------------------------------------------------------
 CPU Mark:                          9391
   Integer Math                     34720 Million Operations/s
@@ -29,12 +55,12 @@ Memory Mark:                       1918
   Memory Latency                   67 Nanoseconds
   Memory Threaded                  46742 MB/s
 --------------------------------------------------------------------------------
+
 -------
 minerva
 -------
 AMD Ryzen 5 1600 Six-Core Processor (x86_64)
 6 cores @ 3200 MHz  |  15.5 GiB RAM
-Number of Processes: 12  |  Test Iterations: 1  |  Test Duration: Medium
 --------------------------------------------------------------------------------
 CPU Mark:                          11306
   Integer Math                     37152 Million Operations/s

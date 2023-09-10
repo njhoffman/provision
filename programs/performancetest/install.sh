@@ -1,4 +1,4 @@
 #!/bin/bash
 sudo apt install libncurses5
 cd ~/Downloads && wget https://www.passmark.com/downloads/pt_linux_x64.zip
-unzip pt_linux_x64.zip && sudo mv pt_linux_x64/pt_linux_x64 /usr/local/bin/pt
+unzip pt_linux_x64.zip && sudo mv PerformanceTest/pt_linux_x64 /usr/local/bin/pt
