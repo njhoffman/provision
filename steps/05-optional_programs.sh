@@ -5,6 +5,7 @@ dir="$HOME/ghq/github.com/njhoffman/provision/programs"
 # npm packages
 npm install -g \
   ctrace \
+  fast-cli \
   github-files-fetcher \
   hexdump \
   how-2 \
