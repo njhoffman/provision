@@ -1,6 +1,7 @@
 #!/bin/bash
 
-pip install "git+http://github.com/phillipberndt/autorandr#egg=autorandr"
+sudo apt install libinput-tools
+pipx install "git+http://github.com/phillipberndt/autorandr#egg=autorandr"
 ghq get -l phillipberndt/autorandr
 make install
 sudo systemctl daemon-reload
