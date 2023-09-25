@@ -94,6 +94,7 @@ cargo install update-all
 "$dir/flashfocus/install.pip.sh"
 "$dir/vis/install.pip.sh"
 "$dir/visidata/install.pip.sh"
+"$dir/spotdl/install.pip.sh"
 # $dir/bpytop/install.pip.sh
 # $dir/ueberzug/install.pip.sh
 pipx install youtube-dl
