@@ -97,6 +97,8 @@ cargo install update-all
 "$dir/spotdl/install.pip.sh"
 # $dir/bpytop/install.pip.sh
 # $dir/ueberzug/install.pip.sh
+pipx install pgcli
+pipx install mycli
 pipx install youtube-dl
 pipx install howdoi
 pipx install assume
