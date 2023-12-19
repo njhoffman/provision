@@ -1,0 +1,81 @@
+---
+- name: install dependencies
+  apt:
+    update_cache: true
+    pkg:
+      - gcc
+
+- name: add asdf plugins for "{{asdf_title}}"
+  shell: |
+    source $HOME/.asdf/asdf.sh \
+      && asdf plugin list | grep "^{{item.name}}$" \
+      || asdf plugin add "{{item.name}}"
+  with_items: "{{asdf_packages}}"
+  args:
+    executable: /bin/bash
+
+- name: update asdf plugins for "{{asdf_title}}"
+  shell: source $HOME/.asdf/asdf.sh && asdf plugin update --all
+  args:
+    executable: /bin/bash
+
+- name: install latest/versioned asdf packages for "{{asdf_title}}"
+  ignore_errors: true
+  shell:
+    cmd: |
+        source $HOME/.asdf/asdf.sh
+        if [[ "{{item.version|quote}}" == "latest" ]]; then
+          asdf install {{item.name|quote}} \
+            $(asdf list all {{item.name|quote}} | grep '[0-9]\+' | sort -V | tail -n1)
+        elif [[ "{{item.version|quote}}" == "stable" ]]; then
+          asdf install {{item.name|quote}} $(asdf latest {{item.name|quote}})
+        else
+          asdf install {{item.name|quote}} {{item.version|quote}}
+        fi
+  with_items: "{{asdf_packages}}"
+  args:
+    executable: /bin/bash
+
+- name: save latest version config for "{{asdf_title}}"
+  ignore_errors: true
+  shell:
+    cmd: |
+      source $HOME/.asdf/asdf.sh
+      if [[ "{{item.version|quote}}" == "latest" ]]; then
+        asdf global {{item.name|quote}} \
+          $(asdf list all {{item.name|quote}} | grep '[0-9]\+' | sort -V | tail -n1)
+      elif [[ "{{item.version|quote}}" == "stable" ]]; then
+        asdf global {{item.name|quote}} $(asdf latest {{item.name|quote}})
+      else
+        asdf global {{item.name|quote}} {{item.version|quote}}
+      fi
+  with_items: "{{asdf_packages}}"
+  args:
+    executable: /bin/bash
+
+- name: reshim installed packages for "{{asdf_title}}"
+  ignore_errors: true
+  shell:
+    cmd: |
+      source $HOME/.asdf/asdf.sh
+      if [[ "{{item.version|quote}}" == "latest" ]]; then
+        asdf reshim {{item.name|quote}} \
+          $(asdf list all {{item.name|quote}} | grep '[0-9]\+' | sort -V | tail -n1)
+      elif [[ "{{item.version|quote}}" == "stable" ]]; then
+        asdf reshim {{item.name|quote}} $(asdf latest {{item.name|quote}})
+      else
+        asdf reshim {{item.name|quote}} {{item.version|quote}}
+      fi
+  with_items: "{{asdf_packages}}"
+  args:
+    executable: /bin/bash
+
+- name: get current asdf package versions
+  shell: source $HOME/.asdf/asdf.sh && asdf current
+  register: current_output
+  args:
+    executable: /bin/bash
+
+- name: show current versions
+  debug:
+    var: current_output.stdout_lines

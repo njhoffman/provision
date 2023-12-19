@@ -1,0 +1,49 @@
+---
+- name: add custom jq plugin
+  shell: |
+    $HOME/.asdf/bin/asdf plugin list | grep -v "^jq$" \
+      || $HOME/.asdf/bin/asdf plugin add jq https://github.com/AZMCode/asdf-jq
+
+- name: add asdf base plugins
+  shell: |
+    $HOME/.asdf/bin/asdf plugin list | grep "^{{item}}$" \
+      || $HOME/.asdf/bin/asdf plugin add "{{ item }}"
+  with_items: "{{asdf_base}}"
+
+- name: update plugins
+  shell: $HOME/.asdf/bin/asdf plugin update --all
+
+- name: install latest asdf versioned packages
+  ignore_errors: true
+  shell:
+    cmd: |
+        $HOME/.asdf/bin/asdf install {{item | quote}} \
+          $($HOME/.asdf/bin/asdf list all {{item|quote}} | grep '[0-9]\+' | sort -V | tail -n1)
+  with_items: "{{asdf_base}}"
+
+- name: save latest version config
+  ignore_errors: true
+  shell:
+    cmd: |
+      $HOME/.asdf/bin/asdf global {{item|quote}} \
+        $($HOME/.asdf/bin/asdf list all {{item|quote}} | grep '[0-9]\+' | sort -V | tail -n1)
+  with_items: "{{asdf_base}}"
+
+- name: reshim installed packages
+  ignore_errors: true
+  shell:
+    cmd: |
+      $HOME/.asdf/bin/asdf global {{item|quote}} \
+        $($HOME/.asdf/bin/asdf list all {{item|quote}} | grep '[0-9]\+' | sort -V | tail -n1)
+  with_items: "{{asdf_base}}"
+
+- name: get current package versions
+  shell: source $HOME/.asdf/asdf.sh && asdf current
+  register: current_output
+  args:
+    executable: /bin/bash
+
+- name: show current versions
+  debug:
+    var: current_output.stdout_lines
+

@@ -1,0 +1,28 @@
+##################
+## single files ##
+##################
+
+Dockerfile
+.env*
+npm-debug.log
+
+#################
+## directories ##
+#################
+
+# 3rd party modules dependency directory
+node_modules
+
+# eslintcache
+.eslintcache
+
+# coverage directory used by tools like istanbul
+coverage/**
+.nyc_output/**
+
+# docker files
+.docker/**
+
+# other
+logs/**
+.idea/**

@@ -1,0 +1,8 @@
+FROM dotfiles/devtools-base:latest AS dotfiles-test
+COPY ./ /root/.dotfiles/
+WORKDIR /root/.dotfiles/.provision
+RUN ./start-ansible.sh twilio
+RUN ./start-ansible.sh cleanup
+
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]

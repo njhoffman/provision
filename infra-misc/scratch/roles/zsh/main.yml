@@ -1,0 +1,17 @@
+
+# zsh and plugins
+- name: install zsh
+  import_tasks: "{{ dotfiles_dir }}/zsh/tasks/zsh.yml"
+  tags: [ zsh ]
+
+# - name: install zsh plugin dependencies
+#   import_tasks: "{{ dotfiles_dir }}/zsh/tasks/plugins.yml"
+#   tags: [ zsh, zsh-plugins ]
+#
+# - name: install antibody plugin manager
+#   import_tasks: "{{ dotfiles_dir }}/antibody/tasks.yml"
+#   tags: [ zsh, zsh-plugins, antibody ]
+#
+# - name: install system wide fonts
+#   import_tasks: "{{ dotfiles_dir }}/fonts/tasks.yml"
+#   tags: [ fonts, nerdfonts, awesomefonts ]

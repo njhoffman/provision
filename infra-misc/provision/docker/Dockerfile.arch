@@ -1,0 +1,27 @@
+FROM	 archlinux:latest
+
+# Update the repositories
+RUN	 pacman -Syy
+
+# Install openssh
+RUN	 pacman -S --noconfirm openssh
+
+# Generate host keys
+RUN  /usr/bin/ssh-keygen -A
+
+# Add password to root user
+RUN	 echo 'root:screencast' | chpasswd
+RUN sed -i '/PermitRootLogin /d' /etc/ssh/sshd_config
+RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
+
+# SSH login fix. Otherwise user is kicked off after login
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+# Fix sshd
+RUN  sed -i -e 's/^UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
+
+# Expose tcp port
+EXPOSE	 22
+
+# Run openssh daemon
+CMD	 ["/usr/sbin/sshd", "-D"]

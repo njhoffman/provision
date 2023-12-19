@@ -1,0 +1,53 @@
+---
+dependency:
+  name: galaxy
+  # options:
+  #     role-file: requirements.yml
+driver:
+  name: docker
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
+platforms:
+  - name: instance
+    pre_build_image: true
+    image: docker.io/pycontribs/ubuntu:latest
+    # image: docker.io/pycontribs/centos:8
+    # image: docker.io/pycontribs/debian:latest
+    # privileged: true
+provisioner:
+  name: ansible
+  log: true
+  inventory:
+    group_vars:
+      all:
+        docker_molecule_test: true
+  playbooks:
+    converge: ${MOLECULE_PLAYBOOK:-converge.yml}
+verifier:
+  name: ansible
+scenario:
+  name: default
+  converge_sequence:
+    # - dependency
+    - create
+    - converge
+  test_sequence:
+    - lint
+    - destroy
+    # - dependency
+    - syntax
+    - create
+    - converge
+    - idempotence
+    - verify
+    - destroy
+  check_sequence:
+    # - dependency
+    - destroy
+    - create
+    - converge
+    - check
+    - destroy

@@ -1,0 +1,12 @@
+[all:vars]
+env=vagrant
+
+[local]
+127.0.0.1
+
+[local:vars]
+ ansible_port=2222
+ ansible_user=vagrant
+ ansible_private_key_file="./.vagrant/machines/local/virtualbox/private_key"
+
+; vim:ft=dosini

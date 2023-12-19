@@ -1,0 +1,22 @@
+---
+- name: Install git dependency
+  package:
+    name: git
+
+- name: Ensure GitHub deploy key is present on the server.
+  stat:
+    path: "{{ deploy_local_user_home }}/.ssh/ansible_deploy"
+  register: github_key
+
+- name: Fail if github deploy key is missing
+  fail:
+    msg: The Github SSH key is not present
+  when: not github_key.stat.exists
+
+- name: Clone the code repository to the docroot.
+  git:
+    repo: "ssh://{{ provision_repo_src }}"
+    version: master
+    dest: "{{ provision_repo_dest }}"
+    key_file: "{{ deploy_local_user_home }}/.ssh/ansible_deploy"
+    accept_hostkey: yes

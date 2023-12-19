@@ -1,0 +1,48 @@
+---
+# dependency:
+#   name: galaxy
+#   options:
+#     role-file: requirements.yml
+driver:
+  name: docker
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  # flake8
+platforms:
+  - name: centos8
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    image: centos:8
+    tmpfs:
+       - /run
+       - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    pre_build_image: true
+  - name: Ubuntu-20
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    image: ubuntu:20.10
+  - name: Ubuntu-18
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    image: ubuntu:18.04
+provisioner:
+  name: ansible
+  options:
+    vvv: False
+  playbooks:
+    # create: create.yml
+    converge: converge.yml
+    # destroy: destroy.yml
+  inventory:
+    host_vars:
+      centos8:
+        ansible_user: ansible
+      ubuntu18:
+        ansible_user: ansible
+      ubuntu20:
+        ansible_user: ansible
+scenario:
+  name: default
+verifier:
+  name: ansible

@@ -1,0 +1,65 @@
+#!/bin/bash
+
+export BUILDTAG="ubuntu:20.04"
+export ZSH_PROFILE="clean"
+export ZSH_PERFCHECK=0
+export DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
+export NO_CACHE=0
+export BUILDKIT_PROGRESS=plain
+
+# shellcheck disable=SC2086,SC2046
+dir="$(dirname $(readlink -f $0))"
+
+root="$dir/../.."
+dockerfile="$root/Dockerfile"
+cache_args=""
+[ $NO_CACHE -ne 0 ] && cache_args="--no-cache"
+
+rm -f "$dockerfile"
+
+# make dockerfile with replaced environment variables
+cd "$root" || exit
+
+make \
+  Dockerfile \
+  BUILDTAG="$BUILDTAG" \
+  ZSH_PROFILE="$ZSH_PROFILE" \
+  ZSH_PERFCHECK="$ZSH_PERFCHECK"
+
+declare -A targets
+targets[base]="dotfiles/base"
+targets[ansible-base]="dotfiles/ansible-base"
+targets[ansible-shell]="dotfiles/shell"
+targets[ansible-devtools]="dotfiles/devtools"
+targets[ansible-services]="dotfiles/services"
+targets[ansible-systemtools]="dotfiles/systemtools"
+targets[ansible-window-management]="dotfiles/window-management"
+# targets[ansible-all]="dotfiles/all"
+
+clr_green='\033[38;5;72m'
+clr_blue='\033[38;5;63m'
+clr_orange='\033[38;5;208m'
+nc='\033[0m'
+
+for target in "${!targets[@]}"; do
+  image=${targets[$target]}
+  logpath="$dir/../logs/${target}.log"
+
+  if [ "$(docker images | grep $image)" ]; then
+    echo -e "\n-- Skipping image: ${clr_orange}$image${nc}"
+    continue
+  fi
+
+  rm "$logpath" &>/dev/null && touch "$logpath"
+  echo -e "\n-- Building target: ${clr_green}$target${nc} \
+    for image: ${clr_blue}$image${nc} $cache_args\n\t (logpath $logpath)"
+
+  docker build -t "$image" $cache_args \
+    --target "$target" . 2>&1 | tee -a "$logpath"
+
+done
+
+rm -f "$dockerfile"
+
+# ubuntu: 16.04 (Xenial), 18.04 (Bionic), 20.04 (Focal), 20.10 (Groovy Gorilla Beta)
+# ubuntu, mx linux, linux mint, debian, fedora, arch, kubuntu, manjaro

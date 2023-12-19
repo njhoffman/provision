@@ -1,0 +1,114 @@
+version: "3.7"
+
+services:
+
+  base-stable:
+    image: ${REGISTRY}${REPO}:base-stable
+    build:
+      context: ./base
+      dockerfile: Dockerfile
+      args:
+        VERSION: "release-0.6"
+
+  base-nightly:
+    image: ${REGISTRY}${REPO}:base-nightly
+    build:
+      context: ./base
+      dockerfile: Dockerfile
+      args:
+        VERSION: "master"
+
+  stable-c:
+    image: ${REGISTRY}${REPO}:stable-c
+    build:
+      context: ./lsp-c
+      dockerfile: Dockerfile
+      args:
+        TAG: "base-stable"
+        REGISTRY: ${REGISTRY}
+        REPO: ${REPO}
+
+  nightly-c:
+    image: ${REGISTRY}${REPO}:nightly-c
+    build:
+      context: ./lsp-c
+      dockerfile: Dockerfile
+      args:
+        REGISTRY: ${REGISTRY}
+        REPO: ${REPO}
+
+  stable-lua:
+    image: ${REGISTRY}${REPO}:stable-lua
+    build:
+      context: ./lsp-lua
+      dockerfile: Dockerfile
+      args:
+        TAG: "base-stable"
+        REGISTRY: ${REGISTRY}
+        REPO: ${REPO}
+
+  nightly-lua:
+    image: ${REGISTRY}${REPO}:nightly-lua
+    build:
+      context: ./lsp-lua
+      dockerfile: Dockerfile
+      args:
+        REGISTRY: ${REGISTRY}
+        REPO: ${REPO}
+
+  stable-python:
+    image: ${REGISTRY}${REPO}:stable-python
+    build:
+      context: ./lsp-python
+      dockerfile: Dockerfile
+      args:
+        TAG: "base-stable"
+        REGISTRY: ${REGISTRY}
+        REPO: ${REPO}
+
+  nightly-python:
+    image: ${REGISTRY}${REPO}:nightly-python
+    build:
+      context: ./lsp-python
+      dockerfile: Dockerfile
+      args:
+        REGISTRY: ${REGISTRY}
+        REPO: ${REPO}
+
+  stable-rust:
+    image: ${REGISTRY}${REPO}:stable-rust
+    build:
+      context: ./lsp-rust
+      dockerfile: Dockerfile
+      args:
+        TAG: "base-stable"
+        REGISTRY: ${REGISTRY}
+        REPO: ${REPO}
+
+  nightly-rust:
+    image: ${REGISTRY}${REPO}:nightly-rust
+    build:
+      context: ./lsp-rust
+      dockerfile: Dockerfile
+      args:
+        REGISTRY: ${REGISTRY}
+        REPO: ${REPO}
+
+  stable-typescript:
+    image: ${REGISTRY}${REPO}:stable-typescript
+    build:
+      context: ./lsp-typescript
+      dockerfile: Dockerfile
+      args:
+        TAG: "base-stable"
+        REGISTRY: ${REGISTRY}
+        REPO: ${REPO}
+
+  nightly-typescript:
+    image: ${REGISTRY}${REPO}:nightly-typescript
+    build:
+      context: ./lsp-typescript
+      dockerfile: Dockerfile
+      args:
+        REGISTRY: ${REGISTRY}
+        REPO: ${REPO}

@@ -29,3 +29,6 @@ beet web
 ghq get -l abba23/beets-popularity.git
 cd beets-popularity
 python3 -m pip install .
+
+pip install --upgrade pip wheel setuptools requests
+pipx install pylast python-mpd2

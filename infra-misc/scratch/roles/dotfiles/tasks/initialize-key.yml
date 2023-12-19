@@ -1,0 +1,28 @@
+---
+- name: Install storm python package
+  pip:
+    name: stormssh
+
+- name: register handler
+  set_fact:
+    deploy_handler_set: true
+  notify: remove ssh key
+
+- name: read ssh key from local file
+  set_fact:
+    key_decrypted: "{{ lookup('file', '{{ deploy_ssh_private_key_file }}') }}"
+  when: deploy_use_local_file
+
+- name: read ssh key from string
+  set_fact:
+    key_decrypted: "{{ deploy_ssh_private_key|b64decode }}"
+  when: not deploy_use_local_file
+
+- name: check ssh key for password
+  set_fact:
+    deploy_encrypted_private_key: true
+  when: '"ENCRYPTED" in key_decrypted'
+
+# See: https://stackoverflow.com/a/37096534/100134
+- name: Ensure setfacl support is present.
+  package: name=acl

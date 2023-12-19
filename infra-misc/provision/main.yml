@@ -1,0 +1,19 @@
+---
+- name: Provisioning Playbook
+  hosts: local
+  become: false
+  # remote_user: root
+  # remote_user: vagrant
+  # become_method: sudo
+  # become_user: root
+  roles:
+    - role: manala.zsh
+      become: true
+    # - role: manala.ohmyzsh
+    #   become: true
+    # - role: viasite-ansible.zsh
+      # become: true
+    - role: dotfiles
+    - role: role_template
+  # vars:
+  #   home_dir: "{{ lookup('env', 'HOME') }}"

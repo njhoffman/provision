@@ -1,0 +1,62 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
+platforms:
+  - name: instance
+    pre_build_image: true
+    image: docker.io/pycontribs/ubuntu:latest
+    # image: docker.io/pycontribs/centos:8
+    # image: docker.io/pycontribs/debian:latest
+    # image: "geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest"
+    # image: debian:stretch
+    # privileged: true
+    # volumes:
+    #   - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    #   - /var/lib/docker
+provisioner:
+  name: ansible
+  log: true
+  # connection_options:
+  #   ansible_connection: docker
+  #   ansible_password: ansible
+  #   ansible_ssh_user: ansible
+  inventory:
+    group_vars:
+      all:
+        docker_molecule_test: true
+  playbooks:
+    converge: ${MOLECULE_PLAYBOOK:-converge.yml}
+    # create: create.yml
+    # destroy: destroy.yml
+verifier:
+  name: ansible
+scenario:
+  name: default
+  test_sequence:
+    - lint
+    - destroy
+    # - dependency
+    - syntax
+    - create
+    # - prepare
+    - converge
+    - idempotence
+    # - side_effect
+    - verify
+    - destroy
+  check_sequence:
+    - dependency
+    - cleanup
+    - destroy
+    - create
+    # - prepare
+    - converge
+    - check
+    - destroy

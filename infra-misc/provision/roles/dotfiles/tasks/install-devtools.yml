@@ -1,0 +1,95 @@
+
+- name: create vim backup and swap directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - ~/.vim
+    - ~/.vim/backup
+    - ~/.vim/swap
+
+- name: install vim-plug
+  shell:
+    cmd: sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  notify: install neovim plugins
+
+- name: run vundle's :PluginInstall
+  shell: nvim --headless +PlugUpdate +qa
+
+- name: install homebrew
+  shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew --version
+  register: brew_version
+
+- debug:
+    var: brew_version
+
+- name: install homebrew devtools programs
+  pip:
+    name: brew install "{{ item }}"
+  with_items:
+    - bit-git
+    - ffmpeg
+    - geoipupdate
+    - gh
+    - git-cal
+    - git-delta
+    - glow
+    - grc
+    - httpstat
+    - hyperfine
+    - lazydocker
+    - lazygit
+    - mpd
+    - prettyping
+    - pulseaudio
+    - pup
+    - ranger
+    - signal-cli
+
+- name: install python3 devtools programs
+  pip:
+    name: pip3 install "{{ item }}"
+  with_items:
+    - ansible
+    - ansible-docker
+    - ansible-lint
+    - bpytop
+    - molecule
+    - molecule-docker
+    - neovim
+    - pgcli
+    - pynvim
+    - pypi-cli
+    - thefuck
+    - xq
+
+- name: install ruby devtools gems
+  pip:
+    name: gem install "{{ item }}"
+  with_items:
+    - bundler
+    - colorls
+    - neovim
+    - rubocop
+    - solargraph
+
+- name: install devtools from default package manager
+  package:
+    name:
+      - inxi
+      - clangd
+
+- name: directly download devtools scripts
+  get_url:
+    url: "{{item.url}}"
+    dest: "/usr/local/bin/{{item.name}}"
+  with_items:
+    - { name: "hURL", src: https://github.com/fnord0/hURL/blob/master/hURL }
+    # owner:
+    # group:
+
+# git clone https://github.com/timeopochin/cilo.git && cd cilo && make
+# luarocks
+# luarocks install luaformat

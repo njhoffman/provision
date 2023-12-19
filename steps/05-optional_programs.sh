@@ -5,6 +5,7 @@ dir="$HOME/ghq/github.com/njhoffman/provision/programs"
 # npm packages
 npm install -g \
   ctrace \
+  devmoji \
   fast-cli \
   github-files-fetcher \
   hexdump \
@@ -25,6 +26,7 @@ npm install -g \
   tldr \
   tracerbench \
   tree-sitter-cli \
+  typescript \
   twilio-cli \
   ultra-runner \
   webtorrent-cli \
