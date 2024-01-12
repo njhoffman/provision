@@ -1,0 +1,183 @@
+{
+  "info": {
+    "_postman_id": "0e058a7d-0e53-4885-92f4-6b7068ca9116",
+    "name": "Quilr",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "4392762"
+  },
+  "item": [
+    {
+      "name": "Kafka Connect",
+      "item": [
+        {
+          "name": "List Connectors",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{KAFKA_CONNECT_HOST_URL}}/connectors/",
+              "host": [
+                "{{KAFKA_CONNECT_HOST_URL}}"
+              ],
+              "path": [
+                "connectors",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Connector",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{KAFKA_CONNECT_HOST_URL}}/connectors/email_fetch",
+              "host": [
+                "{{KAFKA_CONNECT_HOST_URL}}"
+              ],
+              "path": [
+                "connectors",
+                "email_fetch"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Tasks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{KAFKA_CONNECT_HOST_URL}}/connectors/email_fetch/tasks/",
+              "host": [
+                "{{KAFKA_CONNECT_HOST_URL}}"
+              ],
+              "path": [
+                "connectors",
+                "email_fetch",
+                "tasks",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Post Connector",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"email_fetch\",\n    \"config\": {\n        \"connector.class\": \"com.quilr.kafkaconnectors.connector.O365MailSourceConnector\",\n        \"client_id\": \"46aa8f87-52c1-4d5f-96c0-e71f14af6f55\",\n        \"client_secret\": \"cHh8Q~ZvexHg.-hdmiTOqVmPcCfzJ0VGvnDInbK2\",\n        \"tenant_id\": \"f6709ce5-b4be-4d43-9001-35867678adb5\",\n        \"user.refresh.interval\": 10000,\n        \"tasks.max\": 1,\n        \"redis.host\": \"redis\",\n        \"redis.port\": \"6379\",\n        \"thread.count\": 1\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{KAFKA_CONNECT_HOST_URL}}/connectors",
+              "host": [
+                "{{KAFKA_CONNECT_HOST_URL}}"
+              ],
+              "path": [
+                "connectors"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Connector",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Connector",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{KAFKA_CONNECT_HOST_URL}}/connectors/email_fetch",
+              "host": [
+                "{{KAFKA_CONNECT_HOST_URL}}"
+              ],
+              "path": [
+                "connectors",
+                "email_fetch"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pause Connector",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{KAFKA_CONNECT_HOST_URL}}/connectors/email_fetch/pause/",
+              "host": [
+                "{{KAFKA_CONNECT_HOST_URL}}"
+              ],
+              "path": [
+                "connectors",
+                "email_fetch",
+                "pause",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Resume Connector",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{KAFKA_CONNECT_HOST_URL}}/connectors/email_fetch/resume/",
+              "host": [
+                "{{KAFKA_CONNECT_HOST_URL}}"
+              ],
+              "path": [
+                "connectors",
+                "email_fetch",
+                "resume",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Connector Plugins",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{KAFKA_CONNECT_HOST_URL}}/connector-plugins",
+              "host": [
+                "{{KAFKA_CONNECT_HOST_URL}}"
+              ],
+              "path": [
+                "connector-plugins"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

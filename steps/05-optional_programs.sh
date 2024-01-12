@@ -54,6 +54,7 @@ go install github.com/kyoh86/richgo@latest
 go install github.com/noahgorstein/jqp@latest
 go install github.com/tigrawap/slit/cmd/slit@latest
 go install github.com/jesseduffield/lazynpm@latest
+go install github.com/jorgerojas26/lazysql@latest
 go install github.com/gcla/termshark/v2/cmd/termshark@latest
 go install github.com/go-delve/delve/cmd/dlv@latest
 "$dir/curlie/install.go.sh"
@@ -87,6 +88,40 @@ cargo install \
 "$dir/procs/install.cargo.sh"
 "$dir/xh/install.cargo.sh"
 cargo install update-all
+# cargo custom list-versions command
+cd ~/bin && cargo new cargo-list-versions --bin
+# Cargo.toml dependencies
+# reqwest = { version = "0.11.18", features = ["blocking", "json"] }
+# serde_json = "1.0.96"
+# main.rs:
+# use std::env;
+# fn main() {
+#     if let Some(package_name) = env::args().nth(2) {
+#         let client = reqwest::blocking::Client::builder()
+#             .user_agent("YOUR_USER_AGENT")
+#             .build()
+#             .unwrap();
+#         let api_url = format!(
+#             "https://crates.io/api/v1/crates/{}/versions",
+#             package_name.trim()
+#         );
+#         let resp = client
+#             .get(api_url)
+#             .send()
+#             .unwrap()
+#             .json::<serde_json::Value>()
+#             .unwrap();
+#         if let Some(installable_versions) = resp["versions"].as_array() {
+#             for version in installable_versions {
+#                 println!("{}", version["num"])
+#             }
+#         }
+#     } else {
+#         eprintln!("package name is missing")
+#     }
+# }
+# cargo build --release
+# cd build && cargo install --path .
 
 # ruby gems
 "$dir/colorls/install.gem.sh"
