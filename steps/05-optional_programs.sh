@@ -67,22 +67,46 @@ go install github.com/go-delve/delve/cmd/dlv@latest
 
 # cargo packages
 cargo install \
+  alacritty \
   alt \
+  bandwhich \
+  battop \
   broot \
   cargo-update \ # chr \
   devicon-lookup \
   dotenv-linter \
+  du-dust \
   exa \
+  eza \
+  git-interactive-rebase-tool \
+  glimmer \
+  gpg-tui \
+  grex \
+  htmlq \
+  httpie \
+  id3-json \
   maple \
+  mdcat \
   navi \
+  ncspot \
+  nu \
+  nu_plugin_periodic_table \
+  procs \
+  selene \
+  shellharden \
+  so \
   spotify-tui \
   spotifyd \
   st \
   stylua \
   taskwarrior-tui \
   tealdeer \
+  viu \
+  xh \
+  zenith \
   zeta-note \
   zoxide
+
 "$dir/dust/install.cargo.sh"
 "$dir/htmlq/install.cargo.sh"
 "$dir/procs/install.cargo.sh"
@@ -124,23 +148,34 @@ cd ~/bin && cargo new cargo-list-versions --bin
 # cd build && cargo install --path .
 
 # ruby gems
-"$dir/colorls/install.gem.sh"
 "$dir/mdless/install.gem.sh"
 
+# asdf python dependencies
+# sudo apt update; sudo apt install build-essential libssl-dev zlib1g-dev \
+# libbz2-dev libreadline-dev libsqlite3-dev curl git \
+# libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+# asdf install python latest
+# pip install pipx
+pipx install --install-dep neovim-remote
+pip install neovim
+pipx install neovim-remote
+
 # python packages
-"$dir/flashfocus/install.pip.sh"
+"$dir/flashfocus/install.pip.sh" || pipx install flashfocus
 "$dir/vis/install.pip.sh"
-"$dir/visidata/install.pip.sh"
-"$dir/spotdl/install.pip.sh"
+"$dir/visidata/install.pip.sh" || pipx install visidata
+"$dir/spotdl/install.pip.sh" || pipx install spotdl
 # $dir/bpytop/install.pip.sh
-# $dir/ueberzug/install.pip.sh
+# $dir/ueberzug/install.pip.sh || pipx install ueberzug
 pipx install pgcli
 pipx install mycli
 pipx install youtube-dl
 pipx install howdoi
 pipx install assume
+pipx install tuir
+pipx install saws
 # pipx install command-not-found
-pip3 install pynvim
+pip install pynvim
 pip-upgrade-all
 
 "$dir/btop/install.sh"
