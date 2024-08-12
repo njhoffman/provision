@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# https://github.com/jbenden/i3-gaps-rounded
+# ghq get -l i3/i3
+
 sudo apt install \
   dh-autoreconf \
   libxcb-keysyms1-dev \
@@ -24,8 +28,6 @@ sudo apt install \
 sudo apt-get install python3 python3-pip python3-setuptools python3-wheel ninja-build
 pip3 install --user meson
 
-ghq get -l i3/i3
-
 # compile
 mkdir -p build && cd build
 meson ..
@@ -41,4 +43,3 @@ sudo install i3 /usr/local/bin &&
   sudo install i3-input /usr/local/bin &&
   sudo install i3-msg /usr/local/bin &&
   sudo install i3-nagbar /usr/local/bin
-
