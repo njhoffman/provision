@@ -13,6 +13,9 @@ sudo mv firefox /opt
 sudo ln -s /opt/firefox/firefox /usr/local/bin/firefox
 sudo wget https://raw.githubusercontent.com/mozilla/sumo-kb/main/install-firefox-linux/firefox.desktop -P /usr/local/share/applications
 
+# https://firefox-source-docs.mozilla.org/setup/linux_build.html
+# https://support.mozilla.org/en-US/kb/customizing-firefox-using-autoconfig
+
 # required:
 #   glibc 2.17 or higher
 #   GTK+ 3.14 or higher

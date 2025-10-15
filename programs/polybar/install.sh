@@ -13,4 +13,8 @@ git clone git@github.com:polybar/polybar
 # cmake ..
 # make -j"$(nproc)"
 # # Optional. This will install the polybar executable in /usr/local/bin
-# sudo make install
+# sudo make install build/bin/polybar
+#
+
+# FIX: missing xcbgen dependency by removing xcbgen loop and final  if(NOT PYTHON_XCBGEN) and add:
+# set(PYTHON_XCBGEN "/usr/lib/python3/dist-packages/" CACHE STRING "Location of python module: xcbgen")

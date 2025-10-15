@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt install git keychain
-ssh-keygen && ssh -T rsa -C 'njhoffman1982@gmail.com' && ssh-add -l -E sha256
+ssh-keygen && ssh -T rsa -C 'njhoffman1982@gmail.com' && ssh-add -l -E sha256 
 eval "$(ssh-agent -s)" && ssh-add -l -E md5
 # add ssh key to github, clone provision
 mkdir -p ~/ghq/github.com/njhoffman && cd ~/ghq/github.com/njhoffman && git clone git@github.com:njhoffman/provision.git
