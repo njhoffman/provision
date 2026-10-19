@@ -30,12 +30,13 @@
 # -   xcb-util-wm (sometimes split as libxcb-ewmh and libxcb-icccm)
 # -   xcb-util-cursor
 # -   xcb-imdkit  (optional, 1.0.3 or up preferred)
+
 sudo apt install \
   libpango1.0-dev \
   libgdk-pixbuf2.0-dev \ 
-  libxkbcommon-x11-dev \
-  libxcb-xinerama0-dev  \
-  bstartup-notification0-dev \
+libxkbcommon-x11-dev \
+  libxcb-xinerama0-dev \
+  libstartup-notification0-dev \
   flex \
   go-md2man \
   cppcheck \
